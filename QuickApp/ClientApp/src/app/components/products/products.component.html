@@ -1,0 +1,38 @@
+<div class="container">
+    <header class="pageHeader">
+        <h3><i class="fa fa-truck fa-lg page-caption" aria-hidden="true"></i> Dodaj Projekt</h3>
+    </header>
+
+      <div class="text-center">
+        <mat-card class="center">
+          <mat-card-title>
+            Dodaj projekt
+          </mat-card-title>
+          <mat-card-content>
+            <form [formGroup]="projectData" (ngSubmit)="onAdd(projectData.Value)">
+              <div class="example-container">
+                <mat-form-field>
+                  <input matInput placeholder="Nazwa Projektu">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Autor">
+                </mat-form-field>
+                <mat-form-field>
+                  <textarea matInput placeholder="Krótki opis (do listy)"></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                  <textarea matInput placeholder="Dłuższy opis"></textarea>
+                </mat-form-field>
+                <button type="button" mat-raised-button class="mt-2" (click)="fileInput.click()">Dodaj zdjęcia</button>
+                <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+                <button type="button" mat-raised-button class="mt-2" (click)="fileInput.click()">Dodaj pliki projektu</button>
+                <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+                <div>
+                  <button mat-raised-button class="mt-2" color="primary">Dodaj</button>
+                </div>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
