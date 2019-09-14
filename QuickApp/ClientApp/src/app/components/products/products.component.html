@@ -5,31 +5,40 @@
 
       <div class="text-center">
         <mat-card class="center">
-          <mat-card-title>
-            Dodaj projekt
-          </mat-card-title>
           <mat-card-content>
             <form [formGroup]="projectData" (ngSubmit)="onAdd(projectData.Value)">
-              <div class="example-container">
-                <mat-form-field>
-                  <input matInput placeholder="Nazwa Projektu">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput placeholder="Autor">
-                </mat-form-field>
-                <mat-form-field>
-                  <textarea matInput placeholder="Krótki opis (do listy)"></textarea>
-                </mat-form-field>
-                <mat-form-field>
-                  <textarea matInput placeholder="Dłuższy opis"></textarea>
-                </mat-form-field>
-                <button type="button" mat-raised-button class="mt-2" (click)="fileInput.click()">Dodaj zdjęcia</button>
-                <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
-                <button type="button" mat-raised-button class="mt-2" (click)="fileInput.click()">Dodaj pliki projektu</button>
-                <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
-                <div>
-                  <button mat-raised-button class="mt-2" color="primary">Dodaj</button>
+              <div class="form-group">
+                <label for="projectname">Nazwa Projektu</label>
+                <input type="text" class="form-control" id="projectName" placeholder="Nazwa projektu">
+              </div>
+              <div class="form-group">
+                <label for="author">Autor</label>
+                <input type="text" class="form-control" id="author" placeholder="Autor">
+              </div>
+              <div class="form-group">
+                <label for="shortDescription">Krótki opis</label>
+                <textarea class="form-control" id="shortDescritpion" placeholder="Krótki opis"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="longDescription">Opis</label>
+                <textarea class="form-control" id="longDescritpion" placeholder="Dłuższy opis"> Dłuższy opis</textarea>
+              </div>
+              <div class="row" style="margin-bottom:15px;">
+                <div class="col-md-3">
+                  <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+                  <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
                 </div>
+                <div class="col-md-4">
+                  <span class="upload" *ngIf="progress > 0">
+                    {{progress}}%
+                  </span>
+                  <span class="upload" *ngIf="message">
+                    {{message}}
+                  </span>
+                </div>
+              </div>
+              <div>
+                <button mat-raised-button class="mt-2" color="primary">Dodaj</button>
               </div>
             </form>
           </mat-card-content>
