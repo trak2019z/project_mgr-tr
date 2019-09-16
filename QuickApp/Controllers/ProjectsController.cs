@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using IdentityServer4.AccessTokenValidation;
 using DAL.Models;
 using System.Collections.Generic;
+using System.Net;
 using DAL.Repositories.Interfaces;
 
 namespace QuickApp.Controllers
@@ -25,7 +27,19 @@ namespace QuickApp.Controllers
             return _projectRepository.GetAll();
         }
 
-
+        [HttpGet("create")]
+        public HttpStatusCode Create(Project project)
+        {
+            try
+            {
+                _projectRepository.Add(project);
+                return HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                return HttpStatusCode.InternalServerError;
+            }
+        }
 
     }
 }

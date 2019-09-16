@@ -69,6 +69,8 @@ import { UserPreferencesComponent } from './components/controls/user-preferences
 import { UsersManagementComponent } from './components/controls/users-management.component';
 import { RolesManagementComponent } from './components/controls/roles-management.component';
 import { RoleEditorComponent } from './components/controls/role-editor.component';
+import { ProjectsService } from './services/projects.service';
+import { ProjectsEndpoint } from "./services/projects-endpoint.service";
 
 
 @NgModule({
@@ -136,7 +138,9 @@ import { RoleEditorComponent } from './components/controls/role-editor.component
     NotificationEndpoint,
     AccountService,
     AccountEndpoint,
-    LocalStoreManager
+    LocalStoreManager,
+    ProjectsService,
+    ProjectsEndpoint
   ],
   bootstrap: [AppComponent]
 })

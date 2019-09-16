@@ -1,8 +1,4 @@
-﻿// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
+﻿
 using DAL.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,13 +15,7 @@ namespace DAL
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public string CurrentUserId { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<ProductCategory> ProductCategories { get; set; }
-        public DbSet<Project> Products { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
-
-
+        public DbSet<Project> Projects { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
@@ -47,22 +37,18 @@ namespace DAL
             builder.Entity<Customer>().Property(c => c.Email).HasMaxLength(100);
             builder.Entity<Customer>().Property(c => c.PhoneNumber).IsUnicode(false).HasMaxLength(30);
             builder.Entity<Customer>().Property(c => c.City).HasMaxLength(50);
-            builder.Entity<Customer>().ToTable($"App{nameof(this.Customers)}");
 
             builder.Entity<ProductCategory>().Property(p => p.Name).IsRequired().HasMaxLength(100);
             builder.Entity<ProductCategory>().Property(p => p.Description).HasMaxLength(500);
-            builder.Entity<ProductCategory>().ToTable($"App{nameof(this.ProductCategories)}");
 
             builder.Entity<Project>().Property(p => p.Name).IsRequired().HasMaxLength(100);
             builder.Entity<Project>().HasIndex(p => p.Name);
             builder.Entity<Project>().Property(p => p.Description).HasMaxLength(500);
-            builder.Entity<Project>().ToTable($"App{nameof(this.Products)}");
+            builder.Entity<Project>().ToTable($"App{nameof(this.Projects)}");
 
             builder.Entity<Order>().Property(o => o.Comments).HasMaxLength(500);
-            builder.Entity<Order>().ToTable($"App{nameof(this.Orders)}");
             builder.Entity<Order>().Property(p => p.Discount).HasColumnType(priceDecimalType);
 
-            builder.Entity<OrderDetail>().ToTable($"App{nameof(this.OrderDetails)}");
             builder.Entity<OrderDetail>().Property(p => p.UnitPrice).HasColumnType(priceDecimalType);
             builder.Entity<OrderDetail>().Property(p => p.Discount).HasColumnType(priceDecimalType);
         }

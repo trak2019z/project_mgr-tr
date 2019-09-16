@@ -8,6 +8,8 @@
         public string Description { get; set; }
         public string ShortDescription { get; set; }
         public string LinkToFile { get; set; }
-        public string Images { get; set; }
+        public string  Images { get; set; }
+        public int Views { get; set; }
+        public int Downloads { get; set; }
     }
 }

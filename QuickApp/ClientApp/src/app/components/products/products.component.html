@@ -6,7 +6,7 @@
       <div class="text-center">
         <mat-card class="center">
           <mat-card-content>
-            <form [formGroup]="projectData" (ngSubmit)="onAdd(projectData.Value)">
+            <form [formGroup]="projectData" (ngSubmit)="create()">
               <div class="form-group">
                 <label for="projectname">Nazwa Projektu</label>
                 <input type="text" class="form-control" id="projectName" placeholder="Nazwa projektu">
@@ -21,24 +21,40 @@
               </div>
               <div class="form-group">
                 <label for="longDescription">Opis</label>
-                <textarea class="form-control" id="longDescritpion" placeholder="Dłuższy opis"> Dłuższy opis</textarea>
+                <textarea class="form-control" id="longDescritpion" rows="10" placeholder="Dłuższy opis"> Dłuższy opis</textarea>
               </div>
-              <div class="row" style="margin-bottom:15px;">
-                <div class="col-md-3">
-                  <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
-                  <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+              <div class="form-group">
+                <label for="photos">Obrazki</label>
+                <div class=".col-sm-4">
+                  <input type="file" #photo placeholder="Wybierz plik" (change)="uploadFile(photo.files,&quot;Photos&quot;)" style="display: none;">
+                  <button type="button" id="photos" class="btn btn-info" (click)="photo.click()">Dodaj</button>
                 </div>
-                <div class="col-md-4">
-                  <span class="upload" *ngIf="progress > 0">
-                    {{progress}}%
+                <div class=".col-sm-4">
+                  <span class="upload" *ngIf="photoUploadProgress > 0">
+                    {{photoUploadProgress}}%
                   </span>
-                  <span class="upload" *ngIf="message">
-                    {{message}}
+                  <span class="upload" *ngIf="messagePhoto">
+                    {{messagePhoto}}
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="projectFiles">Plik projektu w formacie archiwum</label>
+                <div class=".col-sm-4">
+                  <input type="file" #project placeholder="Wybierz plik" (change)="uploadFile(project.files,&quot;Project&quot;)" style="display: none;">
+                  <button type="button" id ="projectFiles" class="btn btn-info" (click)="project.click()">Dodaj</button>
+                </div>
+                <div class=".col-sm-4">
+                  <span class="upload" *ngIf="fileUploadProgress > 0">
+                    {{fileUploadProgress}}%
+                  </span>
+                  <span class="upload" *ngIf="messageFile">
+                    {{messageFile}}
                   </span>
                 </div>
               </div>
               <div>
-                <button mat-raised-button class="mt-2" color="primary">Dodaj</button>
+                <button type="submit"  class="btn btn-success" *ngIf="fileUploadProgress == 100" >Akceptuj</button>
               </div>
             </form>
           </mat-card-content>
