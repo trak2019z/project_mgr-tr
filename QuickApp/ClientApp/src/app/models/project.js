@@ -16,13 +16,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var auditableEntity_1 = require("./auditableEntity");
 var Project = /** @class */ (function (_super) {
     __extends(Project, _super);
-    function Project(name, author, description, shortDescription, linkToFile, images, views, downloads, updatedDate, createdDate) {
-        var _this = _super.call(this, updatedDate, createdDate) || this;
+    function Project(name, author, description, shortDescription, projectFile, images) {
+        var _this = _super.call(this) || this;
         _this.name = name;
         _this.author = author;
         _this.description = description;
         _this.shortDescription = shortDescription;
-        _this.linkToFile = linkToFile;
+        _this.projectFile = projectFile;
         _this.images = images;
         return _this;
     }

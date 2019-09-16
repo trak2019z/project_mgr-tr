@@ -25,6 +25,5 @@ namespace DAL.Models
         public DateTime DateModified { get; set; }
 
 
-        public ICollection<Order> Orders { get; set; }
     }
 }

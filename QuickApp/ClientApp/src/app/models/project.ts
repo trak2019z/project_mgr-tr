@@ -6,19 +6,17 @@ export class Project extends AuditableEntity
 public name:string;
 public author:string;
 public description:string;
-public  shortDescription:string;
-public  linkToFile:string;
-public images:string[];
-public  views:number;
-  public downloads: number;
+  public shortDescription: string;
+  public projectFile: any;
+public images:any;
 
-  constructor(name: string, author: string, description: string, shortDescription: string, linkToFile: string, images: string[], views: number, downloads: number, updatedDate: Date, createdDate: Date) {
-    super(updatedDate, createdDate);
+  constructor(name: string, author: string, description: string, shortDescription: string, projectFile: any, images: any) {
+    super();
     this.name = name;
     this.author = author;
     this.description = description;
     this.shortDescription = shortDescription;
-    this.linkToFile = linkToFile;
+    this.projectFile = projectFile;
     this.images = images;
   }
 }

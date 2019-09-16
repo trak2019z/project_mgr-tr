@@ -38,19 +38,10 @@ namespace DAL
             builder.Entity<Customer>().Property(c => c.PhoneNumber).IsUnicode(false).HasMaxLength(30);
             builder.Entity<Customer>().Property(c => c.City).HasMaxLength(50);
 
-            builder.Entity<ProductCategory>().Property(p => p.Name).IsRequired().HasMaxLength(100);
-            builder.Entity<ProductCategory>().Property(p => p.Description).HasMaxLength(500);
-
             builder.Entity<Project>().Property(p => p.Name).IsRequired().HasMaxLength(100);
             builder.Entity<Project>().HasIndex(p => p.Name);
             builder.Entity<Project>().Property(p => p.Description).HasMaxLength(500);
             builder.Entity<Project>().ToTable($"App{nameof(this.Projects)}");
-
-            builder.Entity<Order>().Property(o => o.Comments).HasMaxLength(500);
-            builder.Entity<Order>().Property(p => p.Discount).HasColumnType(priceDecimalType);
-
-            builder.Entity<OrderDetail>().Property(p => p.UnitPrice).HasColumnType(priceDecimalType);
-            builder.Entity<OrderDetail>().Property(p => p.Discount).HasColumnType(priceDecimalType);
         }
 
 

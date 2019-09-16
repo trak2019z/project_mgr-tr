@@ -9,24 +9,24 @@
             <form [formGroup]="projectData" (ngSubmit)="create()">
               <div class="form-group">
                 <label for="projectname">Nazwa Projektu</label>
-                <input type="text" class="form-control" id="projectName" placeholder="Nazwa projektu">
+                <input type="text" class="form-control" formControlName="projectName" placeholder="Nazwa projektu">
               </div>
               <div class="form-group">
                 <label for="author">Autor</label>
-                <input type="text" class="form-control" id="author" placeholder="Autor">
+                <input type="text" class="form-control" formControlName="author" placeholder="Autor">
               </div>
               <div class="form-group">
                 <label for="shortDescription">Krótki opis</label>
-                <textarea class="form-control" id="shortDescritpion" placeholder="Krótki opis"></textarea>
+                <textarea class="form-control" formControlName="shortDescription" placeholder="Krótki opis"></textarea>
               </div>
               <div class="form-group">
                 <label for="longDescription">Opis</label>
-                <textarea class="form-control" id="longDescritpion" rows="10" placeholder="Dłuższy opis"> Dłuższy opis</textarea>
+                <textarea class="form-control" formControlName="longDescription" rows="10" placeholder="Dłuższy opis"> Dłuższy opis</textarea>
               </div>
               <div class="form-group">
                 <label for="photos">Obrazki</label>
                 <div class=".col-sm-4">
-                  <input type="file" #photo placeholder="Wybierz plik" (change)="uploadFile(photo.files,&quot;Photos&quot;)" style="display: none;">
+                  <input type="file" #photo placeholder="Wybierz plik" (change)="uploadImage(photo.files)" style="display: none;">
                   <button type="button" id="photos" class="btn btn-info" (click)="photo.click()">Dodaj</button>
                 </div>
                 <div class=".col-sm-4">
@@ -41,7 +41,7 @@
               <div class="form-group">
                 <label for="projectFiles">Plik projektu w formacie archiwum</label>
                 <div class=".col-sm-4">
-                  <input type="file" #project placeholder="Wybierz plik" (change)="uploadFile(project.files,&quot;Project&quot;)" style="display: none;">
+                  <input type="file" #project placeholder="Wybierz plik" (change)="uploadFile(project.files)" style="display: none;">
                   <button type="button" id ="projectFiles" class="btn btn-info" (click)="project.click()">Dodaj</button>
                 </div>
                 <div class=".col-sm-4">
@@ -54,7 +54,7 @@
                 </div>
               </div>
               <div>
-                <button type="submit"  class="btn btn-success" *ngIf="fileUploadProgress == 100" >Akceptuj</button>
+                <button type="submit"  class="btn btn-success" *ngIf="1==1" >Akceptuj</button>
               </div>
             </form>
           </mat-card-content>

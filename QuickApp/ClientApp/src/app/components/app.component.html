@@ -20,7 +20,7 @@
             <a class="nav-link" routerLink="/customers">{{'mainMenu.Customers' | translate}}</a>
           </li>
           <li class="nav-item" routerLinkActive="active" *ngIf="canViewProducts">
-            <a class="nav-link" routerLink="/products">{{'mainMenu.Products' | translate}}</a>
+            <a class="nav-link" routerLink="/projects/add">Dodaj Projekt</a>
           </li>
           <li class="nav-item" routerLinkActive="active" *ngIf="canViewOrders">
             <a class="nav-link" routerLink="/orders">Dodaj projekt</a>
@@ -45,7 +45,7 @@
         <span class="app-component navbar-text">, </span>
         <ul class="app-component nav nav-pills ml-lg-2 flex-column flex-lg-row">
           <li class="nav-item" (click)="logout()">
-            <a class="nav-link" href="javascript:;"><i class="fa fa-sign-out"></i> {{'mainMenu.Logout' | translate}}</a>
+            <a class="nav-link" href="javascript:;"><i class="fa fa-sign-out"></i> Wyloguj</a>
           </li>
         </ul>
       </div>

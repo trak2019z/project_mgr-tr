@@ -53,7 +53,6 @@ import { AppComponent } from './components/app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { CustomersComponent } from './components/customers/customers.component';
-import { ProductsComponent } from './components/products/products.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AboutComponent } from './components/about/about.component';
@@ -71,6 +70,7 @@ import { RolesManagementComponent } from './components/controls/roles-management
 import { RoleEditorComponent } from './components/controls/role-editor.component';
 import { ProjectsService } from './services/projects.service';
 import { ProjectsEndpoint } from "./services/projects-endpoint.service";
+import { AddProjectComponent } from "./components/add-project/add-project.component";
 
 
 @NgModule({
@@ -107,7 +107,7 @@ import { ProjectsEndpoint } from "./services/projects-endpoint.service";
     LoginComponent,
     HomeComponent,
     CustomersComponent,
-    ProductsComponent,
+    AddProjectComponent,
     ProjectsComponent,
     SettingsComponent,
     UsersManagementComponent, UserInfoComponent, UserPreferencesComponent,

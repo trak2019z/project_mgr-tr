@@ -1,1 +1,1 @@
-{"version":3,"file":"AuditableEntity.js","sourceRoot":"","sources":["AuditableEntity.ts"],"names":[],"mappings":";;AAAA;IAIE,yBAAY,WAAiB,EAAG,WAAiB;QAC/C,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;QAC/B,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;IACjC,CAAC;IACH,sBAAC;AAAD,CAAC,AARD,IAQC;AARY,0CAAe"}
+{"version":3,"file":"auditableEntity.js","sourceRoot":"","sources":["auditableEntity.ts"],"names":[],"mappings":";;AAAA;IAIE;IACA,CAAC;IACH,sBAAC;AAAD,CAAC,AAND,IAMC;AANY,0CAAe"}

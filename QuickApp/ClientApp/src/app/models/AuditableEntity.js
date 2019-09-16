@@ -1,11 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var AuditableEntity = /** @class */ (function () {
-    function AuditableEntity(updatedDate, createdDate) {
-        this.updatedDate = updatedDate;
-        this.createdDate = createdDate;
+    function AuditableEntity() {
     }
     return AuditableEntity;
 }());
 exports.AuditableEntity = AuditableEntity;
-//# sourceMappingURL=AuditableEntity.js.map
+//# sourceMappingURL=auditableEntity.js.map

@@ -131,9 +131,6 @@ namespace QuickApp.Migrations
                     b.Property<string>("City")
                         .HasMaxLength(50);
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(256);
-
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime>("DateCreated");
@@ -153,9 +150,6 @@ namespace QuickApp.Migrations
                         .HasMaxLength(30)
                         .IsUnicode(false);
 
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(256);
-
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
@@ -165,114 +159,42 @@ namespace QuickApp.Migrations
                     b.ToTable("Customer");
                 });
 
-            modelBuilder.Entity("DAL.Models.Order", b =>
+            modelBuilder.Entity("DAL.Models.File", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CashierId");
-
-                    b.Property<string>("Comments")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(256);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<int>("CustomerId");
+                    b.Property<int>("Downloads");
 
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(256);
+                    b.Property<string>("FullPath");
 
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CashierId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("Order");
+                    b.ToTable("File");
                 });
 
-            modelBuilder.Entity("DAL.Models.OrderDetail", b =>
+            modelBuilder.Entity("DAL.Models.Image", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(256);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("FullPath");
 
-                    b.Property<int>("OrderId");
-
-                    b.Property<int>("ProductId");
-
-                    b.Property<int>("Quantity");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(256);
+                    b.Property<int?>("ProjectId");
 
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("ProjectId");
 
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderDetail");
-                });
-
-            modelBuilder.Entity("DAL.Models.ProductCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(256);
-
-                    b.Property<DateTime>("CreatedDate");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("Icon");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(256);
-
-                    b.Property<DateTime>("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductCategory");
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("DAL.Models.Project", b =>
@@ -283,36 +205,30 @@ namespace QuickApp.Migrations
 
                     b.Property<string>("Author");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(256);
-
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Description")
                         .HasMaxLength(500);
 
-                    b.Property<string>("Images");
-
-                    b.Property<string>("LinkToFile");
+                    b.Property<int>("Downloads");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<int?>("ProductCategoryId");
+                    b.Property<Guid?>("ProjectFileId");
 
                     b.Property<string>("ShortDescription");
 
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(256);
-
                     b.Property<DateTime>("UpdatedDate");
+
+                    b.Property<int>("Views");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Name");
 
-                    b.HasIndex("ProductCategoryId");
+                    b.HasIndex("ProjectFileId");
 
                     b.ToTable("AppProjects");
                 });
@@ -403,36 +319,18 @@ namespace QuickApp.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DAL.Models.Order", b =>
+            modelBuilder.Entity("DAL.Models.Image", b =>
                 {
-                    b.HasOne("DAL.Models.ApplicationUser", "Cashier")
-                        .WithMany("Orders")
-                        .HasForeignKey("CashierId");
-
-                    b.HasOne("DAL.Models.Customer", "Customer")
-                        .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DAL.Models.OrderDetail", b =>
-                {
-                    b.HasOne("DAL.Models.Order", "Order")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DAL.Models.Project", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("DAL.Models.Project")
+                        .WithMany("Images")
+                        .HasForeignKey("ProjectId");
                 });
 
             modelBuilder.Entity("DAL.Models.Project", b =>
                 {
-                    b.HasOne("DAL.Models.ProductCategory")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductCategoryId");
+                    b.HasOne("DAL.Models.File", "ProjectFile")
+                        .WithMany()
+                        .HasForeignKey("ProjectFileId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

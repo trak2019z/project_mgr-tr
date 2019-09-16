@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ProjectsEndpoint extends EndpointBase {
-  private readonly _projectsUrl: string = '/api/projects/';
+  private readonly _projectsUrl: string = '/api/projects';
   private readonly _createProjectsUrl: string = '/api/projects/create';
 
   get createProjectUrl() { return this.configurations.baseUrl + this._createProjectsUrl; }
@@ -19,8 +19,8 @@ export class ProjectsEndpoint extends EndpointBase {
   }
 
   getNewProjectEndpoint<T>(projectObject: any): Observable<T> {
-
-    return this.http.post<T>(this._createProjectsUrl, JSON.stringify(projectObject), this.requestHeaders).pipe<T>(
+    console.log(this.createProjectUrl);
+    return this.http.post<T>(this.createProjectUrl, JSON.stringify(projectObject), this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getNewProjectEndpoint(projectObject));
       }));

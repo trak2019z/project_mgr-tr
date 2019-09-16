@@ -5,6 +5,7 @@ using IdentityServer4.AccessTokenValidation;
 using DAL.Models;
 using System.Collections.Generic;
 using System.Net;
+using DAL;
 using DAL.Repositories.Interfaces;
 
 namespace QuickApp.Controllers
@@ -14,25 +15,26 @@ namespace QuickApp.Controllers
     [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectRepository _projectRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProjectsController(IProjectRepository projectRepository)
+        public ProjectsController(IUnitOfWork unitOfWork)
         {
-            _projectRepository = projectRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        [HttpGet("projects")]
+        [HttpGet("")]
         public IEnumerable<Project> GetAll()
         {
-            return _projectRepository.GetAll();
+            return _unitOfWork.Projects.GetAll();
         }
 
-        [HttpGet("create")]
+        [HttpPost("create")]
         public HttpStatusCode Create(Project project)
         {
             try
             {
-                _projectRepository.Add(project);
+                _unitOfWork.Projects.Add(project);
+                _unitOfWork.SaveChanges();
                 return HttpStatusCode.OK;
             }
             catch (Exception ex)
