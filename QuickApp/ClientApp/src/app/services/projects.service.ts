@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from "./auth.service";
 import { ProjectsEndpoint } from "./projects-endpoint.service";
-import { Project } from "../models/project";
+import { Project, GetProjectsResponse } from "../models/project";
 
 
 @Injectable()
@@ -13,5 +13,9 @@ export class ProjectsService {
   }
   newProject(project: Project) {
     return this.projectEndpoint.getNewProjectEndpoint<Project>(project);
+  }
+
+  getProjects() {
+    return this.projectEndpoint.getProjectEndpoint<GetProjectsResponse[]>();
   }
 }

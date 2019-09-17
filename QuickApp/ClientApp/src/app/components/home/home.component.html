@@ -2,28 +2,28 @@
   <header class="pageHeader">
     <h3><i class="fa fa-tachometer fa-lg page-caption" aria-hidden="true"></i>Lista Projektów</h3>
   </header>
-  <div class="list-group" style=" width:80%;
-margin-left:10%;
-margin-right:10%;
-margin-top: 1%">
+ 
     <li class="list-group-item" *ngFor="let post of posts ">
       <a href="projects/{{post.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
           <div class="list-image">
-            <img src="http://ulubionykolor.pl/images/normal/14032013/7e0d11cfbc4b4b870ed9e990614032013124851.jpg"
-                 class="rounded float-left" alt="Obrazek ilustrujący projekt" style="width:200;height:200;">
+            <img src={{post.images.path}}
+                 class="rounded float-left" alt="Obrazek ilustrujący projekt" style="width:100px;height:100px;">
           </div>
           <div>
             <div>
-              <h5 class="mb-2 h5">{{post.title}}</h5>
-              <p class="text-center">Krotki opis projektu </p>
+              <h5 class="mb-2 h5">{{post.name}}</h5>
+              <p class="text-center">
+                {{
+                post.shortDescription}}
+                </p>
             </div>
           </div>
-          <small>{{post.id}} </small>
-        </div>
+          <small>{{post.id
+                }} </small>
+</div>
       </a>
     </li>
-  </div>
   <!--<div [@fadeInOut]>
       <div class="row">
           <div *ngIf="!configurations.showDashboardStatistics && !configurations.showDashboardNotifications && !configurations.showDashboardTodo && !configurations.showDashboardBanner" class="col-12 my-5">

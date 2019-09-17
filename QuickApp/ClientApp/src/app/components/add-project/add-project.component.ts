@@ -69,7 +69,7 @@ export class AddProjectComponent {
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-    this.http.post(, formData, { reportProgress: true, observe: 'events' })
+    this.http.post('https://localhost:44350/api/Upload/images', formData, { reportProgress: true, observe: 'events' })
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
         this.photoUploadProgress = Math.round(100 * event.loaded / event.total);
@@ -84,14 +84,13 @@ export class AddProjectComponent {
   };
   public create = () => {
     console.log(this.projectData.controls);
-   var p = new Project(this.projectData.controls.projectName.value,
+   var project = new Project(this.projectData.controls.projectName.value,
       this.projectData.controls.author.value,
       this.projectData.controls.longDescription.value,
       this.projectData.controls.shortDescription.value,
       this.fileObject,
      this.photoObject);
-   console.log(p);
-   this.projectService.newProject(p).subscribe(Response => console.log(Response));
+    this.projectService.newProject(project).subscribe(Response => console.log(Response));
   }
 
 }

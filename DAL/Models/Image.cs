@@ -7,7 +7,7 @@ namespace DAL.Models
    public class Image : AuditableEntity
     {
         public Guid Id { get; set; }
-        public string FullPath { get; set; }
+        public string Path { get; set; }
 
         public Image()
         {

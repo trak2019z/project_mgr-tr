@@ -13,16 +13,24 @@ export class ProjectsEndpoint extends EndpointBase {
   private readonly _createProjectsUrl: string = '/api/projects/create';
 
   get createProjectUrl() { return this.configurations.baseUrl + this._createProjectsUrl; }
+  get getProjectUrl() { return this.configurations.baseUrl + this._projectsUrl; }
+
 
   constructor(private configurations: ConfigurationService, http: HttpClient, authService: AuthService) {
     super(http, authService);
   }
 
   getNewProjectEndpoint<T>(projectObject: any): Observable<T> {
-    console.log(this.createProjectUrl);
     return this.http.post<T>(this.createProjectUrl, JSON.stringify(projectObject), this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getNewProjectEndpoint(projectObject));
+      }));
+  }
+
+  getProjectEndpoint<T>(): Observable<T> {
+    return this.http.get<T>(this.getProjectUrl,this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.getProjectEndpoint());
       }));
   }
 

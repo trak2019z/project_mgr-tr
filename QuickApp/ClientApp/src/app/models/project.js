@@ -29,4 +29,19 @@ var Project = /** @class */ (function (_super) {
     return Project;
 }(auditableEntity_1.AuditableEntity));
 exports.Project = Project;
+var GetProjectsResponse = /** @class */ (function (_super) {
+    __extends(GetProjectsResponse, _super);
+    function GetProjectsResponse(name, author, description, shortDescription, projectFileId, images) {
+        var _this = _super.call(this) || this;
+        _this.name = name;
+        _this.author = author;
+        _this.description = description;
+        _this.shortDescription = shortDescription;
+        _this.projectFileId = projectFileId;
+        _this.images = images;
+        return _this;
+    }
+    return GetProjectsResponse;
+}(auditableEntity_1.AuditableEntity));
+exports.GetProjectsResponse = GetProjectsResponse;
 //# sourceMappingURL=project.js.map

@@ -8,7 +8,7 @@ namespace DAL.Models
     {
         public Guid Id { get; set; }
         public int Downloads { get; set; }
-        public string FullPath { get; set; }
+        public string Path { get; set; }
 
         public File()
         {

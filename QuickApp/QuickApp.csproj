@@ -67,10 +67,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\models\auditableEntity.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\project.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\projects-endpoint.service.ts" />

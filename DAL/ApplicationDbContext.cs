@@ -15,16 +15,21 @@ namespace DAL
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public string CurrentUserId { get; set; }
+        public DbSet<File> Files { get; set; }
+        public DbSet<Image> Images { get; set; }
         public DbSet<Project> Projects { get; set; }
 
+
+
         public ApplicationDbContext(DbContextOptions options) : base(options)
-        { }
+        {
+
+        }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            const string priceDecimalType = "decimal(18,2)";
 
             builder.Entity<ApplicationUser>().HasMany(u => u.Claims).WithOne().HasForeignKey(c => c.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);
             builder.Entity<ApplicationUser>().HasMany(u => u.Roles).WithOne().HasForeignKey(r => r.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);
@@ -32,16 +37,13 @@ namespace DAL
             builder.Entity<ApplicationRole>().HasMany(r => r.Claims).WithOne().HasForeignKey(c => c.RoleId).IsRequired().OnDelete(DeleteBehavior.Cascade);
             builder.Entity<ApplicationRole>().HasMany(r => r.Users).WithOne().HasForeignKey(r => r.RoleId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<Customer>().Property(c => c.Name).IsRequired().HasMaxLength(100);
-            builder.Entity<Customer>().HasIndex(c => c.Name);
-            builder.Entity<Customer>().Property(c => c.Email).HasMaxLength(100);
-            builder.Entity<Customer>().Property(c => c.PhoneNumber).IsUnicode(false).HasMaxLength(30);
-            builder.Entity<Customer>().Property(c => c.City).HasMaxLength(50);
+
 
             builder.Entity<Project>().Property(p => p.Name).IsRequired().HasMaxLength(100);
-            builder.Entity<Project>().HasIndex(p => p.Name);
             builder.Entity<Project>().Property(p => p.Description).HasMaxLength(500);
-            builder.Entity<Project>().ToTable($"App{nameof(this.Projects)}");
+            builder.Entity<File>();
+            builder.Entity<Image>();
+
         }
 
 

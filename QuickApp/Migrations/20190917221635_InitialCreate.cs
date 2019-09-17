@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QuickApp.Migrations
 {
-    public partial class IntialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,40 +61,32 @@ namespace QuickApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customer",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Email = table.Column<string>(maxLength: 100, nullable: true),
-                    PhoneNumber = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    City = table.Column<string>(maxLength: 50, nullable: true),
-                    Gender = table.Column<int>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customer", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "File",
+                name: "Files",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     Downloads = table.Column<int>(nullable: false),
-                    FullPath = table.Column<string>(nullable: true)
+                    Path = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_File", x => x.Id);
+                    table.PrimaryKey("PK_Files", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Path = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -204,7 +196,7 @@ namespace QuickApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppProjects",
+                name: "Projects",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -216,50 +208,25 @@ namespace QuickApp.Migrations
                     Description = table.Column<string>(maxLength: 500, nullable: true),
                     ShortDescription = table.Column<string>(nullable: true),
                     ProjectFileId = table.Column<Guid>(nullable: true),
-                    Views = table.Column<int>(nullable: false),
-                    Downloads = table.Column<int>(nullable: false)
+                    ImagesId = table.Column<Guid>(nullable: true),
+                    Views = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppProjects", x => x.Id);
+                    table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppProjects_File_ProjectFileId",
+                        name: "FK_Projects_Images_ImagesId",
+                        column: x => x.ImagesId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Projects_Files_ProjectFileId",
                         column: x => x.ProjectFileId,
-                        principalTable: "File",
+                        principalTable: "Files",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Image",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    FullPath = table.Column<string>(nullable: true),
-                    ProjectId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Image", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Image_AppProjects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "AppProjects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppProjects_Name",
-                table: "AppProjects",
-                column: "Name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppProjects_ProjectFileId",
-                table: "AppProjects",
-                column: "ProjectFileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -301,14 +268,14 @@ namespace QuickApp.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customer_Name",
-                table: "Customer",
-                column: "Name");
+                name: "IX_Projects_ImagesId",
+                table: "Projects",
+                column: "ImagesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Image_ProjectId",
-                table: "Image",
-                column: "ProjectId");
+                name: "IX_Projects_ProjectFileId",
+                table: "Projects",
+                column: "ProjectFileId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -329,10 +296,7 @@ namespace QuickApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Customer");
-
-            migrationBuilder.DropTable(
-                name: "Image");
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -341,10 +305,10 @@ namespace QuickApp.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AppProjects");
+                name: "Images");
 
             migrationBuilder.DropTable(
-                name: "File");
+                name: "Files");
         }
     }
 }

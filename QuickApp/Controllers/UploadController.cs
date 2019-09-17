@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DAL;
 using DAL.Models;
+using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -49,7 +50,10 @@ namespace QuickApp.Controllers
                         file.CopyTo(stream);
                     }
 
-                    uploadedFile.FullPath = fullPath;
+                    if (newPath.IsNullOrEmpty())
+                        throw new InvalidOperationException("File Path is null or empty");
+                    
+                    uploadedFile.Path = newPath;
                     uploadedFile.Downloads = 0;
                     uploadedFile.CreatedDate = DateTime.Now;
                     uploadedFile.UpdatedDate = DateTime.Now;
@@ -86,7 +90,12 @@ namespace QuickApp.Controllers
                         file.CopyTo(stream);
                     }
 
-                    uploadedImage.FullPath = fullPath;
+                    if (newPath.IsNullOrEmpty())
+                        throw new InvalidOperationException(" Image Path is null or empty");
+
+                    uploadedImage.Path = newPath;
+
+
                     uploadedImage.CreatedDate = DateTime.Now;
                     uploadedImage.UpdatedDate = DateTime.Now;
 

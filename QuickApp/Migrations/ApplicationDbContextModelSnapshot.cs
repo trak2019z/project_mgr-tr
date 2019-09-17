@@ -120,45 +120,6 @@ namespace QuickApp.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("DAL.Models.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address");
-
-                    b.Property<string>("City")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime>("CreatedDate");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(100);
-
-                    b.Property<int>("Gender");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(30)
-                        .IsUnicode(false);
-
-                    b.Property<DateTime>("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("Customer");
-                });
-
             modelBuilder.Entity("DAL.Models.File", b =>
                 {
                     b.Property<Guid>("Id")
@@ -168,13 +129,13 @@ namespace QuickApp.Migrations
 
                     b.Property<int>("Downloads");
 
-                    b.Property<string>("FullPath");
+                    b.Property<string>("Path");
 
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("File");
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("DAL.Models.Image", b =>
@@ -184,17 +145,13 @@ namespace QuickApp.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("FullPath");
-
-                    b.Property<int?>("ProjectId");
+                    b.Property<string>("Path");
 
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("DAL.Models.Project", b =>
@@ -210,7 +167,7 @@ namespace QuickApp.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(500);
 
-                    b.Property<int>("Downloads");
+                    b.Property<Guid?>("ImagesId");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -226,11 +183,11 @@ namespace QuickApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name");
+                    b.HasIndex("ImagesId");
 
                     b.HasIndex("ProjectFileId");
 
-                    b.ToTable("AppProjects");
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -319,15 +276,12 @@ namespace QuickApp.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DAL.Models.Image", b =>
-                {
-                    b.HasOne("DAL.Models.Project")
-                        .WithMany("Images")
-                        .HasForeignKey("ProjectId");
-                });
-
             modelBuilder.Entity("DAL.Models.Project", b =>
                 {
+                    b.HasOne("DAL.Models.Image", "Images")
+                        .WithMany()
+                        .HasForeignKey("ImagesId");
+
                     b.HasOne("DAL.Models.File", "ProjectFile")
                         .WithMany()
                         .HasForeignKey("ProjectFileId");

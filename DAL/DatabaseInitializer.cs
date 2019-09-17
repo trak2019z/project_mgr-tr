@@ -33,6 +33,7 @@ namespace DAL
             _accountManager = accountManager;
             _context = context;
             _logger = logger;
+         
         }
 
         public async Task SeedAsync()
