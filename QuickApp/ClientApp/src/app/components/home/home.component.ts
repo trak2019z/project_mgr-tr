@@ -18,6 +18,13 @@ export class HomeComponent implements OnInit{
     this.projectService.getProjects().subscribe(response => {
       this.posts = response
       console.log(response);
+      for (var i = 0, len = this.posts.length; i < len; i++) {
+        if (this.posts[i].images) {
+          this.posts[i].images = "https://localhost:44350/images/" + this.posts[i].images.path;
+        }
+
+      }
+
     });
   }
 

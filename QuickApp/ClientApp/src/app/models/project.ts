@@ -6,22 +6,18 @@ export class Project extends AuditableEntity {
   public author: string;
   public description: string;
   public shortDescription: string;
-  public projectFile: any;
-  public images: any;
+  public projectFile: ProjectFile;
+  public images: Image;
 
   constructor(name: string,
     author: string,
     description: string,
-    shortDescription: string,
-    projectFile: any,
-    images: any) {
+    shortDescription: string) {
     super();
     this.name = name;
     this.author = author;
     this.description = description;
     this.shortDescription = shortDescription;
-    this.projectFile = projectFile;
-    this.images = images;
   }
 }
 
@@ -44,3 +40,29 @@ export class GetProjectsResponse extends AuditableEntity {
     this.images = images;
   }
 }
+
+export class ProjectFile extends AuditableEntity {
+  public id: string;
+  public downloads: number;
+  public path: string;
+
+  constructor(id: string, downloads: number, path: string) {
+    super();
+    this.id = id;
+    this.downloads = downloads;
+    this.path = path;
+  }
+}
+
+export class Image extends AuditableEntity {
+  public id: string;
+  public path: string;
+
+  constructor(id: string, path: string) {
+    super();
+    this.id = id;
+    this.path = path;
+  }
+  }
+
+

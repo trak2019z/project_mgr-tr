@@ -17,5 +17,14 @@ namespace DAL.Models
             CreatedDate = DateTime.Now;
             Downloads = 0;
         }
+
+        //public File(DateTime updatedDate,DateTime createdDate,Guid id,int downloads, string path )
+        //{
+        //    Id = id;
+        //    UpdatedDate = updatedDate;
+        //    CreatedDate = createdDate;
+        //    Downloads = downloads;
+        //    Path = path;
+        //}
     }
 }

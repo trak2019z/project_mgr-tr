@@ -13,6 +13,7 @@ import {
   MatRippleModule
 } from '@angular/material';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter'; //importing the module
 
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -100,7 +101,9 @@ import { AddProjectComponent } from "./components/add-project/add-project.compon
     BsDropdownModule.forRoot(),
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    Ng2SearchPipeModule
+
   ],
   declarations: [
     AppComponent,
@@ -124,7 +127,7 @@ import { AddProjectComponent } from "./components/add-project/add-project.compon
     BootstrapToggleDirective,
     BootstrapSelectDirective,
     BootstrapDatepickerDirective,
-    GroupByPipe
+    GroupByPipe,
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
@@ -140,7 +143,8 @@ import { AddProjectComponent } from "./components/add-project/add-project.compon
     AccountEndpoint,
     LocalStoreManager,
     ProjectsService,
-    ProjectsEndpoint
+    ProjectsEndpoint,
+
   ],
   bootstrap: [AppComponent]
 })

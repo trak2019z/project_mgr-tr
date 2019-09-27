@@ -18,12 +18,10 @@ namespace DAL.Models
         public Image  Images { get; set; }
         public int Views { get; set; }
 
-
-
         public Project()
         {
             CreatedDate = DateTime.Now;
-            UpdatedDate =DateTime.Now;
+            UpdatedDate = DateTime.Now;
             Views = 0;
         }
     }

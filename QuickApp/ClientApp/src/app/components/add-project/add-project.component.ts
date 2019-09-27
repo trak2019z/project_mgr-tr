@@ -4,7 +4,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpEventType, HttpClient } from '@angular/common/http';
 import { ProjectsService } from "../../services/projects.service";
-import { Project } from "../../models/project";
+import { Project, ProjectFile } from "../../models/project";
+import { Image } from "../../models/project";
 
 @Component({
   selector: 'add-project',
@@ -55,7 +56,7 @@ export class AddProjectComponent {
             this.onUploadFinished.emit(event.body);
             console.log(event.body);
             this.fileObject = event.body;
-              this.messageFile = "Załadowano";
+            this.messageFile = "Załadowano";
           }
         });
   };
@@ -77,7 +78,7 @@ export class AddProjectComponent {
         else if (event.type === HttpEventType.Response) {
           this.onUploadFinished.emit(event.body);
           console.log(event.body);
-          this.photoObject = event.body;
+          this.photoObject = (event.body as Image);
           this.messagePhoto = "Załadowano";
         }
       });
@@ -87,9 +88,15 @@ export class AddProjectComponent {
    var project = new Project(this.projectData.controls.projectName.value,
       this.projectData.controls.author.value,
       this.projectData.controls.longDescription.value,
-      this.projectData.controls.shortDescription.value,
-      this.fileObject,
-     this.photoObject);
+     this.projectData.controls.shortDescription.value);
+
+    project.projectFile = new ProjectFile(this.fileObject.uploadedFile.id, 0, this.fileObject.uploadedFile.path);
+
+    project.images = new Image(this.photoObject.uploadedImage.id, this.photoObject.uploadedImage.path);
+
+
+
+   console.log(project);
     this.projectService.newProject(project).subscribe(Response => console.log(Response));
   }
 

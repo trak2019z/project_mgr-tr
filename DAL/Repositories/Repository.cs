@@ -45,8 +45,6 @@ namespace DAL.Repositories
             _entities.UpdateRange(entities);
         }
 
-
-
         public virtual void Remove(TEntity entity)
         {
             _entities.Remove(entity);

@@ -36,6 +36,7 @@ namespace QuickApp.Controllers
                 var file = Request.Form.Files[0];
                 var uploadedFile = new File();
                 string newPath = Path.Combine(_config.ProjectFilesLocation, uploadedFile.Id.ToString());
+
                 string fullPath = String.Empty;
                 if (!Directory.Exists(newPath))
                 {
@@ -53,13 +54,11 @@ namespace QuickApp.Controllers
                     if (newPath.IsNullOrEmpty())
                         throw new InvalidOperationException("File Path is null or empty");
                     
-                    uploadedFile.Path = newPath;
+                    uploadedFile.Path = Path.Combine(uploadedFile.Id.ToString(), fileName).Replace(@"\", "/");
                     uploadedFile.Downloads = 0;
                     uploadedFile.CreatedDate = DateTime.Now;
                     uploadedFile.UpdatedDate = DateTime.Now;
 
-                    _unitOfWork.Files.Add(uploadedFile);
-                    _unitOfWork.SaveChanges();
                 }
                 return Ok(new { uploadedFile });
             }
@@ -75,6 +74,7 @@ namespace QuickApp.Controllers
             {
                 var file = Request.Form.Files[0];
                 var uploadedImage = new Image();
+
                 string newPath = Path.Combine(_config.ImagesLocation, uploadedImage.Id.ToString());
                 string fullPath = String.Empty;
                 if (!Directory.Exists(newPath))
@@ -91,16 +91,14 @@ namespace QuickApp.Controllers
                     }
 
                     if (newPath.IsNullOrEmpty())
-                        throw new InvalidOperationException(" Image Path is null or empty");
+                        throw new InvalidOperationException("Image Path is null or empty");
 
-                    uploadedImage.Path = newPath;
+                    uploadedImage.Path = Path.Combine(uploadedImage.Id.ToString(), fileName).Replace(@"\", "/");
 
 
                     uploadedImage.CreatedDate = DateTime.Now;
                     uploadedImage.UpdatedDate = DateTime.Now;
 
-                    _unitOfWork.Images.Add(uploadedImage);
-                    _unitOfWork.SaveChanges();
                 }
                 return Ok(new { uploadedImage });
             }

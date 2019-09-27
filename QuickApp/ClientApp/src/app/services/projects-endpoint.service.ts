@@ -23,6 +23,7 @@ export class ProjectsEndpoint extends EndpointBase {
   getNewProjectEndpoint<T>(projectObject: any): Observable<T> {
     return this.http.post<T>(this.createProjectUrl, JSON.stringify(projectObject), this.requestHeaders).pipe<T>(
       catchError(error => {
+        console.log(projectObject);
         return this.handleError(error, () => this.getNewProjectEndpoint(projectObject));
       }));
   }

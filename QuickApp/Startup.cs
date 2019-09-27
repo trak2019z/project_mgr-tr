@@ -26,6 +26,8 @@ using QuickApp.ViewModels;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 using AppPermissions = DAL.Core.ApplicationPermissions;
 
 namespace QuickApp
@@ -171,6 +173,7 @@ namespace QuickApp
 
             // Business Services
             services.AddScoped<IEmailSender, EmailSender>();
+            services.Configure<FileUploadConfig>(Configuration.GetSection("FileUploadConfig"));
 
 
             // Repositories
@@ -205,7 +208,7 @@ namespace QuickApp
                 app.UseHsts();
             }
 
-
+            
             //Configure Cors
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
@@ -236,6 +239,24 @@ namespace QuickApp
                     template: "{controller}/{action=Index}/{id?}");
             });
 
+            var imagePath = Configuration["FileUploadConfig:ImagesLocation"];
+            var projectsPath = Configuration["FileUploadConfig:ProjectFilesLocation"];
+
+
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    imagePath),
+                RequestPath = "/images"
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    projectsPath),
+                RequestPath = "/files"
+            });
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,

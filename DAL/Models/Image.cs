@@ -15,5 +15,11 @@ namespace DAL.Models
             CreatedDate = DateTime.Now;
             UpdatedDate = DateTime.Now;
         }
+        public Image(Guid id)
+        {
+            Id = id;
+            CreatedDate = DateTime.Now;
+            UpdatedDate = DateTime.Now;
+        }
     }
 }

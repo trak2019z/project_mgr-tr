@@ -25,8 +25,7 @@ namespace QuickApp.Controllers
         [HttpGet("")]
         public IEnumerable<Project> GetAll()
         {
-            var c =  _unitOfWork.Projects.GetAll();
-            return c;
+            return _unitOfWork.Projects.GetAll();
         }
 
         [HttpPost("create")]
