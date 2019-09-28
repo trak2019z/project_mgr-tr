@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material';
+
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -13,8 +14,8 @@ import {
   MatRippleModule
 } from '@angular/material';
 
-import { Ng2SearchPipeModule } from 'ng2-search-filter'; //importing the module
 
+import { NgxPaginationModule } from 'ngx-pagination'; 
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -72,6 +73,7 @@ import { RoleEditorComponent } from './components/controls/role-editor.component
 import { ProjectsService } from './services/projects.service';
 import { ProjectsEndpoint } from "./services/projects-endpoint.service";
 import { AddProjectComponent } from "./components/add-project/add-project.component";
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -102,7 +104,8 @@ import { AddProjectComponent } from "./components/add-project/add-project.compon
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
     ChartsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgxPaginationModule
 
   ],
   declarations: [
@@ -128,6 +131,7 @@ import { AddProjectComponent } from "./components/add-project/add-project.compon
     BootstrapSelectDirective,
     BootstrapDatepickerDirective,
     GroupByPipe,
+    
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },

@@ -27,10 +27,10 @@ export class GetProjectsResponse extends AuditableEntity {
   public author: string;
   public description: string;
   public shortDescription: string;
-  public projectFileId: string;
-  public images: string;
+  public projectFileId: ProjectFile;
+  public images: Image;
 
-  constructor(name: string, author: string, description: string, shortDescription: string, projectFileId: string, images: string) {
+  constructor(name: string, author: string, description: string, shortDescription: string, projectFileId: ProjectFile, images: Image) {
     super();
     this.name = name;
     this.author = author;

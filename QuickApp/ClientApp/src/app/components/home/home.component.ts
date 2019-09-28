@@ -14,17 +14,15 @@ import { GetProjectsResponse } from "../../models/project";
 })
 export class HomeComponent implements OnInit{
   public posts: GetProjectsResponse[];
+  public p:number =1;
   ngOnInit(): void {
     this.projectService.getProjects().subscribe(response => {
-      this.posts = response
-      console.log(response);
+      this.posts = response;
       for (var i = 0, len = this.posts.length; i < len; i++) {
         if (this.posts[i].images) {
-          this.posts[i].images = "https://localhost:44350/images/" + this.posts[i].images.path;
+          this.posts[i].images.path = "https://localhost:44350/images/" + this.posts[i].images.path;
         }
-
       }
-
     });
   }
 
