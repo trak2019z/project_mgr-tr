@@ -26,7 +26,7 @@ export class AddProjectComponent {
   private photoObject : any;
 
   @Output() public onUploadFinished = new EventEmitter();
-  constructor(private router: Router, private http: HttpClient, private projectService: ProjectsService, private authService: AuthService) { }
+    constructor(private router: Router, private http: HttpClient, private projectService: ProjectsService, private authService: AuthService) { }
   ngOnInit() {
     this.projectData = new FormGroup({
       author: new FormControl(),
@@ -87,7 +87,6 @@ export class AddProjectComponent {
       });
   };
   public create = () => {
-    console.log(this.projectData.controls);
    var project = new Project(this.projectData.controls.projectName.value,
       this.projectData.controls.author.value,
       this.projectData.controls.longDescription.value,
@@ -96,11 +95,9 @@ export class AddProjectComponent {
     project.projectFile = new ProjectFile(this.fileObject.uploadedFile.id, 0, this.fileObject.uploadedFile.path);
 
     project.images = new Image(this.photoObject.uploadedImage.id, this.photoObject.uploadedImage.path);
+      this.projectService.newProject(project).subscribe(r=>this.router.navigate([''])
+  );
 
-
-
-   console.log(project);
-    this.projectService.newProject(project).subscribe(Response => console.log(Response));
   }
 
 }

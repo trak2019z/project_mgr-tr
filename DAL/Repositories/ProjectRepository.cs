@@ -19,5 +19,8 @@ namespace DAL.Repositories
         {
             return _appContext.Projects.Include(nameof(Project.ProjectFile)).Include(nameof(Project.Images)).ToList();
         }
+
+        public override Project Get(int id) =>
+            _appContext.Projects.Include(nameof(Project.ProjectFile)).Include(nameof(Project.Images)).FirstOrDefault(p=>p.Id==id);
     }
 }

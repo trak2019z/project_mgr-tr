@@ -16,17 +16,9 @@
           <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link" routerLink=""><i class="fa fa-home"></i></a>
           </li>
-          <li class="nav-item" routerLinkActive="active" *ngIf="canViewCustomers">
-            <a class="nav-link" routerLink="/customers">{{'mainMenu.Customers' | translate}}</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active" *ngIf="canViewProducts">
+
+          <li class="nav-item" routerLinkActive="active" *ngIf="canAddProjects">
             <a class="nav-link" routerLink="/projects/add">Dodaj Projekt</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active" *ngIf="canViewOrders">
-            <a class="nav-link" routerLink="/orders">Dodaj projekt</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="/about">{{'mainMenu.About' | translate}}</a>
           </li>
         </ul>
         <ul class="app-component nav nav-pills flex-column flex-lg-row mr-md-2">
@@ -34,7 +26,7 @@
             <a class="nav-link" routerLink="/settings"><i class="fa fa-cog"></i></a>
           </li>
         </ul>
-        <span class="app-component navbar-text notifications-popup">{{'app.Welcome' | translate}}</span>
+        <span class="app-component navbar-text notifications-popup">Witaj</span>
         <a class="app-component nav-link user-name d-inline-block px-1" [popover]="popTemplate" (onHidden)="markNotificationsAsRead()" placement="bottom" [popoverTitle]="notificationsTitle" href="javascript:;" triggers="focus">
           {{userName}}
           <span *ngIf="newNotificationCount > 0" class="badge badge-pill badge-secondary">{{newNotificationCount}}</span>
@@ -72,7 +64,7 @@
         Załadowano!
       </h1>
       <p>
-        Stopka
+        Pracę magisterską wykonał : Krystian Drach
       </p>
 
     </div>

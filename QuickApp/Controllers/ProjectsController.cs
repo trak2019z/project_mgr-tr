@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Net;
 using DAL;
 using DAL.Repositories.Interfaces;
+using Microsoft.Extensions.Options;
+using System.IO;
 
 namespace QuickApp.Controllers
 {
@@ -16,10 +18,12 @@ namespace QuickApp.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly FileUploadConfig _config;
 
-        public ProjectsController(IUnitOfWork unitOfWork)
+        public ProjectsController(IUnitOfWork unitOfWork, IOptions<AppSettings> config)
         {
             _unitOfWork = unitOfWork;
+            _config = config.Value.FileUploadConfig;
         }
 
         [HttpGet("")]
@@ -45,7 +49,7 @@ namespace QuickApp.Controllers
             }
         }
 
-        [HttpPost("delete")]
+        [HttpDelete("delete/{id}")]
         [Authorize(Authorization.Policies.DeleteProjectsPolicy)]
         public HttpStatusCode Delete(int id)
         {
@@ -54,6 +58,8 @@ namespace QuickApp.Controllers
                var project = _unitOfWork.Projects.Get(id);
                 _unitOfWork.Projects.Remove(project);
                 _unitOfWork.SaveChanges();
+                System.IO.File.Delete(Path.Combine(_config.ImagesLocation, project.Images.Path));
+                System.IO.File.Delete(Path.Combine(_config.ProjectFilesLocation, project.ProjectFile.Path));
                 return HttpStatusCode.OK;
             }
             catch (Exception ex)

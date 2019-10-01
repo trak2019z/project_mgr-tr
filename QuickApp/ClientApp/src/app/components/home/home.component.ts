@@ -4,13 +4,15 @@ import { fadeInOut } from '../../services/animations';
 import { ConfigurationService } from '../../services/configuration.service';
 import { ProjectsService } from "../../services/projects.service";
 import { GetProjectsResponse } from "../../models/project";
+import { Permission } from "../../models/permission.model";
+import { AccountService } from "../../services/account.service";
 
 
 @Component({
-    selector: 'home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    animations: [fadeInOut]
+  selector: 'home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  animations: [fadeInOut]
 })
 export class HomeComponent implements OnInit{
   public posts: GetProjectsResponse[];
@@ -30,12 +32,14 @@ export class HomeComponent implements OnInit{
   public onProjectRemove(id: number) {
     console.log("Project remove");
     this.projectService.deleteProject(id).subscribe(response => {
-      this.posts.filter(p => p.id !== id);
+      this.posts = this.posts.filter(p => p.id !== id);
     });
+  }
+  get canDeleteProjects() {
+    return this.accountService.userHasPermission(Permission.deleteProjectPermission); 
   }
 
 
-
-  constructor(public configurations: ConfigurationService, public projectService: ProjectsService) {
+  constructor(public configurations: ConfigurationService, public projectService: ProjectsService, private accountService: AccountService) {
   }
 }

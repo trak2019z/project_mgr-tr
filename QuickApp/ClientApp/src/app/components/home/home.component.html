@@ -2,36 +2,36 @@
   <header class="pageHeader">
     <h3><i class="fa fa-tachometer fa-lg page-caption" aria-hidden="true"></i>Lista Projektów</h3>
   </header>
- <div style="margin-bottom: 25px">
-   <input class="form-control" type="text" name="search" placeholder ="Wyszukaj" [(ngModel)]="filter" >
- </div>
+  <div style="margin-bottom: 25px">
+    <input class="form-control" type="text" name="search" placeholder="Wyszukaj" [(ngModel)]="filter">
+  </div>
   <li class="list-group-item" *ngFor="let post of posts| filter:filter |paginate: { itemsPerPage: 10, currentPage: p };">
-    <a href="projects/{{post.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
-      <div class="d-flex w-100 justify-content-between">
-        <div class="list-image">
-          <!--<img src= "https://localhost:44350/images//ad5f1524-a2fe-4556-a8b2-f69a2747cd4b/52561366_543909829427418_7506322443527520256_n.jpg" class="rounded float-left" alt="Obrazek ilustrujący projekt" style="width:100px;height:100px;">-->
-          <!--<img src="https://localhost:44350/images/c5f5cbdf-5430-4cc1-8b81-d8f91cc5ed6c/50839871_313102846007053_633570103509647360_n (2).jpg" class="rounded float-left" alt="Obrazek ilustrujący projekt" style="width:100px;height:100px;" />-->
-          <!--<img src="https://localhost:44350/images/c5f5cbdf-5430-4cc1-8b81-d8f91cc5ed6c/50839871_313102846007053_633570103509647360_n (2).jpg" class="rounded float-left" alt="Obrazek ilustrujący projekt" style="width:100px;height:100px;" />-->
-          <img src="{{post.images.path}}" class="rounded float-left" alt="Obrazek ilustrujący projekt" style="width:100px;height:100px;" />
-        </div>
-        <div>
-          <div>
-            <h5 class="mb-2 h5">{{post.name}}</h5>
-            <p class="text-center">
-              {{
-              post.shortDescription}}
-            </p>
-          </div>
-        </div>
-        <small>
-          <button onclick="onProjectRemove(post.id)">
-            <span class="glyphicon glyphicon-remove"></span>
-          </button>
-         </small>
+
+    <div class="d-flex w-100 justify-content-between">
+      <div class="list-image">
+        <!--<img src= "https://localhost:44350/images//ad5f1524-a2fe-4556-a8b2-f69a2747cd4b/52561366_543909829427418_7506322443527520256_n.jpg" class="rounded float-left" alt="Obrazek ilustrujący projekt" style="width:100px;height:100px;">-->
+        <!--<img src="https://localhost:44350/images/c5f5cbdf-5430-4cc1-8b81-d8f91cc5ed6c/50839871_313102846007053_633570103509647360_n (2).jpg" class="rounded float-left" alt="Obrazek ilustrujący projekt" style="width:100px;height:100px;" />-->
+        <!--<img src="https://localhost:44350/images/c5f5cbdf-5430-4cc1-8b81-d8f91cc5ed6c/50839871_313102846007053_633570103509647360_n (2).jpg" class="rounded float-left" alt="Obrazek ilustrujący projekt" style="width:100px;height:100px;" />-->
+        <img src="{{post.images.path}}" class="rounded float-left" alt="Obrazek ilustrujący projekt" style="width:100px;height:100px;" />
       </div>
-    </a>
+      <div>
+        <div>
+
+          <h5 class="mb-2 h5"> <a href="projects/{{post.id}}">{{post.name}} </a></h5>
+          <p class="text-center">
+            {{
+              post.shortDescription
+            }}
+          </p>
+
+        </div>
+      </div>
+      <div class="text-right" >
+        <input type="image" src="delete_forever-24px.svg" *ngIf="canDeleteProjects" (click)="onProjectRemove(post.id)"  />
+      </div>
+    </div>
   </li>
-  <pagination-controls (pageChange)="p = $event" nextLabel ="Następna" previousLabel ="Poprzednia"></pagination-controls>
+  <pagination-controls (pageChange)="p = $event" nextLabel="Następna" previousLabel="Poprzednia"></pagination-controls>
   <!--<div [@fadeInOut]>
       <div class="row">
           <div *ngIf="!configurations.showDashboardStatistics && !configurations.showDashboardNotifications && !configurations.showDashboardTodo && !configurations.showDashboardBanner" class="col-12 my-5">
