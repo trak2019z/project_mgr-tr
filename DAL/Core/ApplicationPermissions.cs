@@ -1,8 +1,4 @@
-﻿// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +13,19 @@ namespace DAL.Core
         public static ReadOnlyCollection<ApplicationPermission> AllPermissions;
 
 
-        public const string UsersPermissionGroupName = "User Permissions";
-        public static ApplicationPermission ViewUsers = new ApplicationPermission("View Users", "users.view", UsersPermissionGroupName, "Permission to view other users account details");
-        public static ApplicationPermission ManageUsers = new ApplicationPermission("Manage Users", "users.manage", UsersPermissionGroupName, "Permission to create, delete and modify other users account details");
+        public const string UsersPermissionGroupName = "Administracja użytkownikami";
+        public static ApplicationPermission ViewUsers = new ApplicationPermission("Podgląd użytkowników", "users.view", UsersPermissionGroupName, "Uprawnienie do podglądu kont użytkowników systemu");
+        public static ApplicationPermission ManageUsers = new ApplicationPermission("Zarządzanie użytkownikami", "users.manage", UsersPermissionGroupName, "Uprawnienie do tworzenia/edycji oraz usuwania kont użytkowników systemu");
 
-        public const string RolesPermissionGroupName = "Role Permissions";
-        public static ApplicationPermission ViewRoles = new ApplicationPermission("View Roles", "roles.view", RolesPermissionGroupName, "Permission to view available roles");
-        public static ApplicationPermission ManageRoles = new ApplicationPermission("Manage Roles", "roles.manage", RolesPermissionGroupName, "Permission to create, delete and modify roles");
-        public static ApplicationPermission AssignRoles = new ApplicationPermission("Assign Roles", "roles.assign", RolesPermissionGroupName, "Permission to assign roles to users");
+        public const string RolesPermissionGroupName = "Administracja rolami";
+        public static ApplicationPermission ViewRoles = new ApplicationPermission("Podgląd ról", "roles.view", RolesPermissionGroupName, "Uprawnienie do podglądu ról w systemie");
+        public static ApplicationPermission ManageRoles = new ApplicationPermission("Zarządzanie rolami", "roles.manage", RolesPermissionGroupName, "Uprawnienie do tworzenia/edycji oraz usuwania ról w systemie");
+        public static ApplicationPermission AssignRoles = new ApplicationPermission("Przypisywanie ról", "roles.assign", RolesPermissionGroupName, "Uprawnienie do przypisywania ról do użytkowników");
+
+        public const string ProjectPermissionGroupName = "Administracja projektami";
+
+        public static ApplicationPermission CreateProjects = new ApplicationPermission("Tworzenie projektów", "projects.create", ProjectPermissionGroupName, "Uprawnienie do tworzenia projektów");
+        public static ApplicationPermission DeleteProjects = new ApplicationPermission("Usuwanie projektów", "projects.delete", ProjectPermissionGroupName, "Uprawnienie do usuwania projektów");
 
 
         static ApplicationPermissions()
@@ -36,7 +37,9 @@ namespace DAL.Core
 
                 ViewRoles,
                 ManageRoles,
-                AssignRoles
+                AssignRoles,
+                CreateProjects,
+                DeleteProjects
             };
 
             AllPermissions = allPermissions.AsReadOnly();
@@ -59,7 +62,7 @@ namespace DAL.Core
 
         public static string[] GetAdministrativePermissionValues()
         {
-            return new string[] { ManageUsers, ManageRoles, AssignRoles };
+            return new string[] { ManageUsers, ManageRoles, AssignRoles};
         }
     }
 

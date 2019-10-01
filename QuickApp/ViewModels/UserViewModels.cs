@@ -1,8 +1,4 @@
-﻿// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
+﻿
 using FluentValidation;
 using QuickApp.Helpers;
 using System;

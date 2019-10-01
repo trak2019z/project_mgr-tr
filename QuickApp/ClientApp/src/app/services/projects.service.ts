@@ -14,7 +14,9 @@ export class ProjectsService {
   newProject(project: Project) {
     return this.projectEndpoint.getNewProjectEndpoint<Project>(project);
   }
-
+  deleteProject(id: number) {
+    return this.projectEndpoint.deleteProjectEndpoint(id);
+  }
   getProjects() {
     return this.projectEndpoint.getProjectEndpoint<GetProjectsResponse[]>();
   }

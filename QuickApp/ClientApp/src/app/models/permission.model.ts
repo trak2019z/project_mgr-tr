@@ -1,15 +1,10 @@
-// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
 export type PermissionNames =
-    'View Users' | 'Manage Users' |
-    'View Roles' | 'Manage Roles' | 'Assign Roles';
+    'Podgląd użytkowników' | 'Zarządzanie Użytkownikami' |
+  'Podgląd ról' | 'Zarządzanie rolami' | 'Przypisywanie ról'|'Tworzenie projektów'|'Usuwanie projektów';
 
 export type PermissionValues =
     'users.view' | 'users.manage' |
-    'roles.view' | 'roles.manage' | 'roles.assign';
+  'roles.view' | 'roles.manage' | 'roles.assign' |'projects.create'|'projects.delete';
 
 export class Permission {
 
@@ -19,6 +14,8 @@ export class Permission {
     public static readonly viewRolesPermission: PermissionValues = 'roles.view';
     public static readonly manageRolesPermission: PermissionValues = 'roles.manage';
     public static readonly assignRolesPermission: PermissionValues = 'roles.assign';
+  public static readonly createProjectPermission: PermissionValues = 'projects.create';
+  public static readonly deleteProjectPermission: PermissionValues = 'projects.delete';
 
 
     constructor(name?: PermissionNames, value?: PermissionValues, groupName?: string, description?: string) {

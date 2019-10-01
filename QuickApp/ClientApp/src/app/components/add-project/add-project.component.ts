@@ -2,10 +2,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { fadeInOut } from '../../services/animations';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpEventType, HttpClient } from '@angular/common/http';
+import { HttpEventType, HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProjectsService } from "../../services/projects.service";
 import { Project, ProjectFile } from "../../models/project";
 import { Image } from "../../models/project";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'add-project',
@@ -20,12 +21,12 @@ export class AddProjectComponent {
     public photoUploadProgress: number;
   public messagePhoto: string;
   public messageFile: string;
-
+  
   private fileObject: any;
   private photoObject : any;
 
   @Output() public onUploadFinished = new EventEmitter();
-    constructor(private router: Router, private http: HttpClient,private projectService:ProjectsService) { }
+  constructor(private router: Router, private http: HttpClient, private projectService: ProjectsService, private authService: AuthService) { }
   ngOnInit() {
     this.projectData = new FormGroup({
       author: new FormControl(),
@@ -36,25 +37,27 @@ export class AddProjectComponent {
 
   }
 
+    private headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.authService.accessToken,
+      Accept: 'application/json, text/plain, */*'
+    });
+ 
+
   public uploadFile = (files,type:string) => {
     if (files.length === 0) {
       return;
     }
-    console.log(type);
-
-      let fileToUpload = <File>files[0];
+    let fileToUpload = <File>files[0];
       const formData = new FormData();
       formData.append('file', fileToUpload, fileToUpload.name);
-      this.http.post('https://localhost:44350/api/Upload/file', formData, { reportProgress: true, observe: 'events' })
+    this.http.post('https://localhost:44350/api/Upload/file', formData, { reportProgress: true, observe: 'events',headers:this.headers } )
         .subscribe(event => {
           if (event.type === HttpEventType.UploadProgress)
             {
               this.fileUploadProgress = Math.round(100 * event.loaded / event.total);
             }
-            
           else if (event.type === HttpEventType.Response) {
             this.onUploadFinished.emit(event.body);
-            console.log(event.body);
             this.fileObject = event.body;
             this.messageFile = "Załadowano";
           }
@@ -70,7 +73,7 @@ export class AddProjectComponent {
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-    this.http.post('https://localhost:44350/api/Upload/images', formData, { reportProgress: true, observe: 'events' })
+    this.http.post('https://localhost:44350/api/Upload/images', formData, { reportProgress: true, observe: 'events', headers: this.headers })
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
         this.photoUploadProgress = Math.round(100 * event.loaded / event.total);

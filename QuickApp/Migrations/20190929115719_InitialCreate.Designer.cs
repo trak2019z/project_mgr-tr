@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace QuickApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190917221635_InitialCreate")]
+    [Migration("20190929115719_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

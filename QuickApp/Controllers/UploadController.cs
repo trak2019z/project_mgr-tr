@@ -6,30 +6,42 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DAL;
 using DAL.Models;
+using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using QuickApp.ViewModels;
 using File = DAL.Models.File;
 
 namespace QuickApp.Controllers
 {
+    [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
-    [ApiController]
+
     public class UploadController : ControllerBase
     {
         private readonly FileUploadConfig _config;
         private readonly IUnitOfWork _unitOfWork;
-        public UploadController(IOptions<AppSettings> config, ILogger<UploadController> logger, IUnitOfWork unitOfWork)
+        private readonly IAuthorizationService _authorizationService;
+        public UploadController(IOptions<AppSettings> config, ILogger<UploadController> logger, IUnitOfWork unitOfWork, IAuthorizationService authorizationService)
         {
             _config = config.Value.FileUploadConfig;
             _unitOfWork = unitOfWork;
+            _authorizationService = authorizationService;
         }
 
 
         [HttpPost("file"), DisableRequestSizeLimit]
-        public ActionResult UploadFile()
+        [Authorize(Authorization.Policies.CreateProjectsPolicy)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(500)]
+
+        public async Task<ActionResult> UploadFile()
         {
             try
             {
@@ -68,6 +80,11 @@ namespace QuickApp.Controllers
             }
         }
         [HttpPost("images"), DisableRequestSizeLimit]
+        [Authorize(Authorization.Policies.CreateProjectsPolicy)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(500)]
         public ActionResult UploadImage()
         {
             try
@@ -108,6 +125,4 @@ namespace QuickApp.Controllers
             }
         }
     }
-
-
 }

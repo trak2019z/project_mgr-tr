@@ -105,7 +105,11 @@ namespace QuickApp
 
 
             services.AddAuthorization(options =>
+
             {
+                options.AddPolicy(Authorization.Policies.CreateProjectsPolicy, policy => policy.RequireClaim(ClaimConstants.Permission, AppPermissions.CreateProjects));
+                options.AddPolicy(Authorization.Policies.DeleteProjectsPolicy, policy => policy.RequireClaim(ClaimConstants.Permission, AppPermissions.DeleteProjects));
+
                 options.AddPolicy(Authorization.Policies.ViewAllUsersPolicy, policy => policy.RequireClaim(ClaimConstants.Permission, AppPermissions.ViewUsers));
                 options.AddPolicy(Authorization.Policies.ManageAllUsersPolicy, policy => policy.RequireClaim(ClaimConstants.Permission, AppPermissions.ManageUsers));
 
@@ -114,6 +118,8 @@ namespace QuickApp
                 options.AddPolicy(Authorization.Policies.ManageAllRolesPolicy, policy => policy.RequireClaim(ClaimConstants.Permission, AppPermissions.ManageRoles));
 
                 options.AddPolicy(Authorization.Policies.AssignAllowedRolesPolicy, policy => policy.Requirements.Add(new AssignRolesAuthorizationRequirement()));
+
+
             });
 
 

@@ -23,7 +23,11 @@
             </p>
           </div>
         </div>
-        <small>{{post.id}} </small>
+        <small>
+          <button onclick="onProjectRemove(post.id)">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+         </small>
       </div>
     </a>
   </li>

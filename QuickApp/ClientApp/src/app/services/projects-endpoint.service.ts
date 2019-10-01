@@ -11,8 +11,11 @@ import { catchError } from 'rxjs/operators';
 export class ProjectsEndpoint extends EndpointBase {
   private readonly _projectsUrl: string = '/api/projects';
   private readonly _createProjectsUrl: string = '/api/projects/create';
+  private readonly _deleteProjectsUrl: string = '/api/projects/delete';
 
   get createProjectUrl() { return this.configurations.baseUrl + this._createProjectsUrl; }
+  get deleteProjectUrl() { return this.configurations.baseUrl + this._deleteProjectsUrl; }
+
   get getProjectUrl() { return this.configurations.baseUrl + this._projectsUrl; }
 
 
@@ -25,6 +28,14 @@ export class ProjectsEndpoint extends EndpointBase {
       catchError(error => {
         console.log(projectObject);
         return this.handleError(error, () => this.getNewProjectEndpoint(projectObject));
+      }));
+  }
+
+
+  deleteProjectEndpoint<T>(id: number): Observable<T> {
+    return this.http.delete <T> (this.deleteProjectUrl+"/"+ id, this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.deleteProjectEndpoint(id));
       }));
   }
 

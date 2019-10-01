@@ -27,6 +27,14 @@ export class HomeComponent implements OnInit{
   }
 
 
+  public onProjectRemove(id: number) {
+    console.log("Project remove");
+    this.projectService.deleteProject(id).subscribe(response => {
+      this.posts.filter(p => p.id !== id);
+    });
+  }
+
+
 
   constructor(public configurations: ConfigurationService, public projectService: ProjectsService) {
   }

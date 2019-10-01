@@ -29,6 +29,8 @@ namespace QuickApp.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize(Authorization.Policies.CreateProjectsPolicy)]
+
         public HttpStatusCode Create(Project project)
         {
             try
@@ -43,5 +45,21 @@ namespace QuickApp.Controllers
             }
         }
 
+        [HttpPost("delete")]
+        [Authorize(Authorization.Policies.DeleteProjectsPolicy)]
+        public HttpStatusCode Delete(int id)
+        {
+            try
+            {
+               var project = _unitOfWork.Projects.Get(id);
+                _unitOfWork.Projects.Remove(project);
+                _unitOfWork.SaveChanges();
+                return HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                return HttpStatusCode.InternalServerError;
+            }
+        }
     }
 }
