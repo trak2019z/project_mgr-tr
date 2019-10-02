@@ -12,6 +12,8 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { Utilities } from './services/utilities';
 import { AddProjectComponent } from "./components/add-project/add-project.component";
+import { ProjectDetailsComponent } from "./components/project-details/project-details.component";
+import { ProjectResolve } from "./resolvers/project-resolve";
 
 
 export class LowerCaseUrlSerializer extends DefaultUrlSerializer {
@@ -38,8 +40,13 @@ export class LowerCaseUrlSerializer extends DefaultUrlSerializer {
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard], data: { title: 'Strona domowa' } },
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
-  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard], data: { title: 'Customers' } },
-  { path: 'projects/add', component: AddProjectComponent, canActivate: [AuthGuard], data: { title: 'Dodaj Projekt' } },
+    { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard], data: { title: 'Customers' } },
+    {
+        path: 'project/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard], data: { title: 'Szczegóły projektu' }, resolve: {
+            project: ProjectResolve
+        }   },
+
+    { path: 'projects/add', component: AddProjectComponent, canActivate: [AuthGuard], data: { title: 'Dodaj Projekt' } },
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard], data: { title: 'Projekty' } },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard], data: { title: 'Ustawienia' } },
   { path: 'about', component: AboutComponent, data: { title: 'Dodatkowe info' } },

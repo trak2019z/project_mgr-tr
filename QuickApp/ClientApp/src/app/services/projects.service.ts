@@ -19,5 +19,8 @@ export class ProjectsService {
   }
   getProjects() {
     return this.projectEndpoint.getProjectEndpoint<GetProjectsResponse[]>();
+    }
+  getProject(id:number) {
+    return this.projectEndpoint.getProjectByIdEndpoint<Project>(id);
   }
 }

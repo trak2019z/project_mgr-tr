@@ -32,6 +32,12 @@ namespace QuickApp.Controllers
             return _unitOfWork.Projects.GetAll();
         }
 
+        [HttpGet("{id}")]
+        public Project Get(int id)
+        {
+            return _unitOfWork.Projects.Get(id);
+        }
+
         [HttpPost("create")]
         [Authorize(Authorization.Policies.CreateProjectsPolicy)]
 

@@ -45,6 +45,10 @@ export class ProjectsEndpoint extends EndpointBase {
         return this.handleError(error, () => this.getProjectEndpoint());
       }));
   }
-
-
+  getProjectByIdEndpoint<T>(id:number): Observable<T> {
+    return this.http.get<T>(this.getProjectUrl+"/"+id, this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.getProjectEndpoint());
+      }));
+  }
 }

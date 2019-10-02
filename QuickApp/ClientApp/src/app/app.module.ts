@@ -74,9 +74,11 @@ import { ProjectsService } from './services/projects.service';
 import { ProjectsEndpoint } from "./services/projects-endpoint.service";
 import { AddProjectComponent } from "./components/add-project/add-project.component";
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ProjectDetailsComponent } from "./components/project-details/project-details.component";
+import { ProjectResolve } from "./resolvers/project-resolve";
 
-
-@NgModule({
+@
+NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -106,12 +108,12 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     ChartsModule,
     Ng2SearchPipeModule,
     NgxPaginationModule
-
   ],
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
+    ProjectDetailsComponent,
     CustomersComponent,
     AddProjectComponent,
     ProjectsComponent,
@@ -131,7 +133,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     BootstrapSelectDirective,
     BootstrapDatepickerDirective,
     GroupByPipe,
-    
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
@@ -148,6 +149,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     LocalStoreManager,
     ProjectsService,
     ProjectsEndpoint,
+    ProjectResolve
 
   ],
   bootstrap: [AppComponent]

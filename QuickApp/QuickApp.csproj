@@ -38,10 +38,12 @@
 
   <ItemGroup>
     <Compile Remove="ClientApp\dist\**" />
+    <Compile Remove="ClientApp\src\app\NewFolder\**" />
     <Compile Remove="Logs\**" />
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\dist\**" />
+    <Content Remove="ClientApp\src\app\NewFolder\**" />
     <Content Remove="Logs\**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
@@ -54,14 +56,17 @@
 
   <ItemGroup>
     <EmbeddedResource Remove="ClientApp\dist\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\NewFolder\**" />
     <EmbeddedResource Remove="Logs\**" />
     <None Remove="ClientApp\dist\**" />
+    <None Remove="ClientApp\src\app\NewFolder\**" />
     <None Remove="Logs\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\models\AuditableEntity.ts" />
     <None Remove="ClientApp\src\app\models\project.ts" />
+    <None Remove="ClientApp\src\app\resolvers\project-resolve.ts" />
     <None Remove="ClientApp\src\app\services\projects-endpoint.service.ts" />
     <None Remove="ClientApp\src\app\services\projects.service.ts" />
   </ItemGroup>
@@ -69,6 +74,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\models\auditableEntity.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\project.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\resolvers\project-resolve.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\projects-endpoint.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\projects.service.ts" />
   </ItemGroup>
