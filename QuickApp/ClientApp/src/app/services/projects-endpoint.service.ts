@@ -12,7 +12,7 @@ export class ProjectsEndpoint extends EndpointBase {
   private readonly _projectsUrl: string = '/api/projects';
   private readonly _createProjectsUrl: string = '/api/projects/create';
   private readonly _deleteProjectsUrl: string = '/api/projects/delete';
-  private readonly _addViewProjectUrl: string = '/api/projects/addview';
+  private readonly _addViewProjectUrl: string = '/api/projects/view/';
 
   get createProjectUrl() { return this.configurations.baseUrl + this._createProjectsUrl; }
   get deleteProjectUrl() { return this.configurations.baseUrl + this._deleteProjectsUrl; }
@@ -41,11 +41,8 @@ export class ProjectsEndpoint extends EndpointBase {
       }));
   }
   getAddViewProject<T>(id: number): Observable<T> {
-    return this.http.post(this.getAddViewProjectUrl + "/" + id, this.requestHeaders).pipe(
+    return this.http.post<T>(this.getAddViewProjectUrl + id, this.requestHeaders).pipe<T>(
       catchError(error => {
-        console.log("DD");
-
-        console.log(this.requestHeaders);
         return this.handleError(error, () => this.getAddViewProject(id));
       }));
   }
@@ -56,9 +53,7 @@ export class ProjectsEndpoint extends EndpointBase {
       }));
   }
   getProjectByIdEndpoint<T>(id: number): Observable<T> {
-    console.log("project endpoint");
 
-    console.log(this.requestHeaders);
     return this.http.get<T>(this.getProjectUrl+"/"+id, this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getProjectByIdEndpoint(id));

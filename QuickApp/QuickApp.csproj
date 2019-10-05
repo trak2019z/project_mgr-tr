@@ -67,6 +67,8 @@
     <None Remove="ClientApp\src\app\models\AuditableEntity.ts" />
     <None Remove="ClientApp\src\app\models\project.ts" />
     <None Remove="ClientApp\src\app\resolvers\project-resolve.ts" />
+    <None Remove="ClientApp\src\app\services\file-endpoint.service.ts" />
+    <None Remove="ClientApp\src\app\services\file.service.ts" />
     <None Remove="ClientApp\src\app\services\projects-endpoint.service.ts" />
     <None Remove="ClientApp\src\app\services\projects.service.ts" />
   </ItemGroup>
@@ -75,6 +77,8 @@
     <TypeScriptCompile Include="ClientApp\src\app\models\auditableEntity.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\project.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\resolvers\project-resolve.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\file-endpoint.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\file.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\projects-endpoint.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\projects.service.ts" />
   </ItemGroup>

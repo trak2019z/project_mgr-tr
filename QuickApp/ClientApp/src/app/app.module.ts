@@ -76,8 +76,8 @@ import { AddProjectComponent } from "./components/add-project/add-project.compon
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProjectDetailsComponent } from "./components/project-details/project-details.component";
 import { ProjectResolve } from "./resolvers/project-resolve";
-
-@
+import { FileService } from "./services/file.service";
+import { FileEndpointService } from "./services/file-endpoint.service";@
 NgModule({
   imports: [
     BrowserModule,
@@ -149,7 +149,9 @@ NgModule({
     LocalStoreManager,
     ProjectsService,
     ProjectsEndpoint,
-    ProjectResolve
+      ProjectResolve,
+    FileEndpointService,
+    FileService
 
   ],
   bootstrap: [AppComponent]

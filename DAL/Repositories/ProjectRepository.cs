@@ -27,7 +27,7 @@ namespace DAL.Repositories
         public void AddView(int id)
         {
             var project = _appContext.Projects.Find(id);
-            project.Views = +1;
+            project.Views  += 1;
             _appContext.Projects.Update(project);
             _appContext.SaveChanges();
         }

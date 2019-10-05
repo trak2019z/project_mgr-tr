@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
 using AppPermissions = DAL.Core.ApplicationPermissions;
+using QuickApp.Services;
 
 namespace QuickApp
 {
@@ -186,11 +187,15 @@ namespace QuickApp
             services.AddScoped<IUnitOfWork, HttpUnitOfWork>();
             services.AddScoped<IAccountManager, AccountManager>();
 
+            services.AddScoped<IFileService, FileService>();
+            
+
             // Auth Handlers
             services.AddSingleton<IAuthorizationHandler, ViewUserAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, ManageUserAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, ViewRoleAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, AssignRolesAuthorizationHandler>();
+
 
             // DB Creation and Seeding
             services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();

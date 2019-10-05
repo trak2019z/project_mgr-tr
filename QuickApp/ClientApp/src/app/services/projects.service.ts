@@ -26,5 +26,4 @@ export class ProjectsService {
   addView(id: number) {
     return this.projectEndpoint.getAddViewProject(id);
   }
-
 }

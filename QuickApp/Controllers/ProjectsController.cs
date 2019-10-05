@@ -73,7 +73,8 @@ namespace QuickApp.Controllers
             }
         }
 
-        [HttpPost("addview/{id}")]
+        [HttpPost("view/{id}")]
+        [AllowAnonymousAttribute]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]

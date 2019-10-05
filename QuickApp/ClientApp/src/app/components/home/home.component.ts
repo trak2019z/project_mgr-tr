@@ -17,7 +17,8 @@ import { AccountService } from "../../services/account.service";
 export class HomeComponent implements OnInit{
   public posts: GetProjectsResponse[];
   public p:number =1;
-  ngOnInit(): void {
+    ngOnInit(): void {
+
     this.projectService.getProjects().subscribe(response => {
       this.posts = response;
       for (var i = 0, len = this.posts.length; i < len; i++) {

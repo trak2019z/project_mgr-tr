@@ -7,6 +7,7 @@ namespace DAL.Repositories.Interfaces
 {
     public interface IFileRepository : IRepository<File>
     {
-        void AddDownload(int id);
+        void AddDownload(Guid id);
+        File Get(Guid id);
     }
 }

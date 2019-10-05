@@ -4,10 +4,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>2.8.0</Version>
-    <Description>Data Access Layer for the Quick Application template</Description>
-    <Copyright>Copyright © 2019 www.ebenmonney.com</Copyright>
-    <PackageProjectUrl>https://www.ebenmonney.com/quickapp</PackageProjectUrl>
-    <Company>EBENMONNEY</Company>
+    <Description>Data Access Layer</Description>
+    <Copyright></Copyright>
   </PropertyGroup>
 
   <ItemGroup>

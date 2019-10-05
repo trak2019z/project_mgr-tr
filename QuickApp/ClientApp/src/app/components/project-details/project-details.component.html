@@ -8,7 +8,7 @@
           
         </div>
 
-        <div class="col-sm-9 col-xs-9">
+        <div class="col-sm-6 col-xs-6">
           <h1 class="text-center">{{project.name}}</h1>
           <fieldset class="border">
             <legend class='text-center'>O projekcie</legend>
@@ -18,9 +18,9 @@
           </fieldset>
         </div>
       </div>
-      <div class="details col-md-0" style="float:right; text-align:right;">
+      <div class="col-sm-9 col-xs-9" style="float:right; text-align:right;">
         <div>
-          <button mat-raised-button class="mt-2" (click)="onButtonClick()" color="primary">Pobierz</button>
+          <button mat-raised-button class="mt-2" (click)="onFileDownload()" color="primary">Pobierz</button>
         </div>
         <div class="project-info">
           <div class="panel-group">

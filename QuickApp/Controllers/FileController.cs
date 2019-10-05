@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using DAL;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Security;
+using QuickApp.Services;
 
 namespace QuickApp.Controllers
 {
@@ -15,23 +10,19 @@ namespace QuickApp.Controllers
     public class FileController : ControllerBase
     {
         private readonly UnitOfWork _unitOfWork;
+        private readonly IFileService _fileService;
 
-        FileController(UnitOfWork unitOfWork)
+        public FileController(UnitOfWork unitOfWork, IFileService fileService)
         {
             _unitOfWork = unitOfWork;
+            _fileService = fileService;
         }
 
-        public HttpStatusCode AddDownload(int id)
+
+        [HttpGet("download/{id}")]
+        public IActionResult DownloadFile(Guid id)
         {
-            try
-            {
-                _unitOfWork.Files.AddDownload(id);
-                return HttpStatusCode.OK;
-            }
-            catch (Exception e)
-            {
-                return HttpStatusCode.InternalServerError;
-            }
+            return _fileService.PrepareFileToDownload(id);
         }
     }
 }
