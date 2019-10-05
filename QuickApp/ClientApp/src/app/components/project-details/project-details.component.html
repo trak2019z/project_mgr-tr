@@ -1,20 +1,26 @@
 <div class="center">
   <div class="container-fliud">
-    <h1 class="text-center">{{project.name}}</h1>
-    <div class="wrapper row">
-      <div class="col-sm-5 col-xs-5">
-        <img src="{{project.images.path}}"class="img-responsive" style="width: 60%; height: 60%;"/>
-          <fieldset class="border" >
-            <legend class ='text-center'>O projekcie</legend>
+   
+    <div class="container">
+      <div class="wrapper row">
+        <div class="col-sm-3 col-xs-3" style="padding-top:80px;text-align:center;" >
+          <img src="{{project.images.path}}" class="img-responsive" style="width: 60%;" />
+          
+        </div>
+
+        <div class="col-sm-9 col-xs-9">
+          <h1 class="text-center">{{project.name}}</h1>
+          <fieldset class="border">
+            <legend class='text-center'>O projekcie</legend>
             <p id="innerPara">
               {{project.description}}
             </p>
           </fieldset>
         </div>
-        </div>
-      <div class="details col-md-6">
+      </div>
+      <div class="details col-md-0" style="float:right; text-align:right;">
         <div>
-          <button mat-raised-button class="mt-2" color="primary">Pobierz</button>
+          <button mat-raised-button class="mt-2" (click)="onButtonClick()" color="primary">Pobierz</button>
         </div>
         <div class="project-info">
           <div class="panel-group">
@@ -22,18 +28,19 @@
               <div class="panel-body">Autor : {{project.author}}</div>
             </div>
           </div>
-        <div class="project-statistic">
-          <div class="panel-group">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                Wyświetlenia : {{project.views}}
+          <div class="project-statistic">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  Wyświetlenia : {{project.views}}
+                </div>
               </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-body">Pobrania :{{project.projectFile.downloads}}</div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-body">Utworzono :{{project.createdDate|date:'MM/dd/yyyy'}}</div>
+              <div class="panel panel-default">
+                <div class="panel-body">Pobrania :{{project.projectFile.downloads}}</div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-body">Utworzono :{{project.createdDate|date:'MM/dd/yyyy'}}</div>
+              </div>
             </div>
           </div>
         </div>

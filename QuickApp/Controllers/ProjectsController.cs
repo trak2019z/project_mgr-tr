@@ -6,7 +6,6 @@ using DAL.Models;
 using System.Collections.Generic;
 using System.Net;
 using DAL;
-using DAL.Repositories.Interfaces;
 using Microsoft.Extensions.Options;
 using System.IO;
 
@@ -74,7 +73,11 @@ namespace QuickApp.Controllers
             }
         }
 
-        [HttpPost("AddView/{id}")]
+        [HttpPost("addview/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(500)]
         public HttpStatusCode AddView(int id)
         {
             try

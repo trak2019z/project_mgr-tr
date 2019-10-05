@@ -19,8 +19,8 @@ export class AddProjectComponent {
     private projectData: FormGroup;
     public fileUploadProgress: number;
     public photoUploadProgress: number;
-  public messagePhoto: string;
-  public messageFile: string;
+    public messagePhoto: string;
+    public messageFile: string;
   
   private fileObject: any;
   private photoObject : any;
@@ -95,7 +95,7 @@ export class AddProjectComponent {
     project.projectFile = new ProjectFile(this.fileObject.uploadedFile.id, 0, this.fileObject.uploadedFile.path);
 
     project.images = new Image(this.photoObject.uploadedImage.id, this.photoObject.uploadedImage.path);
-      this.projectService.newProject(project).subscribe(r=>this.router.navigate([''])
+      this.projectService.newProject(project).subscribe(r=>this.router.navigate(['home'])
   );
 
   }

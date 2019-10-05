@@ -16,7 +16,18 @@ export class ProjectDetailsComponent implements OnInit {
 
   ngOnInit() {
       this.project = this.route.snapshot.data.project;
-      this.project.images.path = "https://localhost:44350/images/" + this.project.images.path;
-      this.service.addView(this.project.id).subscribe();
+    this.project.images.path = "https://localhost:44350/images/" + this.project.images.path;
+    console.log(this.project);
   }
+
+   onButtonClick()
+   {
+     console.log("click");
+     this.service.addView(this.project.id).subscribe();
 }
+
+
+}
+
+
+

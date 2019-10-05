@@ -40,24 +40,28 @@ export class ProjectsEndpoint extends EndpointBase {
         return this.handleError(error, () => this.deleteProjectEndpoint(id));
       }));
   }
+  getAddViewProject<T>(id: number): Observable<T> {
+    return this.http.post(this.getAddViewProjectUrl + "/" + id, this.requestHeaders).pipe(
+      catchError(error => {
+        console.log("DD");
 
+        console.log(this.requestHeaders);
+        return this.handleError(error, () => this.getAddViewProject(id));
+      }));
+  }
   getProjectEndpoint<T>(): Observable<T> {
-    return this.http.get<T>(this.getProjectUrl,this.requestHeaders).pipe<T>(
+       return this.http.get<T>(this.getProjectUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getProjectEndpoint());
       }));
   }
-  getProjectByIdEndpoint<T>(id:number): Observable<T> {
+  getProjectByIdEndpoint<T>(id: number): Observable<T> {
+    console.log("project endpoint");
+
+    console.log(this.requestHeaders);
     return this.http.get<T>(this.getProjectUrl+"/"+id, this.requestHeaders).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.getProjectEndpoint());
+        return this.handleError(error, () => this.getProjectByIdEndpoint(id));
       }));
     }
-
-  getAddViewProject<T>(id: number): Observable<T> {
-    return this.http.post<T>(this._addViewProjectUrl + "/" + id, this.requestHeaders).pipe<T>(
-      catchError(error => {
-        return this.handleError(error, () => this.getProjectEndpoint());
-      }));
-  }
 }
