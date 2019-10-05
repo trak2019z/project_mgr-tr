@@ -8,7 +8,7 @@ export class Project extends AuditableEntity {
   public shortDescription: string;
   public projectFile: ProjectFile;
   public images: Image;
-
+  public views:number;
   constructor(name: string,
     author: string,
     description: string,

@@ -9,7 +9,6 @@ export class ProjectResolve implements Resolve<Project> {
     constructor(private projectService: ProjectsService) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Project> {
-      console.log(route.params['id']);
       return this.projectService.getProject(route.params['id']);
     }
 }

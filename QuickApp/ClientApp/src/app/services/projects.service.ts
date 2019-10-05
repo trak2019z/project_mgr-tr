@@ -22,5 +22,9 @@ export class ProjectsService {
     }
   getProject(id:number) {
     return this.projectEndpoint.getProjectByIdEndpoint<Project>(id);
+    }
+  addView(id: number) {
+    return this.projectEndpoint.getAddViewProject(id);
   }
+
 }

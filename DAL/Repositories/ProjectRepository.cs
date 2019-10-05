@@ -22,5 +22,14 @@ namespace DAL.Repositories
 
         public override Project Get(int id) =>
             _appContext.Projects.Include(nameof(Project.ProjectFile)).Include(nameof(Project.Images)).FirstOrDefault(p=>p.Id==id);
+
+
+        public void AddView(int id)
+        {
+            var project = _appContext.Projects.Find(id);
+            project.Views = +1;
+            _appContext.Projects.Update(project);
+            _appContext.SaveChanges();
+        }
     }
 }

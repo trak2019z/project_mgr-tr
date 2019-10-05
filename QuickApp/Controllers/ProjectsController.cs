@@ -73,5 +73,19 @@ namespace QuickApp.Controllers
                 return HttpStatusCode.InternalServerError;
             }
         }
+
+        [HttpPost("AddView/{id}")]
+        public HttpStatusCode AddView(int id)
+        {
+            try
+            {
+                _unitOfWork.Projects.AddView(id);
+                return HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                return HttpStatusCode.InternalServerError;
+            }
+        }
     }
 }

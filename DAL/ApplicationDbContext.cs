@@ -40,7 +40,7 @@ namespace DAL
 
 
             builder.Entity<Project>().Property(p => p.Name).IsRequired().HasMaxLength(100);
-            builder.Entity<Project>().Property(p => p.Description).HasMaxLength(500);
+            builder.Entity<Project>().Property(p => p.Description).HasMaxLength(10000);
             builder.Entity<File>();
             builder.Entity<Image>();
 

@@ -7,5 +7,6 @@ namespace DAL.Repositories.Interfaces
 {
     public interface IFileRepository : IRepository<File>
     {
+        void AddDownload(int id);
     }
 }

@@ -13,10 +13,10 @@ import { Project } from "../../models/project";
 export class ProjectDetailsComponent implements OnInit {
     public project:Project;
   constructor(private route: ActivatedRoute, private service:ProjectsService){}
+
   ngOnInit() {
-    this.project = this.route.snapshot.data.project;
-    console.log(this.project);
-
+      this.project = this.route.snapshot.data.project;
+      this.project.images.path = "https://localhost:44350/images/" + this.project.images.path;
+      this.service.addView(this.project.id).subscribe();
   }
-
 }
