@@ -226,7 +226,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     alertify.set({
       labels: {
         ok: dialog.okLabel || 'OK',
-        cancel: dialog.cancelLabel || 'Cancel'
+        cancel: dialog.cancelLabel || 'Anuluj'
       }
     });
 

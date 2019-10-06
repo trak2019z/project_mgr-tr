@@ -54,9 +54,9 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
 
         this.columns = [
             { prop: 'index', name: '#', width: 50, cellTemplate: this.indexTemplate, canAutoResize: false },
-            { prop: 'name', name: gT('roles.management.Name'), width: 180 },
-            { prop: 'description', name: gT('roles.management.Description'), width: 320 },
-            { prop: 'usersCount', name: gT('roles.management.Users'), width: 50 },
+            { prop: 'name', name: 'Nazwa', width: 180 },
+            { prop: 'description', name: 'Opis', width: 320 },
+            { prop: 'usersCount', name: 'Użytkownicy', width: 50 },
             { name: '', width: 160, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
@@ -147,7 +147,7 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
                 this.alertService.stopLoadingMessage();
                 this.loadingIndicator = false;
 
-                this.alertService.showStickyMessage('Load Error', `Unable to retrieve roles from the server.\r\nErrors: "${Utilities.getHttpResponseMessages(error)}"`,
+                this.alertService.showStickyMessage('Błąd', `Błąd podczas pobierania danych o rolach z serwera.\r\nBłędy: "${Utilities.getHttpResponseMessages(error)}"`,
                     MessageSeverity.error, error);
             });
     }
@@ -180,13 +180,13 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
     }
 
     deleteRole(row: Role) {
-        this.alertService.showDialog('Are you sure you want to delete the \"' + row.name + '\" role?', DialogType.confirm, () => this.deleteRoleHelper(row));
+        this.alertService.showDialog('Jesteś pewien że chcesz usunąć rolę: \"' + row.name + '\"?', DialogType.confirm, () => this.deleteRoleHelper(row));
     }
 
 
     deleteRoleHelper(row: Role) {
 
-        this.alertService.startLoadingMessage('Deleting...');
+        this.alertService.startLoadingMessage('Usuwanie...');
         this.loadingIndicator = true;
 
         this.accountService.deleteRole(row)
@@ -201,7 +201,7 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
                 this.alertService.stopLoadingMessage();
                 this.loadingIndicator = false;
 
-                this.alertService.showStickyMessage('Delete Error', `An error occured whilst deleting the role.\r\nError: "${Utilities.getHttpResponseMessages(error)}"`,
+                this.alertService.showStickyMessage('Błąd', `Wystąpił błąd podczas usuwania roli.\r\nBłędy: "${Utilities.getHttpResponseMessages(error)}"`,
                     MessageSeverity.error, error);
             });
     }

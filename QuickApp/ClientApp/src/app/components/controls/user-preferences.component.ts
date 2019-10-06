@@ -1,8 +1,3 @@
-// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { AlertService, DialogType, MessageSeverity } from '../../services/alert.service';
@@ -41,22 +36,10 @@ export class UserPreferencesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.languageChangedSubscription = this.translationService.languageChanged$.subscribe(data => {
-            this.themeSelectorToggle = false;
-
-            setTimeout(() => {
-                this.languageSelector.refresh();
-                this.homePageSelector.refresh();
-                this.themeSelectorToggle = true;
-            });
-        });
+   
     }
-
     ngOnDestroy() {
-        this.languageChangedSubscription.unsubscribe();
     }
-
-
 
     reloadFromServer() {
         this.alertService.startLoadingMessage();
@@ -67,34 +50,34 @@ export class UserPreferencesComponent implements OnInit, OnDestroy {
 
                 this.configurations.import(results);
 
-                this.alertService.showMessage('Defaults loaded!', '', MessageSeverity.info);
+                this.alertService.showMessage('Przywrócono domyślne!', '', MessageSeverity.info);
 
             },
             error => {
                 this.alertService.stopLoadingMessage();
-                this.alertService.showStickyMessage('Load Error', `Unable to retrieve user preferences from the server.\r\nErrors: "${Utilities.getHttpResponseMessages(error)}"`,
+                this.alertService.showStickyMessage('Błąd', `Problem z pobieraniem preferencji użytkownika z serwera.\r\nBłędy: "${Utilities.getHttpResponseMessages(error)}"`,
                     MessageSeverity.error, error);
             });
     }
 
     setAsDefault() {
-        this.alertService.showDialog('Are you sure you want to set the current configuration as your new defaults?', DialogType.confirm,
+        this.alertService.showDialog('Chcesz zapisać obecną konfigurację?', DialogType.confirm,
             () => this.setAsDefaultHelper(),
-            () => this.alertService.showMessage('Operation Cancelled!', '', MessageSeverity.default));
+            () => this.alertService.showMessage('Anulowano!', '', MessageSeverity.default));
     }
 
     setAsDefaultHelper() {
-        this.alertService.startLoadingMessage('', 'Saving new defaults');
+        this.alertService.startLoadingMessage('', 'Zapisywanie');
 
         this.accountService.updateUserPreferences(this.configurations.export())
             .subscribe(response => {
                 this.alertService.stopLoadingMessage();
-                this.alertService.showMessage('New Defaults', 'Account defaults updated successfully', MessageSeverity.success);
+                this.alertService.showMessage('Nowe preferencja', 'Prefrencje użytkownika zapisane pomyślnie', MessageSeverity.success);
 
             },
             error => {
                 this.alertService.stopLoadingMessage();
-                this.alertService.showStickyMessage('Save Error', `An error occured whilst saving configuration defaults.\r\nErrors: "${Utilities.getHttpResponseMessages(error)}"`,
+                this.alertService.showStickyMessage('Błąd', `Wystąpił błąd podczas usuwania użytkownika.\r\nBłędy: "${Utilities.getHttpResponseMessages(error)}"`,
                     MessageSeverity.error, error);
             });
     }
@@ -102,31 +85,31 @@ export class UserPreferencesComponent implements OnInit, OnDestroy {
 
 
     resetDefault() {
-        this.alertService.showDialog('Are you sure you want to reset your defaults?', DialogType.confirm,
+        this.alertService.showDialog('Chcesz zresetować swoje ustawenia?', DialogType.confirm,
             () => this.resetDefaultHelper(),
-            () => this.alertService.showMessage('Operation Cancelled!', '', MessageSeverity.default));
+            () => this.alertService.showMessage('Anulowano!', '', MessageSeverity.default));
     }
 
     resetDefaultHelper() {
-        this.alertService.startLoadingMessage('', 'Resetting defaults');
+        this.alertService.startLoadingMessage('', 'Resetowanie ustawień');
 
         this.accountService.updateUserPreferences(null)
             .subscribe(response => {
                 this.alertService.stopLoadingMessage();
                 this.configurations.import(null);
-                this.alertService.showMessage('Defaults Reset', 'Account defaults reset completed successfully', MessageSeverity.success);
+                this.alertService.showMessage('Resetowanie ustawień', 'Zresetowanie ustawienia konta', MessageSeverity.success);
 
             },
             error => {
                 this.alertService.stopLoadingMessage();
-                this.alertService.showStickyMessage('Save Error', `An error occured whilst resetting configuration defaults.\r\nErrors: "${Utilities.getHttpResponseMessages(error)}"`,
+                this.alertService.showStickyMessage('Błąd', `Wystąpił błąd podczas resetowania ustawień.\r\nBłędy: "${Utilities.getHttpResponseMessages(error)}"`,
                     MessageSeverity.error, error);
             });
     }
 
 
-    get canViewCustomers() {
-        return this.accountService.userHasPermission(Permission.viewUsersPermission); // eg. viewCustomersPermission
+  get canAddProject() {
+        return this.accountService.userHasPermission(Permission.createProjectPermission); // eg. viewCustomersPermission
     }
 
     get canViewProducts() {

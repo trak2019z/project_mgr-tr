@@ -20,17 +20,15 @@ export class FileEndpointService extends EndpointBase {
       super(http, authService);
   }
 
-  protected get requestHeaders(): { headers: HttpHeaders | { [header: string]: string | string[]; } } {
-    const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + this.authService.accessToken,
-        'Content-Type': 'blob',
-      Accept: 'application/json, text/plain, */*'
-    });
-    return { headers };
-  }W
+  private headers = new HttpHeaders({
+    Authorization: 'Bearer ' + this.authService.accessToken,
+    'Content-Type': 'blob',
+    Accept: 'blob'
+  });
+ 
 
-  getFileDownloadEndpoint<T>(id: string): Observable<T> {
-    return this.http.get<T>(this.downloadFilesUrl+id, this.requestHeaders).pipe<T>(
+  getFileDownloadEndpoint(id: string) {
+    return this.http.get(this.downloadFilesUrl + id, { headers: this.headers, responseType: 'blob' }).pipe(
       catchError(error => {
           return this.handleError(error, () => this.getFileDownloadEndpoint(id));
       }));

@@ -1,5 +1,4 @@
 ﻿using System;
-using DAL;
 using Microsoft.AspNetCore.Mvc;
 using QuickApp.Services;
 
@@ -9,12 +8,10 @@ namespace QuickApp.Controllers
     [ApiController]
     public class FileController : ControllerBase
     {
-        private readonly UnitOfWork _unitOfWork;
         private readonly IFileService _fileService;
 
-        public FileController(UnitOfWork unitOfWork, IFileService fileService)
+        public FileController(IFileService fileService)
         {
-            _unitOfWork = unitOfWork;
             _fileService = fileService;
         }
 

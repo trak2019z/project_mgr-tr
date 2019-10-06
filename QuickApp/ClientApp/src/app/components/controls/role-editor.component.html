@@ -1,14 +1,14 @@
 <div>
   <form *ngIf="formResetToggle" name="roleEditorForm" #f="ngForm" novalidate
         (ngSubmit)="f.form.valid ? save() :
-          (!roleName.valid && showErrorAlert('Role name is required', 'Please enter a role name (minimum of 2 and maximum of 200 characters)'));">
+          (!roleName.valid && showErrorAlert('Nazwa roli jest wymagana', 'Wprowadź nazwę roli (Minimum 2 znaki, Maksimum 200)'));">
 
     <div class="row">
       <div class="col-sm-5">
         <div class="form-group row has-feedback-icon">
-          <label class="col-form-label col-md-3" for="roleName">{{'roles.editor.Name' | translate}}</label>
+          <label class="col-form-label col-md-3" for="roleName">Nazwa roli</label>
           <div class="col-md-9">
-            <input [disabled]="!canManageRoles" type="text" id="roleName" name="roleName" placeholder="Enter role name" class="form-control"
+            <input [disabled]="!canManageRoles" type="text" id="roleName" name="roleName" placeholder="Wprowadź nazwę roli" class="form-control"
                    [ngClass]="{'is-valid': f.submitted && roleName.valid, 'is-invalid' : f.submitted && !roleName.valid}" [(ngModel)]="roleEdit.name" #roleName="ngModel" required minlength="2" maxlength="200" />
             <i *ngIf="showValidationErrors && f.submitted" class="fa form-control-feedback" [ngClass]="{'fa-check': roleName.valid, 'fa-times' : !roleName.valid}" aria-hidden="true"></i>
           </div>
@@ -17,9 +17,9 @@
 
       <div class="col-sm-7">
         <div class="form-group row">
-          <label class="col-form-label col-md-3" for="roleDescription">{{'roles.editor.Description' | translate}}</label>
+          <label class="col-form-label col-md-3" for="roleDescription">Opis</label>
           <div class="col-md-9">
-            <input [disabled]="!canManageRoles" type="text" id="roleDescription" name="roleDescription" placeholder="Enter role description" class="form-control" [(ngModel)]="roleEdit.description" />
+            <input [disabled]="!canManageRoles" type="text" id="roleDescription" name="roleDescription" placeholder="Wprowadź opis roli" class="form-control" [(ngModel)]="roleEdit.description" />
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
     <div class="row">
       <div class="col-md-12">
         <span *ngIf="showValidationErrors && f.submitted && !roleName.valid" class="invalid-feedback">
-          {{'roles.editor.RoleNameRequired' | translate}}
+          Nazwa roli jest wymagana
         </span>
       </div>
     </div>
@@ -72,16 +72,16 @@
     <div class="form-group row">
       <div class="col-sm-5">
         <div *ngIf="canManageRoles" class="float-left">
-          <a (click)="selectAll()" href="javascript:;" class="btn btn-link">{{'roles.editor.SelectAll' | translate}}</a>|<a (click)="selectNone()" href="javascript:;" class="btn btn-link">{{'roles.editor.SelectNone' | translate}}</a>
+          <a (click)="selectAll()" href="javascript:;" class="btn btn-link">Zaznacz wszystkie</a>|<a (click)="selectNone()" href="javascript:;" class="btn btn-link">Odznacz wszystkie</a>
         </div>
       </div>
 
       <div class="col-sm-7">
         <div ngPreserveWhitespaces class="float-right">
-          <button *ngIf="!canManageRoles" type="button" (click)="cancel()" class="btn btn-outline-secondary">{{'roles.editor.Close' | translate}}</button>
-          <button *ngIf="canManageRoles" type="button" (click)="cancel()" class="btn btn-danger" [disabled]="isSaving"><i class='fa fa-times'></i> {{'roles.editor.Cancel' | translate}}</button>
+          <button *ngIf="!canManageRoles" type="button" (click)="cancel()" class="btn btn-outline-secondary">Zamknij</button>
+          <button *ngIf="canManageRoles" type="button" (click)="cancel()" class="btn btn-danger" [disabled]="isSaving"><i class='fa fa-times'></i>Anuluj</button>
           <button *ngIf="canManageRoles" type="submit" class="btn btn-primary" [disabled]="isSaving">
-            <i *ngIf="!isSaving" class='fa fa-save'></i><i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i> {{isSaving ? ('roles.editor.Saving' | translate) : ('roles.editor.Save' | translate)}}
+            <i *ngIf="!isSaving" class='fa fa-save'></i><i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i> {{isSaving ? ('Zapisywanie') : ('Zapisz')}}
           </button>
         </div>
       </div>

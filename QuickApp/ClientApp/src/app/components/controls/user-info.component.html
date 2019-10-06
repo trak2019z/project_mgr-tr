@@ -2,31 +2,23 @@
   <form *ngIf="formResetToggle" [attr.autocomplete]="isGeneralEditor ? 'NaN' : null" name="userInfoForm" #f="ngForm" novalidate
         (ngSubmit)="f.form.valid ? save() :
 
-          (!userName.valid && showErrorAlert('User name is required', 'Please enter a user name (minimum of 2 and maximum of 200 characters)'));
+          (!userName.valid && showErrorAlert('Login jest wymagany!', 'Proszę wpisać login (minimalnie 2 znaki, maksymalnie 200)'));
 
-          (userPassword && !userPassword.valid && showErrorAlert('Password is required', 'Please enter the current password'));
+          (userPassword && !userPassword.valid && showErrorAlert('Hasło jest wymagane!', 'Wprowadź aktualne hasło'));
 
-          (email.errors?.required && showErrorAlert('Email is required', 'Please enter an email address (maximum of 200 characters)'));
-          (email.errors?.pattern && showErrorAlert('Invalid Email', 'Please enter a valid email address'));
+          (email.errors?.required && showErrorAlert('Adres e-mail jest wymagany', 'Proszę wprowadzić adres e-mail (maksymalnie 200 znaków)'));
+          (email.errors?.pattern && showErrorAlert('Niepoprawny e-mail', 'Proszę wprowadzić adres e-mail'));
 
-          (isChangePassword && isEditingSelf && !currentPassword.valid && showErrorAlert('Current password is required', 'Please enter the current password'));
+          (isChangePassword && isEditingSelf && !currentPassword.valid && showErrorAlert('Aktualne hasło jest wymagane', 'Proszę wprowadzić aktualne hasło'));
 
-          ((isChangePassword || isNewUser) && !newPassword.valid && showErrorAlert('New password is required', 'Please enter the new password (minimum of 6 characters)'));
+          ((isChangePassword || isNewUser) && !newPassword.valid && showErrorAlert('Nowe hasło jest wymagane', 'Proszę wprowadzić nowe hasło (minimum 6 znaków)'));
 
-          ((isChangePassword || isNewUser) && newPassword.valid && confirmPassword.errors?.required && showErrorAlert('Confirmation password is required', 'Please enter the confirmation password'));
-          ((isChangePassword || isNewUser) && newPassword.valid && confirmPassword.errors?.validateEqual && showErrorAlert('Passwword mismatch', 'New password and confirmation password do not match'));
+          ((isChangePassword || isNewUser) && newPassword.valid && confirmPassword.errors?.required && showErrorAlert('Potwierdzenie hasła jest wymagane', 'Potwierdź hasło'));
+          ((isChangePassword || isNewUser) && newPassword.valid && confirmPassword.errors?.validateEqual && showErrorAlert('Hasła nie są zgodne', 'Nowe hasło oraz jego potwierdzenie nie pasują do siebie'));
 
-          (canAssignRoles && !roles.valid && showErrorAlert('Roles is required', 'Please select a minimum of 1 role'));">
+          (canAssignRoles && !roles.valid && showErrorAlert('Rola jest wymagana', 'Proszę wybrać przynajmniej jedną rolę'));">
 
-    <div class="form-group row">
-      <label [class.col-lg-3]="isViewOnly" [class.col-lg-2]="!isViewOnly" class="col-form-label" for="jobTitle-{{uniqueId}}">{{'users.editor.JobTitle' | translate}}</label>
-      <div *ngIf="!isEditMode" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
-        <p class="form-control-plaintext">{{user.jobTitle}}</p>
-      </div>
-      <div *ngIf="isEditMode" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
-        <input autofocus type="text" attr.id="jobTitle-{{uniqueId}}" name="jobTitle" placeholder="Enter Job Title" class="form-control" [(ngModel)]="userEdit.jobTitle" />
-      </div>
-    </div>
+
 
     <div class="row">
       <div class="col-lg-12">
@@ -35,17 +27,17 @@
     </div>
 
     <div class="form-group row has-feedback-icon">
-      <label [class.col-lg-3]="isViewOnly" [class.col-lg-2]="!isViewOnly" class="col-form-label" for="userName-{{uniqueId}}">{{'users.editor.UserName' | translate}}</label>
+      <label [class.col-lg-3]="isViewOnly" [class.col-lg-2]="!isViewOnly" class="col-form-label" for="userName-{{uniqueId}}">Login</label>
       <div *ngIf="!isEditMode" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
         <p class="form-control-plaintext">{{user.userName}}</p>
       </div>
       <div *ngIf="isEditMode" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
-        <input type="text" attr.id="userName-{{uniqueId}}" name="userName" [attr.autocomplete]="isGeneralEditor ? 'new-password' : null" placeholder="Enter user name"
+        <input type="text" attr.id="userName-{{uniqueId}}" name="userName" [attr.autocomplete]="isGeneralEditor ? 'new-password' : null" placeholder="Wprowadź login"
                class="form-control" [ngClass]="{'is-valid': f.submitted && userName.valid, 'is-invalid' : f.submitted && !userName.valid}"
                [(ngModel)]="userEdit.userName" #userName="ngModel" required minlength="2" maxlength="200" />
         <i *ngIf="showValidationErrors && f.submitted" class="fa form-control-feedback" [ngClass]="{'fa-check': userName.valid, 'fa-times' : !userName.valid}" aria-hidden="true"></i>
         <span *ngIf="showValidationErrors && f.submitted && !userName.valid" class="invalid-feedback">
-          {{'users.editor.UserNameRequired' | translate}}
+            Login wymagany
         </span>
       </div>
     </div>
@@ -56,15 +48,15 @@
       </div>
     </div>
     <div *ngIf="isEditMode && isEditingSelf && !isChangePassword && user.userName != userEdit.userName" class="form-group row has-feedback-icon">
-      <label class="col-form-label col-lg-2" for="userPassword-{{uniqueId}}">{{'users.editor.Password' | translate}}</label>
+      <label class="col-form-label col-lg-2" for="userPassword-{{uniqueId}}">Hasło</label>
       <div class="col-lg-10">
-        <input type="password" attr.id="userPassword-{{uniqueId}}" name="userPassword" [attr.autocomplete]="isGeneralEditor ? 'new-password' : null" placeholder="Enter password"
+        <input type="password" attr.id="userPassword-{{uniqueId}}" name="userPassword" [attr.autocomplete]="isGeneralEditor ? 'new-password' : null" placeholder="Wprowadź hasło"
                class="form-control" [ngClass]="{'is-valid': f.submitted && userPassword.valid, 'is-invalid' : f.submitted && !userPassword.valid}"
                [(ngModel)]="userEdit.currentPassword" #userPassword="ngModel" required />
-        <small class="hint-sm">{{'users.editor.PasswordHint' | translate}}</small>
+        <small class="hint-sm">Wprowadź hasło</small>
         <i *ngIf="showValidationErrors && f.submitted" class="fa form-control-feedback" [ngClass]="{'fa-check': userPassword.valid, 'fa-times' : !userPassword.valid}" aria-hidden="true"></i>
         <span *ngIf="showValidationErrors && f.submitted && !userPassword.valid" class="invalid-feedback">
-          {{'users.editor.CurrentPasswordRequired' | translate}}
+          Aktualne hasło jest wymagane
         </span>
       </div>
     </div>
@@ -82,14 +74,14 @@
         <p class="form-control-plaintext">{{user.email}}</p>
       </div>
       <div *ngIf="isEditMode" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
-        <input type="text" attr.id="email-{{uniqueId}}" name="email" placeholder="Enter email address" class="form-control" [ngClass]="{'is-valid': f.submitted && email.valid, 'is-invalid' : f.submitted && !email.valid}"
+        <input type="text" attr.id="email-{{uniqueId}}" name="email" placeholder="Wprowadź adres email" class="form-control" [ngClass]="{'is-valid': f.submitted && email.valid, 'is-invalid' : f.submitted && !email.valid}"
                [(ngModel)]="userEdit.email" #email="ngModel" required maxlength="200" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" />
         <i *ngIf="showValidationErrors && f.submitted" class="fa form-control-feedback" [ngClass]="{'fa-check': email.valid, 'fa-times' : !email.valid}" aria-hidden="true"></i>
         <span *ngIf="showValidationErrors && f.submitted && email.errors?.required" class="invalid-feedback">
-          {{'users.editor.EmailRequired' | translate}}
+          Wymagany adres e-mai
         </span>
         <span *ngIf="showValidationErrors && f.submitted && email.errors?.pattern" class="invalid-feedback">
-          {{'users.editor.InvalidEmail' | translate}}
+          Niepoprawny adres e-mail
         </span>
       </div>
     </div>
@@ -101,21 +93,21 @@
     </div>
 
     <div *ngIf="isEditMode" class="form-group row">
-      <label for="newPassword-{{uniqueId}}" class="col-form-label col-lg-2">{{'users.editor.Password' | translate}}</label>
+      <label for="newPassword-{{uniqueId}}" class="col-form-label col-lg-2">Hasło</label>
       <div *ngIf="!isChangePassword && !isNewUser" class="col-lg-10">
-        <button type="button" (click)="changePassword()" class="btn btn-link">{{'users.editor.ChangePassword' | translate}}</button>
+        <button type="button" (click)="changePassword()" class="btn btn-link">Zmień hasło</button>
       </div>
 
       <div *ngIf="isChangePassword || isNewUser" class="col-lg-10">
         <div class="password-well card card-body bg-light">
           <div *ngIf="isEditingSelf" class="form-group row has-feedback-icon">
-            <label class="col-form-label col-lg-3" for="currentPassword-{{uniqueId}}">{{'users.editor.CurrentPassword' | translate}}</label>
+            <label class="col-form-label col-lg-3" for="currentPassword-{{uniqueId}}">Aktualne hasło</label>
             <div class="col-lg-9">
-              <input type="password" attr.id="currentPassword-{{uniqueId}}" name="currentPassword" [attr.autocomplete]="isGeneralEditor ? 'new-password' : null" placeholder="Enter current password" class="form-control"
+              <input type="password" attr.id="currentPassword-{{uniqueId}}" name="currentPassword" [attr.autocomplete]="isGeneralEditor ? 'new-password' : null" placeholder="Wprowadź aktualne hasło" class="form-control"
                      [ngClass]="{'is-valid': f.submitted && currentPassword.valid, 'is-invalid' : f.submitted && !currentPassword.valid}" [(ngModel)]="userEdit.currentPassword" #currentPassword="ngModel" required />
               <i *ngIf="showValidationErrors && f.submitted" class="fa form-control-feedback" [ngClass]="{'fa-check': currentPassword.valid, 'fa-times' : !currentPassword.valid}" aria-hidden="true"></i>
               <span *ngIf="showValidationErrors && f.submitted && !currentPassword.valid" class="invalid-feedback">
-                {{'users.editor.CurrentPasswordRequired' | translate}}
+                Aktualne hasło jest wymagane
               </span>
             </div>
           </div>
@@ -127,14 +119,14 @@
           </div>
 
           <div class="form-group row has-feedback-icon">
-            <label class="col-form-label col-lg-3" for="newPassword-{{uniqueId}}">{{'users.editor.NewPassword' | translate}}</label>
+            <label class="col-form-label col-lg-3" for="newPassword-{{uniqueId}}">Nowe hasło</label>
             <div class="col-lg-9">
-              <input type="password" attr.id="newPassword-{{uniqueId}}" name="newPassword" [attr.autocomplete]="isGeneralEditor ? 'new-password' : null" placeholder="Enter new password" class="form-control"
+              <input type="password" attr.id="newPassword-{{uniqueId}}" name="newPassword" [attr.autocomplete]="isGeneralEditor ? 'new-password' : null" placeholder="Wprowadź nowe hasło" class="form-control"
                      [ngClass]="{'is-valid': f.submitted && newPassword.valid, 'is-invalid' : f.submitted && !newPassword.valid}" [(ngModel)]="userEdit.newPassword" #newPassword="ngModel"
                      required minlength="6" validateEqual="confirmPassword" reverse="true" />
               <i *ngIf="showValidationErrors && f.submitted" class="fa form-control-feedback" [ngClass]="{'fa-check': newPassword.valid, 'fa-times' : !newPassword.valid}" aria-hidden="true"></i>
               <span *ngIf="showValidationErrors && f.submitted && !newPassword.valid" class="invalid-feedback">
-                {{'users.editor.NewPasswordRequired' | translate}}
+                Nowe hasło jest wymagane
               </span>
             </div>
           </div>
@@ -146,17 +138,17 @@
           </div>
 
           <div class="form-group row has-feedback-icon">
-            <label class="col-form-label col-lg-3" for="confirmPassword-{{uniqueId}}">{{'users.editor.ConfirmPassword' | translate}}</label>
+            <label class="col-form-label col-lg-3" for="confirmPassword-{{uniqueId}}">Potwierdź hasło</label>
             <div class="col-lg-9">
-              <input type="password" attr.id="confirmPassword-{{uniqueId}}" name="confirmPassword" [attr.autocomplete]="isGeneralEditor ? 'new-password' : null" placeholder="Confirm new password" class="form-control"
+              <input type="password" attr.id="confirmPassword-{{uniqueId}}" name="confirmPassword" [attr.autocomplete]="isGeneralEditor ? 'new-password' : null" placeholder="Ponownie wprowadź nowe hasło" class="form-control"
                      [ngClass]="{'is-valid': f.submitted && confirmPassword.valid, 'is-invalid' : f.submitted && !confirmPassword.valid}" [(ngModel)]="userEdit.confirmPassword" #confirmPassword="ngModel"
                      required validateEqual="newPassword" />
               <i *ngIf="showValidationErrors && f.submitted" class="fa form-control-feedback" [ngClass]="{'fa-check': confirmPassword.valid, 'fa-times' : !confirmPassword.valid}" aria-hidden="true"></i>
               <span *ngIf="showValidationErrors && f.submitted && confirmPassword.errors?.required" class="invalid-feedback">
-                {{'users.editor.ConfirmationPasswordRequired' | translate}}
+                Potwierdzenie hasła jest wymagane
               </span>
               <span *ngIf="showValidationErrors && f.submitted && confirmPassword.errors?.validateEqual && !confirmPassword.errors?.required" class="invalid-feedback">
-                {{'users.editor.PasswordMismatch' | translate}}
+                Hasła nie są zgodne
               </span>
             </div>
           </div>
@@ -173,7 +165,7 @@
     </div>
 
     <div *ngIf="!isEditMode || canAssignRoles" class="form-group row has-feedback-icon">
-      <label [class.col-lg-3]="isViewOnly" [class.col-lg-2]="!isViewOnly" class="col-form-label" for="roles-user-info">{{'users.editor.Roles' | translate}}</label>
+      <label [class.col-lg-3]="isViewOnly" [class.col-lg-2]="!isViewOnly" class="col-form-label" for="roles-user-info">Role</label>
       <div *ngIf="!isEditMode" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
         <p ngPreserveWhitespaces class="form-control-plaintext">
           <span *ngFor="let role of user.roles">
@@ -183,7 +175,7 @@
       </div>
       <div *ngIf="isEditMode && canAssignRoles" [ngClass]="{'is-valid': f.submitted && roles.valid, 'is-invalid' : f.submitted && !roles.valid}" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
         <select id="roles-user-info" name="roles" [(ngModel)]="userEdit.roles" #roles="ngModel" #rolesSelector="bootstrap-select"
-                class="selectpicker form-control left-status" bootstrapSelect required multiple data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="Select Roles">
+                class="selectpicker form-control left-status" bootstrapSelect required multiple data-live-search="true" data-actions-box="false" data-live-search-placeholder="Szukaj..." title="Select Roles">
           <option *ngFor="let role of allRoles" attr.data-content="<span title='{{role.description}}' class='badge badge-pill badge-secondary'>{{role.name}}</span>" attr.value="{{role.name}}">
             {{role.name}}
           </option>
@@ -204,7 +196,7 @@
     </div>
 
     <div class="form-group row">
-      <label [class.col-lg-3]="isViewOnly" [class.col-lg-2]="!isViewOnly" class="col-form-label" for="fullName-{{uniqueId}}">{{'users.editor.FullName' | translate}}</label>
+      <label [class.col-lg-3]="isViewOnly" [class.col-lg-2]="!isViewOnly" class="col-form-label" for="fullName-{{uniqueId}}">Imię i nazwisko</label>
       <div *ngIf="!isEditMode" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
         <p class="form-control-plaintext">{{user.fullName}}</p>
       </div>
@@ -220,7 +212,7 @@
     </div>
 
     <div class="form-group row">
-      <label [class.col-lg-3]="isViewOnly" [class.col-lg-2]="!isViewOnly" class="col-form-label" for="phoneNumber-{{uniqueId}}">{{'users.editor.PhoneNumber' | translate}}</label>
+      <label [class.col-lg-3]="isViewOnly" [class.col-lg-2]="!isViewOnly" class="col-form-label" for="phoneNumber-{{uniqueId}}">Numer telefonu</label>
       <div *ngIf="!isEditMode" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
         <p class="form-control-plaintext">{{user.phoneNumber}}</p>
       </div>
@@ -240,18 +232,18 @@
         <div *ngIf="isGeneralEditor && isEditMode" class="float-left">
           <div class="form-check user-enabled">
             <input class="form-check-input" type="checkbox" id="idEnabled" name="isEnabled" [(ngModel)]="userEdit.isEnabled">
-            <label for="idEnabled" class="form-check-label">{{'users.editor.Enabled' | translate}}</label>
+            <label for="idEnabled" class="form-check-label">Aktywny</label>
           </div>
           <button *ngIf="userEdit.isLockedOut" type="button" (click)="unlockUser()" class="btn btn-warning unblock-user" [disabled]="isSaving"><i class='fa fa-unlock-alt'></i> {{'users.editor.Unblock' | translate}}</button>
         </div>
       </div>
       <div class="col-sm-7">
         <div ngPreserveWhitespaces class="float-right">
-          <button *ngIf="!isEditMode && isGeneralEditor" type="button" (click)="close()" class="btn btn-outline-secondary"><i class='fa fa-close'></i> {{'users.editor.Close' | translate}}</button>
-          <button *ngIf="!isEditMode && !isGeneralEditor" type="button" (click)="edit()" class="btn btn-outline-secondary"><i class='fa fa-edit'></i> {{'users.editor.Edit' | translate}}</button>
-          <button *ngIf="isEditMode" type="button" (click)="cancel()" class="btn btn-danger" [disabled]="isSaving"><i class='fa fa-times'></i> {{'users.editor.Cancel' | translate}}</button>
+          <button *ngIf="!isEditMode && isGeneralEditor" type="button" (click)="close()" class="btn btn-outline-secondary"><i class='fa fa-close'></i>Zamknij</button>
+          <button *ngIf="!isEditMode && !isGeneralEditor" type="button" (click)="edit()" class="btn btn-outline-secondary"><i class='fa fa-edit'></i> Edytuj</button>
+          <button *ngIf="isEditMode" type="button" (click)="cancel()" class="btn btn-danger" [disabled]="isSaving"><i class='fa fa-times'></i> Anuluj</button>
           <button *ngIf="isEditMode" type="submit" class="btn btn-primary" [disabled]="isSaving">
-            <i *ngIf="!isSaving" class='fa fa-save'></i><i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i> {{isSaving ? ('users.editor.Saving' | translate) : ('users.editor.Save' | translate)}}
+            <i *ngIf="!isSaving" class='fa fa-save'></i><i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'></i> {{isSaving ? ('Zapisywane') : ('Zapisz')}}
           </button>
         </div>
       </div>

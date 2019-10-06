@@ -62,12 +62,11 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
 
         this.columns = [
             { prop: 'index', name: '#', width: 40, cellTemplate: this.indexTemplate, canAutoResize: false },
-            { prop: 'jobTitle', name: gT('users.management.Title'), width: 50 },
-            { prop: 'userName', name: gT('users.management.UserName'), width: 90, cellTemplate: this.userNameTemplate },
-            { prop: 'fullName', name: gT('users.management.FullName'), width: 120 },
-            { prop: 'email', name: gT('users.management.Email'), width: 140 },
-            { prop: 'roles', name: gT('users.management.Roles'), width: 120, cellTemplate: this.rolesTemplate },
-            { prop: 'phoneNumber', name: gT('users.management.PhoneNumber'), width: 100 }
+            { prop: 'userName', name: 'Login', width: 90, cellTemplate: this.userNameTemplate },
+            { prop: 'fullName', name: 'Imię i nazwisko', width: 120 },
+            { prop: 'email', name: 'E-mail', width: 140 },
+            { prop: 'roles', name: 'Role', width: 120, cellTemplate: this.rolesTemplate },
+            { prop: 'phoneNumber', name: 'Numer Telefonu', width: 100 }
         ];
 
         if (this.canManageUsers) {
@@ -161,13 +160,13 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
         this.alertService.stopLoadingMessage();
         this.loadingIndicator = false;
 
-        this.alertService.showStickyMessage('Load Error', `Unable to retrieve users from the server.\r\nErrors: "${Utilities.getHttpResponseMessages(error)}"`,
+        this.alertService.showStickyMessage('Błąd', `Nie można załadaować danych z serwera .\r\Błędy: "${Utilities.getHttpResponseMessages(error)}"`,
             MessageSeverity.error, error);
     }
 
 
     onSearchChanged(value: string) {
-        this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.userName, r.fullName, r.email, r.phoneNumber, r.jobTitle, r.roles));
+        this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.userName, r.fullName, r.email, r.phoneNumber, r.roles));
     }
 
     onEditorModalHidden() {
@@ -193,13 +192,13 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
 
 
     deleteUser(row: UserEdit) {
-        this.alertService.showDialog('Are you sure you want to delete \"' + row.userName + '\"?', DialogType.confirm, () => this.deleteUserHelper(row));
+        this.alertService.showDialog('Na pewno chcesz usunąć użytkownika:  \"' + row.userName + '\"?', DialogType.confirm, () => this.deleteUserHelper(row));
     }
 
 
     deleteUserHelper(row: UserEdit) {
 
-        this.alertService.startLoadingMessage('Deleting...');
+        this.alertService.startLoadingMessage('Usuwanie...');
         this.loadingIndicator = true;
 
         this.accountService.deleteUser(row)
@@ -214,7 +213,7 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
                 this.alertService.stopLoadingMessage();
                 this.loadingIndicator = false;
 
-                this.alertService.showStickyMessage('Delete Error', `An error occured whilst deleting the user.\r\nError: "${Utilities.getHttpResponseMessages(error)}"`,
+                this.alertService.showStickyMessage('Błąd', `Wystąpił błąd podczas usuwania użytkownika.\r\Błąd "${Utilities.getHttpResponseMessages(error)}"`,
                     MessageSeverity.error, error);
             });
     }

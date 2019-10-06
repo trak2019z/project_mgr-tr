@@ -29,7 +29,6 @@
         <span class="app-component navbar-text notifications-popup">Witaj</span>
         <a class="app-component nav-link user-name d-inline-block px-1" [popover]="popTemplate" (onHidden)="markNotificationsAsRead()" placement="bottom" [popoverTitle]="notificationsTitle" href="javascript:;" triggers="focus">
           {{userName}}
-          <span *ngIf="newNotificationCount > 0" class="badge badge-pill badge-secondary">{{newNotificationCount}}</span>
         </a>
         <ng-template #popTemplate>
           <notifications-viewer [isViewOnly]="true"></notifications-viewer>
