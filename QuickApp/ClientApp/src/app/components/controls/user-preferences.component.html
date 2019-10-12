@@ -30,7 +30,7 @@
         <div class="col-sm-4">
             <select id="homePage" [(ngModel)]="configurations.homeUrl" #homePageSelector="bootstrap-select" bootstrapSelect class="selectpicker form-control">
                 <option  data-subtext="(Domyśny)" value="/">Lista projektów</option>
-                <option *ngIf="canViewCustomers"  value="/projects/add">Dodaj projekt</option>
+                <option *ngIf="canAddProject"  value="/projects/add">Dodaj projekt</option>
                 <option  value="/settings">Ustawienia</option>
             </select>
         </div>

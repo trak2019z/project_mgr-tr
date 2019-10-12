@@ -201,7 +201,7 @@
         <p class="form-control-plaintext">{{user.fullName}}</p>
       </div>
       <div *ngIf="isEditMode" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
-        <input type="text" attr.id="fullName-{{uniqueId}}" name="fullName" placeholder="Enter full name" class="form-control" [(ngModel)]="userEdit.fullName" />
+        <input type="text" attr.id="fullName-{{uniqueId}}" name="fullName" placeholder="Wpisz imię i nazwisko" class="form-control" [(ngModel)]="userEdit.fullName" />
       </div>
     </div>
 
@@ -217,7 +217,7 @@
         <p class="form-control-plaintext">{{user.phoneNumber}}</p>
       </div>
       <div *ngIf="isEditMode" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
-        <input type="text" attr.id="phoneNumber-{{uniqueId}}" name="phoneNumber" placeholder="Enter phone number" class="form-control" [(ngModel)]="userEdit.phoneNumber" />
+        <input type="text" attr.id="phoneNumber-{{uniqueId}}" name="phoneNumber" placeholder="Wpisz numer telefonu" class="form-control" [(ngModel)]="userEdit.phoneNumber" />
       </div>
     </div>
 

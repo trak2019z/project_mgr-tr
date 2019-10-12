@@ -11,6 +11,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
+   
+
+
       <div *ngIf="isUserLoggedIn" class="app-component collapse navbar-collapse menuItemsContainer">
         <ul class="app-component nav nav-pills flex-column flex-lg-row mr-auto">
           <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
@@ -20,7 +23,22 @@
           <li class="nav-item" routerLinkActive="active" *ngIf="canAddProjects">
             <a class="nav-link" routerLink="/projects/add">Dodaj Projekt</a>
           </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" (click)="resizeText(1.2)">
+              A
+              <sup>+</sup>
+            </a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" (click)="resizeText(-1.2)">
+              A
+              <sup>-</sup>
+            </a>
+          </li>
         </ul>
+
+
+
         <ul class="app-component nav nav-pills flex-column flex-lg-row mr-md-2">
           <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" routerLink="/settings"><i class="fa fa-cog"></i></a>
