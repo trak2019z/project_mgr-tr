@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this.isLoading = true;
-    this.alertService.startLoadingMessage('', 'Attempting login...');
+    this.alertService.startLoadingMessage('', 'Logowanie...');
 
     this.authService.login(this.userLogin.userName, this.userLogin.password, this.userLogin.rememberMe)
       .subscribe(
@@ -81,11 +81,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.reset();
 
             if (!this.isModal) {
-              this.alertService.showMessage('Login', `Welcome ${user.userName}!`, MessageSeverity.success);
+              this.alertService.showMessage('Login', `Witaj ${user.userName}!`, MessageSeverity.success);
             } else {
-              this.alertService.showMessage('Login', `Session for ${user.userName} restored!`, MessageSeverity.success);
+              this.alertService.showMessage('Login', `Sesja dla ${user.userName} przywrócona!`, MessageSeverity.success);
               setTimeout(() => {
-                this.alertService.showStickyMessage('Session Restored', 'Please try your last operation again', MessageSeverity.default);
+                this.alertService.showStickyMessage('Sesja przywrócona', 'Spróbuj przeprowadzić ostatnią operację ponownie', MessageSeverity.default);
               }, 500);
 
               this.closeModal();
@@ -98,14 +98,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
           if (Utilities.checkNoNetwork(error)) {
             this.alertService.showStickyMessage(Utilities.noNetworkMessageCaption, Utilities.noNetworkMessageDetail, MessageSeverity.error, error);
-            this.offerAlternateHost();
           } else {
             const errorMessage = Utilities.getHttpResponseMessage(error);
 
             if (errorMessage) {
-              this.alertService.showStickyMessage('Unable to login', this.mapLoginErrorMessage(errorMessage), MessageSeverity.error, error);
+              this.alertService.showStickyMessage('Problem z logowaniem', this.mapLoginErrorMessage(errorMessage), MessageSeverity.error, error);
             } else {
-              this.alertService.showStickyMessage('Unable to login', 'An error occured whilst logging in, please try again later.\nError: ' + Utilities.getResponseBody(error), MessageSeverity.error, error);
+              this.alertService.showStickyMessage('Problem z logowaniem', 'Wystąpił błąd podczas logowania.\nBłąd: ' + Utilities.getResponseBody(error), MessageSeverity.error, error);
             }
           }
 
@@ -115,34 +114,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
   }
 
-
-  offerAlternateHost() {
-
-    if (Utilities.checkIsLocalHost(location.origin) && Utilities.checkIsLocalHost(this.configurations.baseUrl)) {
-      this.alertService.showDialog('Dear Developer!\nIt appears your backend Web API service is not running...\n' +
-        'Would you want to temporarily switch to the online Demo API below?(Or specify another)',
-        DialogType.prompt,
-        (value: string) => {
-          this.configurations.baseUrl = value;
-          this.configurations.tokenUrl = value;
-          this.alertService.showStickyMessage('API Changed!', 'The target Web API has been changed to: ' + value, MessageSeverity.warn);
-        },
-        null,
-        null,
-        null,
-        this.configurations.fallbackBaseUrl);
-    }
-  }
-
-
   mapLoginErrorMessage(error: string) {
 
     if (error == 'invalid_username_or_password') {
-      return 'Invalid username or password';
+      return 'Nieprawidłowy login lub hasło';
     }
 
     if (error == 'invalid_grant') {
-      return 'This account has been disabled';
+      return 'Konto zostało zablokowane';
     }
 
     return error;

@@ -50,8 +50,8 @@ namespace DAL
                 await EnsureRoleAsync(adminRoleName, "Domyślny administrator", ApplicationPermissions.GetAllPermissionValues());
                 await EnsureRoleAsync(userRoleName, "Domyślny użytkownik", new string[] { });
 
-                await CreateUserAsync("admin", "Cr!sS@#4", "Wbudowane konto administratora", "admin@costam.com", "+1 (123) 000-0000", new string[] { adminRoleName });
-                await CreateUserAsync("user", "Cr!sS@#4", "Wbudowane konto użytkownika", "user@costam.com", "+1 (123) 000-0001", new string[] { userRoleName });
+                await CreateUserAsync("admin", "Adminadmin12#", "Wbudowane konto administratora", "admin@costam.com", "+1 (123) 000-0000", new string[] { adminRoleName });
+                await CreateUserAsync("user", "Useruser12#", "Wbudowane konto użytkownika", "user@costam.com", "+1 (123) 000-0001", new string[] { userRoleName });
 
                 _logger.LogInformation("Inbuilt account generation completed");
             }

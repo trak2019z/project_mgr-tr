@@ -11,9 +11,9 @@ namespace QuickApp
 {
     public class IdentityServerConfig
     {
-        public const string ApiName = "quickapp_api";
+        public const string ApiName = "project_api";
         public const string ApiFriendlyName = "QuickApp API";
-        public const string QuickAppClientID = "quickapp_spa";
+        public const string QuickAppClientID = "project_spa";
         public const string SwaggerClientID = "swaggerui";
 
         // Identity resources (used by UserInfo endpoint).
@@ -75,19 +75,6 @@ namespace QuickApp
                     //AbsoluteRefreshTokenLifetime = 7200,
                     //SlidingRefreshTokenLifetime = 900,
                 },
-
-                new Client
-                {
-                    ClientId = SwaggerClientID,
-                    ClientName = "Swagger UI",
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    AllowAccessTokensViaBrowser = true,
-                    RequireClientSecret = false,
-
-                    AllowedScopes = {
-                        ApiName
-                    }
-                }
             };
         }
     }

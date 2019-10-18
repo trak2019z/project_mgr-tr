@@ -17,7 +17,8 @@ import { AccountService } from "../../services/account.service";
 export class HomeComponent implements OnInit{
   public posts: GetProjectsResponse[];
   public p:number =1;
-    ngOnInit(): void {
+  filter: any;
+  ngOnInit(): void {
 
     this.projectService.getProjects().subscribe(response => {
       this.posts = response;
@@ -29,12 +30,7 @@ export class HomeComponent implements OnInit{
     });
   }
 
-   resizeText(multiplier) {
-  if (document.body.style.fontSize == "") {
-    document.body.style.fontSize = "1.0em";
-  }
-  document.body.style.fontSize = parseFloat(document.body.style.fontSize) + (multiplier * 0.2) + "em";
-}
+
 
   public onProjectRemove(id: number) {
     console.log("Project remove");

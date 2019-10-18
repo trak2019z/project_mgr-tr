@@ -1,12 +1,10 @@
-// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
+
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using DAL;
 using Microsoft.AspNetCore;
@@ -41,13 +39,18 @@ namespace QuickApp
                     throw new Exception(LoggingEvents.INIT_DATABASE.Name, ex);
                 }
             }
-
-            host.Run();
+            
+            host.Run(services);
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args,IExternalScopeProvider services) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
+                .UseStartup<Startup>().UseKestrel(options => {
+                    var configuration = services.GetRequiredService<IConfiguration>();
+                    bool useHttps = false;
+                    bool.TryParse(configuration["UseHttps"],out useHttps);
+                    if (!useHttps)options.Listen(IPAddress.Loopback, 5080); //HTTP port
+                })
                 .ConfigureLogging((hostingContext, logging) =>
                 {
                     logging.ClearProviders();

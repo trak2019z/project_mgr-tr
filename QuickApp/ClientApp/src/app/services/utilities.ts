@@ -1,7 +1,3 @@
-// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
 
 import { Injectable } from '@angular/core';
 import { HttpResponseBase, HttpResponse, HttpErrorResponse } from '@angular/common/http';
@@ -9,12 +5,12 @@ import { HttpResponseBase, HttpResponse, HttpErrorResponse } from '@angular/comm
 @Injectable()
 export class Utilities {
   public static readonly captionAndMessageSeparator = ':';
-  public static readonly noNetworkMessageCaption = 'No Network';
-  public static readonly noNetworkMessageDetail = 'The server cannot be reached';
-  public static readonly accessDeniedMessageCaption = 'Access Denied!';
+  public static readonly noNetworkMessageCaption = 'Brak połączenia internetowego';
+  public static readonly noNetworkMessageDetail = 'Nie można połączyć z serwerem';
+  public static readonly accessDeniedMessageCaption = 'Odmowa dostępu!';
   public static readonly accessDeniedMessageDetail = '';
-  public static readonly notFoundMessageCaption = 'Not Found';
-  public static readonly notFoundMessageDetail = 'The target resource cannot be found';
+  public static readonly notFoundMessageCaption = 'Nie znaleziono';
+  public static readonly notFoundMessageDetail = 'Nie znalezionow wskazanego obiektu';
 
   public static cookies =
     {

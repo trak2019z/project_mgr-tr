@@ -122,8 +122,8 @@ export class AuthService {
 
   private configureOauthService(rememberMe?: boolean) {
     this.oauthService.issuer = this.baseUrl;
-    this.oauthService.clientId = 'quickapp_spa';
-    this.oauthService.scope = 'openid email phone profile offline_access roles quickapp_api';
+    this.oauthService.clientId = 'project_spa';
+    this.oauthService.scope = 'openid email phone profile offline_access roles project_api';
     this.oauthService.skipSubjectCheck = true;
     this.oauthService.dummyClientSecret = 'not_used';
 

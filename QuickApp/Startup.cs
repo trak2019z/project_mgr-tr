@@ -226,22 +226,17 @@ namespace QuickApp
                 .AllowAnyHeader()
                 .AllowAnyMethod());
 
+            bool useHttps = false;
+            bool.TryParse(Configuration["UseHttps"], out useHttps);
 
-            app.UseHttpsRedirection();
+            if(useHttps) app.UseHttpsRedirection();
+
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseIdentityServer();
 
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.DocumentTitle = "Swagger UI - QuickApp";
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{IdentityServerConfig.ApiFriendlyName} V1");
-                c.OAuthClientId(IdentityServerConfig.SwaggerClientID);
-                c.OAuthClientSecret("no_password"); //Leaving it blank doesn't work
-            });
-
+         
 
             app.UseMvc(routes =>
             {

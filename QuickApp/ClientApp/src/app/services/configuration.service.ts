@@ -1,8 +1,3 @@
-// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -113,7 +108,7 @@ export class ConfigurationService {
   public baseUrl = environment.baseUrl || Utilities.baseUrl();
   public tokenUrl = environment.tokenUrl || environment.baseUrl || Utilities.baseUrl();
   public loginUrl = environment.loginUrl;
-  public fallbackBaseUrl = 'http://quickapp.ebenmonney.com';
+  public fallbackBaseUrl = 'https://localhost:5001';
   // ***End of defaults***
 
   private _language: string = null;

@@ -16,7 +16,7 @@ import { AuthService } from "../../services/auth.service";
 })
 
 export class AddProjectComponent {
-    private projectData: FormGroup;
+     projectData: FormGroup;
     public fileUploadProgress: number;
     public photoUploadProgress: number;
     public messagePhoto: string;
@@ -43,7 +43,7 @@ export class AddProjectComponent {
     });
  
 
-  public uploadFile = (files,type:string) => {
+  public uploadFile = (files) => {
     if (files.length === 0) {
       return;
     }
@@ -64,11 +64,10 @@ export class AddProjectComponent {
         });
   };
 
-  public uploadImage = (files, type: string) => {
+  public uploadImage = (files) => {
     if (files.length === 0) {
       return;
     }
-    console.log(type);
 
     let fileToUpload = <File>files[0];
     const formData = new FormData();
