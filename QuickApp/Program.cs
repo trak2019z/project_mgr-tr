@@ -1,12 +1,9 @@
-
-
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using DAL;
+using IdentityServer4.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +17,11 @@ namespace QuickApp
     {
         public static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args).Build();
+            IConfigurationRoot config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").AddCommandLine(args)
+                .Build();
+
+            var host = CreateWebHostBuilder(args, config).Build();
 
             using (var scope = host.Services.CreateScope())
             {
@@ -38,19 +39,20 @@ namespace QuickApp
 
                     throw new Exception(LoggingEvents.INIT_DATABASE.Name, ex);
                 }
+
+                host.Run(services);
             }
-            
-            host.Run(services);
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args,IExternalScopeProvider services) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>().UseKestrel(options => {
-                    var configuration = services.GetRequiredService<IConfiguration>();
-                    bool useHttps = false;
-                    bool.TryParse(configuration["UseHttps"],out useHttps);
-                    if (!useHttps)options.Listen(IPAddress.Loopback, 5080); //HTTP port
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args, IConfigurationRoot config) =>
+         
+        WebHost.CreateDefaultBuilder(args).UseKestrel(options => {
+        
+                    if(config["HttpsRedirectionPort"].IsNullOrEmpty())  options.Listen(IPAddress.Loopback, 5080); //
+
                 })
+                .UseStartup<Startup>()
                 .ConfigureLogging((hostingContext, logging) =>
                 {
                     logging.ClearProviders();

@@ -1,8 +1,3 @@
-// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
 using AutoMapper;
 using DAL;
 using DAL.Core;
@@ -226,10 +221,7 @@ namespace QuickApp
                 .AllowAnyHeader()
                 .AllowAnyMethod());
 
-            bool useHttps = false;
-            bool.TryParse(Configuration["UseHttps"], out useHttps);
-
-            if(useHttps) app.UseHttpsRedirection();
+            if(!string.IsNullOrWhiteSpace(Configuration["HttpsRedirectionPort"])) app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
