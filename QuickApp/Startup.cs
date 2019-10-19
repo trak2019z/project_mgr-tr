@@ -216,10 +216,11 @@ namespace QuickApp
 
             
             //Configure Cors
-            app.UseCors(builder => builder
+            app.UseCors(builder => builder 
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
-                .AllowAnyMethod());
+                .AllowAnyMethod()
+                .AllowCredentials());
 
             if(!string.IsNullOrWhiteSpace(Configuration["HttpsRedirectionPort"])) app.UseHttpsRedirection();
 
@@ -241,6 +242,12 @@ namespace QuickApp
             var projectsPath = Configuration["FileUploadConfig:ProjectFilesLocation"];
 
 
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    imagePath),
+                RequestPath = "/images"
+            });
 
             app.UseStaticFiles(new StaticFileOptions
             {

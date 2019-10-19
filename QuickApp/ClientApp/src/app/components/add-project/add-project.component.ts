@@ -7,6 +7,7 @@ import { ProjectsService } from "../../services/projects.service";
 import { Project, ProjectFile } from "../../models/project";
 import { Image } from "../../models/project";
 import { AuthService } from "../../services/auth.service";
+import { ConfigurationService } from "../../services/configuration.service";
 
 @Component({
   selector: 'add-project',
@@ -26,7 +27,7 @@ export class AddProjectComponent {
   private photoObject : any;
 
   @Output() public onUploadFinished = new EventEmitter();
-    constructor(private router: Router, private http: HttpClient, private projectService: ProjectsService, private authService: AuthService) { }
+  constructor(private router: Router, private http: HttpClient, private projectService: ProjectsService, private authService: AuthService, private configurations: ConfigurationService) { }
   ngOnInit() {
     this.projectData = new FormGroup({
       author: new FormControl(),
@@ -50,7 +51,7 @@ export class AddProjectComponent {
     let fileToUpload = <File>files[0];
       const formData = new FormData();
       formData.append('file', fileToUpload, fileToUpload.name);
-    this.http.post('https://localhost:44350/api/Upload/file', formData, { reportProgress: true, observe: 'events',headers:this.headers } )
+    this.http.post(this.configurations.baseUrl + '/api/Upload/file', formData, { reportProgress: true, observe: 'events',headers:this.headers } )
         .subscribe(event => {
           if (event.type === HttpEventType.UploadProgress)
             {
@@ -72,7 +73,7 @@ export class AddProjectComponent {
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-    this.http.post('https://localhost:44350/api/Upload/images', formData, { reportProgress: true, observe: 'events', headers: this.headers })
+    this.http.post(this.configurations.baseUrl + '/api/Upload/images', formData, { reportProgress: true, observe: 'events', headers: this.headers })
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
         this.photoUploadProgress = Math.round(100 * event.loaded / event.total);
