@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit{
       this.posts = response;
       for (var i = 0, len = this.posts.length; i < len; i++) {
         if (this.posts[i].images) {
-          this.posts[i].images.path = "https://localhost:44350/images/" + this.posts[i].images.path;
+          this.posts[i].images.path = this.configurations.baseUrl+'/images/' + this.posts[i].images.path;
         }
       }
     });

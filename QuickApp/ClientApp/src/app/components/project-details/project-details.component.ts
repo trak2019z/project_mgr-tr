@@ -7,6 +7,7 @@ import { HttpEventType, HttpClient} from '@angular/common/http';
 import { HttpHeaders } from "@angular/common/http";
 import { AuthService } from "../../services/auth.service";
 import { FileService } from "../../services/file.service";
+import { ConfigurationService } from '../../services/configuration.service';
 
 
 @Component({
@@ -16,11 +17,11 @@ import { FileService } from "../../services/file.service";
 })
 export class ProjectDetailsComponent implements OnInit {
     public project:Project;
-    constructor(private route: ActivatedRoute, private projectService: ProjectsService,private fileService:FileService) { }
+  constructor(private route: ActivatedRoute, private projectService: ProjectsService, private fileService: FileService, private configurations: ConfigurationService) { }
 
   ngOnInit() {
-      this.project = this.route.snapshot.data.project;
-      this.project.images.path = "https://localhost:44350/images/" + this.project.images.path;
+    this.project = this.route.snapshot.data.project;
+    this.project.images.path = this.configurations.baseUrl +'/images/'+ this.project.images.path;
       this.projectService.addView(this.project.id).subscribe();
   }
 

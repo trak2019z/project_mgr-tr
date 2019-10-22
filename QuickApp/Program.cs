@@ -1,7 +1,12 @@
 using System;
+using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 using DAL;
+using IdentityServer4.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using QuickApp.Helpers;
@@ -12,7 +17,11 @@ namespace QuickApp
     {
         public static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args).Build();
+            IConfigurationRoot config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").AddCommandLine(args)
+                .Build();
+
+            var host = CreateWebHostBuilder(args, config).Build();
 
             using (var scope = host.Services.CreateScope())
             {
@@ -30,13 +39,28 @@ namespace QuickApp
 
                     throw new Exception(LoggingEvents.INIT_DATABASE.Name, ex);
                 }
-            }
 
-            host.Run();
+                host.Run();
+            }
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args, IConfigurationRoot config) =>
+        WebHost.CreateDefaultBuilder(args).UseKestrel(options => {
+            bool useSelfSignedCert = false;
+            bool.TryParse(config["SelfSignedCert"], out useSelfSignedCert);
+            if (useSelfSignedCert)
+            {
+                options.Listen(IPAddress.Loopback, 5001);
+                options.Listen(IPAddress.Loopback, 5002, listenOptions =>
+                {
+                    listenOptions.UseHttps(config["SSLKeyPath"], string.Empty);
+                });
+            }
+
+            if (config["HttpsRedirectionPort"].IsNullOrEmpty()) options.Listen(IPAddress.Loopback, 5080); //
+
+        })
                 .UseStartup<Startup>()
                 .ConfigureLogging((hostingContext, logging) =>
                 {

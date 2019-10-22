@@ -55,11 +55,11 @@ namespace QuickApp
                 // http://docs.identityserver.io/en/release/reference/client.html.
                 new Client
                 {
+                  
                     ClientId = IdentityServerConfig.QuickAppClientID,
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword, // Resource Owner Password Credential grant.
                     AllowAccessTokensViaBrowser = true,
                     RequireClientSecret = false, // This client does not need a secret to request tokens from the token endpoint.
-                    
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId, // For UserInfo endpoint.
                         IdentityServerConstants.StandardScopes.Profile,

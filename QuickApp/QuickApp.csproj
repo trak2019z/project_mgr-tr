@@ -16,6 +16,8 @@
     <Company></Company>
     <Version>2.8.0</Version>
     <AssemblyName>QuickApp</AssemblyName>
+    <UserSecretsId>2a00bc4a-9eae-43bb-9821-796e6c8a8a38</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +30,7 @@
     <PackageReference Include="MailKit" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.12" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0-dev-00024" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />

@@ -25,6 +25,7 @@ using System.IO;
 using Microsoft.Extensions.FileProviders;
 using AppPermissions = DAL.Core.ApplicationPermissions;
 using QuickApp.Services;
+using System.Security.Cryptography.X509Certificates;
 
 namespace QuickApp
 {
@@ -73,11 +74,13 @@ namespace QuickApp
 
 
             // Adds IdentityServer.
-            services.AddIdentityServer()
+            if (Configuration["SSLKeyPath"] != null)
+            {
+                services.AddIdentityServer()
                 // The AddDeveloperSigningCredential extension creates temporary key material for signing tokens.
                 // This might be useful to get started, but needs to be replaced by some persistent key material for production scenarios.
                 // See http://docs.identityserver.io/en/release/topics/crypto.html#refcrypto for more information.
-                .AddDeveloperSigningCredential()
+                .AddSigningCredential(new X509Certificate2(Configuration["SSLKeyPath"]))
                 .AddInMemoryPersistedGrants()
                 // To configure IdentityServer to use EntityFramework (EF) as the storage mechanism for configuration data (rather than using the in-memory implementations),
                 // see https://identityserver4.readthedocs.io/en/release/quickstarts/8_entity_framework.html
@@ -86,16 +89,32 @@ namespace QuickApp
                 .AddInMemoryClients(IdentityServerConfig.GetClients())
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddProfileService<ProfileService>();
-
-
+            }
+            else
+            {
+                services.AddIdentityServer()
+                                // The AddDeveloperSigningCredential extension creates temporary key material for signing tokens.
+                                // This might be useful to get started, but needs to be replaced by some persistent key material for production scenarios.
+                                // See http://docs.identityserver.io/en/release/topics/crypto.html#refcrypto for more information.
+                                .AddDeveloperSigningCredential()
+                                .AddInMemoryPersistedGrants()
+                                // To configure IdentityServer to use EntityFramework (EF) as the storage mechanism for configuration data (rather than using the in-memory implementations),
+                                // see https://identityserver4.readthedocs.io/en/release/quickstarts/8_entity_framework.html
+                                .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
+                                .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
+                                .AddInMemoryClients(IdentityServerConfig.GetClients())
+                                .AddAspNetIdentity<ApplicationUser>()
+                                .AddProfileService<ProfileService>();
+            }
             var applicationUrl = Configuration["ApplicationUrl"].TrimEnd('/');
-
+            var useHttps = false;
+            bool.TryParse(Configuration["UseHttps"], out useHttps);
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
                     options.Authority = applicationUrl;
                     options.SupportedTokens = SupportedTokens.Jwt;
-                    options.RequireHttpsMetadata = false; // Note: Set to true in production
+                    options.RequireHttpsMetadata = useHttps;
                     options.ApiName = IdentityServerConfig.ApiName;
                 });
 
@@ -249,12 +268,6 @@ namespace QuickApp
                 RequestPath = "/images"
             });
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    imagePath),
-                RequestPath = "/images"
-            });
 
             app.UseStaticFiles(new StaticFileOptions
             {

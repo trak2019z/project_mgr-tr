@@ -11,6 +11,7 @@
         public string Host { get; set; }
         public int Port { get; set; }
         public bool UseSSL { get; set; }
+        public bool SelfSignedCert { get; set; }
 
         public string Name { get; set; }
         public string Username { get; set; }
