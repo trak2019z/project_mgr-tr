@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { AlertService, DialogType, MessageSeverity } from '../../services/alert.service';
 import { ConfigurationService } from '../../services/configuration.service';
-import { AppTranslationService } from '../../services/app-translation.service';
 import { BootstrapSelectDirective } from '../../directives/bootstrap-select.directive';
 import { AccountService } from '../../services/account.service';
 import { ThemeManager } from '../../services/theme-manager';
@@ -29,7 +28,6 @@ export class UserPreferencesComponent implements OnInit, OnDestroy {
 
     constructor(
         private alertService: AlertService,
-        private translationService: AppTranslationService,
         private accountService: AccountService,
         public themeManager: ThemeManager,
         public configurations: ConfigurationService) {
@@ -112,11 +110,4 @@ export class UserPreferencesComponent implements OnInit, OnDestroy {
         return this.accountService.userHasPermission(Permission.createProjectPermission); // eg. viewCustomersPermission
     }
 
-    get canViewProducts() {
-        return this.accountService.userHasPermission(Permission.viewUsersPermission); // eg. viewProductsPermission
-    }
-
-    get canViewOrders() {
-        return true; // eg. viewOrdersPermission
-    }
 }

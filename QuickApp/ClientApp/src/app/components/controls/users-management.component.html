@@ -56,7 +56,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 *ngIf="!editingUserName" class="modal-title float-left"><i class="fa fa-user-plus"></i> Dodaj użytkownika</h4>
-          <h4 *ngIf="editingUserName" class="modal-title float-left"><i class="fa fa-user-circle-o"></i> {{'users.management.EditUser' | translate:editingUserName}}</h4>
+          <h4 *ngIf="editingUserName" class="modal-title float-left"><i class="fa fa-user-circle-o"></i> Edytujesz {{editingUserName}}</h4>
           <button type="button" class="close float-right" title="Close" (click)="editorModal.hide()">
             <span aria-hidden="true">&times;</span>
           </button>

@@ -6,10 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from '../components/app.component';
 import { LoginComponent } from '../components/login/login.component';
-import { NotificationsViewerComponent } from '../components/controls/notifications-viewer.component';
 
 import { OAuthModule } from 'angular-oauth2-oidc';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ToastaModule } from 'ngx-toasta';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -18,13 +16,10 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { AuthService } from '../services/auth.service';
 import { AppTitleService } from '../services/app-title.service';
-import { AppTranslationService, TranslateLanguageLoader } from '../services/app-translation.service';
 import { ConfigurationService } from '../services/configuration.service';
 import { ThemeManager } from '../services/theme-manager';
 import { AlertService } from '../services/alert.service';
 import { LocalStoreManager } from '../services/local-store-manager.service';
-import { NotificationService } from '../services/notification.service';
-import { NotificationEndpoint } from '../services/notification-endpoint.service';
 import { AccountService } from '../services/account.service';
 import { AccountEndpoint } from '../services/account-endpoint.service';
 import { MatCardModule } from '@angular/material';
@@ -37,12 +32,6 @@ describe('AppComponent', () => {
         FormsModule,
         RouterTestingModule,
         MatCardModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLanguageLoader
-          }
-        }),
         NgxDatatableModule,
         OAuthModule.forRoot(),
         ToastaModule.forRoot(),
@@ -53,7 +42,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         LoginComponent,
-        NotificationsViewerComponent
+        
       ],
       providers: [
         AuthService,
@@ -61,9 +50,6 @@ describe('AppComponent', () => {
         ConfigurationService,
         ThemeManager,
         AppTitleService,
-        AppTranslationService,
-        NotificationService,
-        NotificationEndpoint,
         AccountService,
         AccountEndpoint,
         LocalStoreManager

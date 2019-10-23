@@ -84,7 +84,7 @@ export class AlertService {
 
       if (error) {
 
-        const msg = `Severity: "${MessageSeverity[severity]}", Summary: "${data}", Detail: "${separatorOrDetail}", Error: "${Utilities.safeStringify(error)}"`;
+        const msg = `Poziom wiadomości: "${MessageSeverity[severity]}", Podsumowanie: "${data}", Szczegóły: "${separatorOrDetail}", Błąd: "${Utilities.safeStringify(error)}"`;
 
         switch (severity) {
           case MessageSeverity.default:
@@ -127,7 +127,7 @@ export class AlertService {
     this.messages.next({ operation: 'clear' });
   }
 
-  startLoadingMessage(message = 'Loading...', caption = '') {
+  startLoadingMessage(message = 'ładowanie...', caption = '') {
     clearTimeout(this.loadingMessageTimeoutId);
 
     this.loadingMessageTimeoutId = setTimeout(() => {

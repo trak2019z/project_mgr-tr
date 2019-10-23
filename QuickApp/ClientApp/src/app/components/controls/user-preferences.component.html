@@ -50,7 +50,7 @@
         <div *ngIf="themeSelectorToggle" class="col-sm-4">
             <select id="defaultTheme" [(ngModel)]="configurations.themeId" bootstrapSelect class="selectpicker theme-picker form-control">
                 <option *ngFor="let theme of themeManager.themes"
-                attr.data-content="<div class='theme-item' style='background-color: {{theme.background}}; color: {{theme.color}}'>{{'preferences.' + theme.name + 'Theme' | translate}}
+                attr.data-content="<div class='theme-item' style='background-color: {{theme.background}}; color: {{theme.color}}'>{{'preferences.' + theme.name + 'Theme' }}
                 <span class='small'>{{theme.isDark ? '(Ciemny)' : ''}}</span></div>">
                 {{theme.id}}
                 </option>

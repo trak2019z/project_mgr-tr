@@ -1,8 +1,3 @@
-// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
 import { Injectable, ErrorHandler } from '@angular/core';
 import { AlertService, MessageSeverity } from './services/alert.service';
 
@@ -25,7 +20,7 @@ export class AppErrorHandler extends ErrorHandler {
         // this.alertService.showStickyMessage("Fatal Error!", "An unresolved error has occured. Please reload the page to correct this error", MessageSeverity.warn);
         // this.alertService.showStickyMessage("Unhandled Error", error.message || error, MessageSeverity.error, error);
 
-        if (confirm('Fatal Error!\nAn unresolved error has occured. Do you want to reload the page to correct this?\n\nError: ' + error.message)) {
+        if (confirm('Krytyczny wyjątek!\n Wystąpił nieoczekiwany błąd. Chcecz przeładować stronę(może to rozwiązać problem)?\n\nBłąd: ' + error.message)) {
             window.location.reload(true);
         }
 

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { AppTranslationService } from './app-translation.service';
 import { ThemeManager } from './theme-manager';
 import { LocalStoreManager } from './local-store-manager.service';
 import { DBkeys } from './db-Keys';
@@ -9,13 +8,8 @@ import { Utilities } from './utilities';
 import { environment } from '../../environments/environment';
 
 interface UserConfiguration {
-  language: string;
   homeUrl: string;
   themeId: number;
-  showDashboardStatistics: boolean;
-  showDashboardNotifications: boolean;
-  showDashboardTodo: boolean;
-  showDashboardBanner: boolean;
 }
 
 @Injectable()
@@ -23,20 +17,12 @@ export class ConfigurationService {
 
   constructor(
     private localStorage: LocalStoreManager,
-    private translationService: AppTranslationService,
     private themeManager: ThemeManager) {
 
     this.loadLocalChanges();
   }
 
-  set language(value: string) {
-    this._language = value;
-    this.saveToLocalStore(value, DBkeys.LANGUAGE);
-    this.translationService.changeLanguage(value);
-  }
-  get language() {
-    return this._language || ConfigurationService.defaultLanguage;
-  }
+
 
 
   set themeId(value: number) {
@@ -58,43 +44,7 @@ export class ConfigurationService {
     return this._homeUrl || ConfigurationService.defaultHomeUrl;
   }
 
-
-  set showDashboardStatistics(value: boolean) {
-    this._showDashboardStatistics = value;
-    this.saveToLocalStore(value, DBkeys.SHOW_DASHBOARD_STATISTICS);
-  }
-  get showDashboardStatistics() {
-    return this._showDashboardStatistics != null ? this._showDashboardStatistics : ConfigurationService.defaultShowDashboardStatistics;
-  }
-
-
-  set showDashboardNotifications(value: boolean) {
-    this._showDashboardNotifications = value;
-    this.saveToLocalStore(value, DBkeys.SHOW_DASHBOARD_NOTIFICATIONS);
-  }
-  get showDashboardNotifications() {
-    return this._showDashboardNotifications != null ? this._showDashboardNotifications : ConfigurationService.defaultShowDashboardNotifications;
-  }
-
-
-  set showDashboardTodo(value: boolean) {
-    this._showDashboardTodo = value;
-    this.saveToLocalStore(value, DBkeys.SHOW_DASHBOARD_TODO);
-  }
-  get showDashboardTodo() {
-    return this._showDashboardTodo != null ? this._showDashboardTodo : ConfigurationService.defaultShowDashboardTodo;
-  }
-
-
-  set showDashboardBanner(value: boolean) {
-    this._showDashboardBanner = value;
-    this.saveToLocalStore(value, DBkeys.SHOW_DASHBOARD_BANNER);
-  }
-  get showDashboardBanner() {
-    return this._showDashboardBanner != null ? this._showDashboardBanner : ConfigurationService.defaultShowDashboardBanner;
-  }
-
-  public static readonly appVersion: string = '2.8.0';
+  public static readonly appVersion: string = '1.0.0';
 
   // ***Specify default configurations here***
   public static readonly defaultLanguage: string = 'en';
@@ -105,7 +55,7 @@ export class ConfigurationService {
   public static readonly defaultShowDashboardTodo: boolean = false;
   public static readonly defaultShowDashboardBanner: boolean = true;
 
-  public baseUrl = environment.baseUrl || Utilities.baseUrl();
+  public baseUrl = environment.baseUrl;
   public tokenUrl = environment.tokenUrl || environment.baseUrl || Utilities.baseUrl();
   public loginUrl = environment.loginUrl;
   public fallbackBaseUrl = 'https://localhost:5001';
@@ -125,13 +75,6 @@ export class ConfigurationService {
 
 
   private loadLocalChanges() {
-
-    if (this.localStorage.exists(DBkeys.LANGUAGE)) {
-      this._language = this.localStorage.getDataObject<string>(DBkeys.LANGUAGE);
-      this.translationService.changeLanguage(this._language);
-    } else {
-      this.resetLanguage();
-    }
 
 
     if (this.localStorage.exists(DBkeys.THEME_ID)) {
@@ -176,10 +119,6 @@ export class ConfigurationService {
     if (jsonValue) {
       const importValue: UserConfiguration = Utilities.JsonTryParse(jsonValue);
 
-      if (importValue.language != null) {
-        this.language = importValue.language;
-      }
-
       if (importValue.themeId != null) {
         this.themeId = +importValue.themeId;
       }
@@ -188,21 +127,6 @@ export class ConfigurationService {
         this.homeUrl = importValue.homeUrl;
       }
 
-      if (importValue.showDashboardStatistics != null) {
-        this.showDashboardStatistics = importValue.showDashboardStatistics;
-      }
-
-      if (importValue.showDashboardNotifications != null) {
-        this.showDashboardNotifications = importValue.showDashboardNotifications;
-      }
-
-      if (importValue.showDashboardTodo != null) {
-        this.showDashboardTodo = importValue.showDashboardTodo;
-      }
-
-      if (importValue.showDashboardBanner != null) {
-        this.showDashboardBanner = importValue.showDashboardBanner;
-      }
     }
 
     this.onConfigurationImported.next();
@@ -212,13 +136,8 @@ export class ConfigurationService {
   public export(changesOnly = true): string {
 
     const exportValue: UserConfiguration = {
-      language: changesOnly ? this._language : this.language,
       themeId: changesOnly ? this._themeId : this.themeId,
       homeUrl: changesOnly ? this._homeUrl : this.homeUrl,
-      showDashboardStatistics: changesOnly ? this._showDashboardStatistics : this.showDashboardStatistics,
-      showDashboardNotifications: changesOnly ? this._showDashboardNotifications : this.showDashboardNotifications,
-      showDashboardTodo: changesOnly ? this._showDashboardTodo : this.showDashboardTodo,
-      showDashboardBanner: changesOnly ? this._showDashboardBanner : this.showDashboardBanner
     };
 
     return JSON.stringify(exportValue);
@@ -237,25 +156,11 @@ export class ConfigurationService {
     this.localStorage.deleteData(DBkeys.LANGUAGE);
     this.localStorage.deleteData(DBkeys.THEME_ID);
     this.localStorage.deleteData(DBkeys.HOME_URL);
-    this.localStorage.deleteData(DBkeys.SHOW_DASHBOARD_STATISTICS);
-    this.localStorage.deleteData(DBkeys.SHOW_DASHBOARD_NOTIFICATIONS);
-    this.localStorage.deleteData(DBkeys.SHOW_DASHBOARD_TODO);
-    this.localStorage.deleteData(DBkeys.SHOW_DASHBOARD_BANNER);
 
-    this.resetLanguage();
     this.resetTheme();
   }
 
 
-  private resetLanguage() {
-    const language = this.translationService.useBrowserLanguage();
-
-    if (language) {
-      this._language = language;
-    } else {
-      this._language = this.translationService.useDefaultLangage();
-    }
-  }
 
   private resetTheme() {
     this.themeManager.installTheme();

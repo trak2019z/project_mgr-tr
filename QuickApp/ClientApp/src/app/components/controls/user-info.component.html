@@ -69,7 +69,7 @@
     </div>
 
     <div class="form-group row has-feedback-icon">
-      <label [class.col-lg-3]="isViewOnly" [class.col-lg-2]="!isViewOnly" class="col-form-label" for="email-{{uniqueId}}">{{'users.editor.Email' | translate}}</label>
+      <label [class.col-lg-3]="isViewOnly" [class.col-lg-2]="!isViewOnly" class="col-form-label" for="email-{{uniqueId}}">E-mail</label>
       <div *ngIf="!isEditMode" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
         <p class="form-control-plaintext">{{user.email}}</p>
       </div>
@@ -182,7 +182,7 @@
         </select>
         <i *ngIf="showValidationErrors && f.submitted" class="fa form-control-feedback" [ngClass]="{'fa-check': roles.valid, 'fa-times' : !roles.valid}" aria-hidden="true"></i>
         <span *ngIf="showValidationErrors && f.submitted && !roles.valid" class="invalid-feedback">
-          {{'users.editor.RoleRequired' | translate}}
+          {{'users.editor.RoleRequired' }}
         </span>
       </div>
     </div>
@@ -234,7 +234,7 @@
             <input class="form-check-input" type="checkbox" id="idEnabled" name="isEnabled" [(ngModel)]="userEdit.isEnabled">
             <label for="idEnabled" class="form-check-label">Aktywny</label>
           </div>
-          <button *ngIf="userEdit.isLockedOut" type="button" (click)="unlockUser()" class="btn btn-warning unblock-user" [disabled]="isSaving"><i class='fa fa-unlock-alt'></i> {{'users.editor.Unblock' | translate}}</button>
+          <button *ngIf="userEdit.isLockedOut" type="button" (click)="unlockUser()" class="btn btn-warning unblock-user" [disabled]="isSaving"><i class='fa fa-unlock-alt'></i> {{'users.editor.Unblock' }}</button>
         </div>
       </div>
       <div class="col-sm-7">

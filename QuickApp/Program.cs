@@ -1,9 +1,7 @@
 using System;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using DAL;
-using IdentityServer4.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -49,17 +47,17 @@ namespace QuickApp
         WebHost.CreateDefaultBuilder(args).UseKestrel(options => {
             bool useSelfSignedCert = false;
             bool.TryParse(config["SelfSignedCert"], out useSelfSignedCert);
-            if (useSelfSignedCert)
+            var useHttps = false;
+            bool.TryParse(config["UseHttps"], out useHttps);
+            if (useHttps)
             {
-                options.Listen(IPAddress.Loopback, 5001);
-                options.Listen(IPAddress.Loopback, 5002, listenOptions =>
                 {
-                    listenOptions.UseHttps(config["SSLKeyPath"], string.Empty);
-                });
+                    options.Listen(IPAddress.Loopback, 5001);
+                    options.Listen(IPAddress.Loopback, 5002,
+                        listenOptions => { listenOptions.UseHttps(config["SSLKeyPath"], config["SSLPassword"]); });
+                }
+         
             }
-
-            if (config["HttpsRedirectionPort"].IsNullOrEmpty()) options.Listen(IPAddress.Loopback, 5080); //
-
         })
                 .UseStartup<Startup>()
                 .ConfigureLogging((hostingContext, logging) =>

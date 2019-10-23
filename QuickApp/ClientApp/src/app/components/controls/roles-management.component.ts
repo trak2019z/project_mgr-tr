@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, Input } from 
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertService, DialogType, MessageSeverity } from '../../services/alert.service';
-import { AppTranslationService } from '../../services/app-translation.service';
 import { AccountService } from '../../services/account.service';
 import { Utilities } from '../../services/utilities';
 import { Role } from '../../models/role.model';
@@ -39,13 +38,12 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
     @ViewChild('roleEditor', { static: true })
     roleEditor: RoleEditorComponent;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private accountService: AccountService) {
+    constructor(private alertService: AlertService, private accountService: AccountService) {
     }
 
 
     ngOnInit() {
 
-        const gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
             { prop: 'index', name: '#', width: 50, cellTemplate: this.indexTemplate, canAutoResize: false },

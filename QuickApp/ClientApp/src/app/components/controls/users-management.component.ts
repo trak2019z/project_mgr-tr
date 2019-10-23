@@ -1,13 +1,7 @@
-// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
 import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, Input } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertService, DialogType, MessageSeverity } from '../../services/alert.service';
-import { AppTranslationService } from '../../services/app-translation.service';
 import { AccountService } from '../../services/account.service';
 import { Utilities } from '../../services/utilities';
 import { User } from '../../models/user.model';
@@ -52,13 +46,12 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
     @ViewChild('userEditor', { static: true })
     userEditor: UserInfoComponent;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private accountService: AccountService) {
+    constructor(private alertService: AlertService, private accountService: AccountService) {
     }
 
 
     ngOnInit() {
 
-        const gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
             { prop: 'index', name: '#', width: 40, cellTemplate: this.indexTemplate, canAutoResize: false },

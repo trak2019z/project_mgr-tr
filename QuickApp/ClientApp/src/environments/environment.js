@@ -1,14 +1,14 @@
+"use strict";
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
-export const environment = {
-  production: false,
-  baseUrl: "https://localhost:44350", // Change this to the address of your backend API if different from frontend address
-  tokenUrl: null, // For IdentityServer/Authorization Server API. You can set to null if same as baseUrl
-  loginUrl: '/login'
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.environment = {
+    production: false,
+    baseUrl: "https://localhost:44350",
+    tokenUrl: null,
+    loginUrl: '/login'
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
@@ -17,3 +17,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+//# sourceMappingURL=environment.js.map
