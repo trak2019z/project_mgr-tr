@@ -1,9 +1,4 @@
-﻿// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
-using DAL.Core;
+﻿using DAL.Core;
 using Microsoft.AspNetCore.Authorization;
 using QuickApp.Helpers;
 using System.Collections.Generic;

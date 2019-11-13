@@ -5,7 +5,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = {
     production: false,
-    baseUrl: "https://localhost:44350",
+    baseUrl: null,
     tokenUrl: null,
     loginUrl: '/login'
 };

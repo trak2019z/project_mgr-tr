@@ -44,9 +44,8 @@ namespace QuickApp
 
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args, IConfigurationRoot config) =>
-        WebHost.CreateDefaultBuilder(args).UseKestrel(options => {
-            bool useSelfSignedCert = false;
-            bool.TryParse(config["SelfSignedCert"], out useSelfSignedCert);
+       
+            WebHost.CreateDefaultBuilder(args).UseKestrel(options => {
             var useHttps = false;
             bool.TryParse(config["UseHttps"], out useHttps);
             if (useHttps)

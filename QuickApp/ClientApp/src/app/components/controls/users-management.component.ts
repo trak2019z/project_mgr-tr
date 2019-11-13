@@ -34,10 +34,7 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
     @ViewChild('userNameTemplate', { static: true })
     userNameTemplate: TemplateRef<any>;
 
-    @ViewChild('rolesTemplate', { static: true })
-    rolesTemplate: TemplateRef<any>;
 
-    @ViewChild('actionsTemplate', { static: true })
     actionsTemplate: TemplateRef<any>;
 
     @ViewChild('editorModal', { static: true })
@@ -58,7 +55,6 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
             { prop: 'userName', name: 'Login', width: 90, cellTemplate: this.userNameTemplate },
             { prop: 'fullName', name: 'Imię i nazwisko', width: 120 },
             { prop: 'email', name: 'E-mail', width: 140 },
-            { prop: 'roles', name: 'Role', width: 120, cellTemplate: this.rolesTemplate },
             { prop: 'phoneNumber', name: 'Numer Telefonu', width: 100 }
         ];
 

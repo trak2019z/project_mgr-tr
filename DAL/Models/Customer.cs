@@ -1,9 +1,4 @@
-﻿// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
-using DAL.Core;
+﻿using DAL.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;

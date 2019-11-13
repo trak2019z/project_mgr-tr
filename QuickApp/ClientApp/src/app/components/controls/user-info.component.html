@@ -175,7 +175,7 @@
       </div>
       <div *ngIf="isEditMode && canAssignRoles" [ngClass]="{'is-valid': f.submitted && roles.valid, 'is-invalid' : f.submitted && !roles.valid}" [class.col-lg-9]="isViewOnly" [class.col-lg-10]="!isViewOnly">
         <select id="roles-user-info" name="roles" [(ngModel)]="userEdit.roles" #roles="ngModel" #rolesSelector="bootstrap-select"
-                class="selectpicker form-control left-status" bootstrapSelect required multiple data-live-search="true" data-actions-box="false" data-live-search-placeholder="Szukaj..." title="Select Roles">
+                class="selectpicker form-control left-status" bootstrapSelect required multiple data-live-search="true" data-actions-box="false" data-live-search-placeholder="Szukaj..." title="Wybierz Role">
           <option *ngFor="let role of allRoles" attr.data-content="<span title='{{role.description}}' class='badge badge-pill badge-secondary'>{{role.name}}</span>" attr.value="{{role.name}}">
             {{role.name}}
           </option>
@@ -229,7 +229,7 @@
 
     <div *ngIf="!isViewOnly" class="form-group row">
       <div class="col-sm-5">
-        <div *ngIf="isGeneralEditor && isEditMode" class="float-left">
+        <div *ngIf="isGeneralEditor && isEditMode && isAdminRegister" class="float-left">
           <div class="form-check user-enabled">
             <input class="form-check-input" type="checkbox" id="idEnabled" name="isEnabled" [(ngModel)]="userEdit.isEnabled">
             <label for="idEnabled" class="form-check-label">Aktywny</label>

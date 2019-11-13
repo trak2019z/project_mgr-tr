@@ -1,9 +1,4 @@
-﻿// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
-using DAL;
+﻿using DAL;
 using DAL.Core.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Http;

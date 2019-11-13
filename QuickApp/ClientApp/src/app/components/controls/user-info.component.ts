@@ -7,6 +7,7 @@ import { User } from '../../models/user.model';
 import { UserEdit } from '../../models/user-edit.model';
 import { Role } from '../../models/role.model';
 import { Permission } from '../../models/permission.model';
+import { RegisterService } from "../../services/register.service";
 
 
 @Component({
@@ -26,7 +27,7 @@ export class UserInfoComponent implements OnInit {
   public user: User = new User();
   public userEdit: UserEdit;
   public allRoles: Role[] = [];
-
+  public isAdminRegister = true;
   public formResetToggle = true;
 
   public changesSavedCallback: () => void;
@@ -72,7 +73,7 @@ export class UserInfoComponent implements OnInit {
   public rolesSelector;
 
 
-  constructor(private alertService: AlertService, private accountService: AccountService) {
+  constructor(private alertService: AlertService, private accountService: AccountService,private registerService:RegisterService) {
   }
 
   ngOnInit() {
@@ -102,7 +103,7 @@ export class UserInfoComponent implements OnInit {
 
   private onCurrentUserDataLoadFailed(error: any) {
     this.alertService.stopLoadingMessage();
-    this.alertService.showStickyMessage('Load Error', `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessages(error)}"`,
+    this.alertService.showStickyMessage('Błąd', `Nie można wczytać danych z serwera.\r\nBłędy: "${Utilities.getHttpResponseMessages(error)}"`,
       MessageSeverity.error, error);
 
     this.user = new User();
@@ -151,9 +152,12 @@ export class UserInfoComponent implements OnInit {
 
   save() {
     this.isSaving = true;
-    this.alertService.startLoadingMessage('Saving changes...');
-
-    if (this.isNewUser) {
+    this.alertService.startLoadingMessage('Zapisywanie zmian...');
+    if (!this.isAdminRegister) {
+      this.userEdit.roles =  ["user"];
+      this.registerService.registerUser(this.userEdit).subscribe(user => this.saveSuccessHelper(user), error => this.saveFailedHelper(error));
+    }
+    else if (this.isNewUser) {
       this.accountService.newUser(this.userEdit).subscribe(user => this.saveSuccessHelper(user), error => this.saveFailedHelper(error));
     } else {
       this.accountService.updateUser(this.userEdit).subscribe(response => this.saveSuccessHelper(), error => this.saveFailedHelper(error));
@@ -181,14 +185,14 @@ export class UserInfoComponent implements OnInit {
 
     if (this.isGeneralEditor) {
       if (this.isNewUser) {
-        this.alertService.showMessage('Success', `User \"${this.user.userName}\" was created successfully`, MessageSeverity.success);
+        this.alertService.showMessage('Sukces', `Użytkownik \"${this.user.userName}\" został poprawnie zarejestrowany`, MessageSeverity.success);
       } else if (!this.isEditingSelf) {
-        this.alertService.showMessage('Success', `Changes to user \"${this.user.userName}\" was saved successfully`, MessageSeverity.success);
+        this.alertService.showMessage('Sukces', `Zmiany w profilu użytkownika \"${this.user.userName}\" zostały zapisane poprawnie`, MessageSeverity.success);
       }
     }
 
     if (this.isEditingSelf) {
-      this.alertService.showMessage('Success', 'Changes to your User Profile was saved successfully', MessageSeverity.success);
+      this.alertService.showMessage('Sukces', 'Zmiany w profilu zostały zapisane poprawnie', MessageSeverity.success);
       this.refreshLoggedInUser();
     }
 
@@ -204,7 +208,7 @@ export class UserInfoComponent implements OnInit {
   private saveFailedHelper(error: any) {
     this.isSaving = false;
     this.alertService.stopLoadingMessage();
-    this.alertService.showStickyMessage('Save Error', 'The below errors occured whilst saving your changes:', MessageSeverity.error, error);
+    this.alertService.showStickyMessage('Błąd zapisu', 'Wystąpiły błędy:', MessageSeverity.error, error);
     this.alertService.showStickyMessage(error, null, MessageSeverity.error);
 
     if (this.changesFailedCallback) {
@@ -238,7 +242,7 @@ export class UserInfoComponent implements OnInit {
     this.showValidationErrors = false;
     this.resetForm();
 
-    this.alertService.showMessage('Cancelled', 'Operation cancelled by user', MessageSeverity.default);
+    this.alertService.showMessage('Anulowano', 'Operacja anulowana przez użytkownika', MessageSeverity.default);
     this.alertService.resetStickyMessage();
 
     if (!this.isGeneralEditor) {
@@ -271,7 +275,7 @@ export class UserInfoComponent implements OnInit {
       },
         error => {
           this.alertService.resetStickyMessage();
-          this.alertService.showStickyMessage('Refresh failed', 'An error occured whilst refreshing logged in user information from the server', MessageSeverity.error, error);
+          this.alertService.showStickyMessage('Wystapił problem', 'Wystąpił problem w aktualizowaniu danych z serwera', MessageSeverity.error, error);
         });
   }
 
@@ -283,7 +287,7 @@ export class UserInfoComponent implements OnInit {
 
   unlockUser() {
     this.isSaving = true;
-    this.alertService.startLoadingMessage('Unblocking user...');
+    this.alertService.startLoadingMessage('Aktywowanie użytkownika...');
 
 
     this.accountService.unblockUser(this.userEdit.id)
@@ -291,12 +295,12 @@ export class UserInfoComponent implements OnInit {
         this.isSaving = false;
         this.userEdit.isLockedOut = false;
         this.alertService.stopLoadingMessage();
-        this.alertService.showMessage('Success', 'User has been successfully unblocked', MessageSeverity.success);
+        this.alertService.showMessage('Sukces', 'Użytkownik został aktywowany poprawnie', MessageSeverity.success);
       },
         error => {
           this.isSaving = false;
           this.alertService.stopLoadingMessage();
-          this.alertService.showStickyMessage('Unblock Error', 'The below errors occured whilst unblocking the user:', MessageSeverity.error, error);
+          this.alertService.showStickyMessage('Błąd aktywacji', 'Wystąpiły błędy podczas aktywacji użytkownika:', MessageSeverity.error, error);
           this.alertService.showStickyMessage(error, null, MessageSeverity.error);
         });
   }

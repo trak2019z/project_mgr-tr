@@ -1,9 +1,36 @@
+<ng-template #actionsTemplate let-row="row" let-value="value" let-i="index">
+  <div *ngIf="canManageUsers">
+    <a class="btn btn-link btn-sm" href="javascript:;" (click)="editUser(row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edytuj</a>|
+    <a class="btn btn-link btn-sm" href="javascript:;" (click)="deleteUser(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> Usuń</a>
+  </div>
+</ng-template>
+
+
+
+<div class="modal fade" bsModal #editorModal="bs-modal" (onHidden)="onEditorModalHidden()" [config]="{backdrop: 'static'}" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4> Rejestracja</h4>
+        <button type="button" class="close float-right" title="Close" (click)="editorModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <user-info #userEditor [isGeneralEditor]="true"></user-info>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="d-flex h-90">
   <div class="login-container m-auto">
     <div class="card boxshadow">
       <div class="card-header bg-primary dark text-white clearfix">
         <i class="fa fa-lock" aria-hidden="true"></i> Logowanie
         <button *ngIf="isModal" type="button" class="close float-right text-light" aria-label="Close" (click)="closeModal()">
+
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -43,13 +70,18 @@
                 </div>
               </div>
             </div>
+
             <div class="form-group row">
               <div class="offset-md-3 col-md-9">
                 <button type="submit" class="btn btn-primary" [disabled]="isLoading">
                   <i *ngIf="isLoading" class='fa fa-circle-o-notch fa-spin'></i> {{isLoading ? 'Logowanie...' : 'Login'}}
                 </button>
+                <button type="button" class="btn btn-secondary" (click)="newUser()">Rejestracja</button>
+                <div class="modal-body">
+                </div>
               </div>
             </div>
+
           </form>
         </div>
       </div>

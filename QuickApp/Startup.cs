@@ -22,10 +22,12 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using Microsoft.Extensions.FileProviders;
 using AppPermissions = DAL.Core.ApplicationPermissions;
 using QuickApp.Services;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace QuickApp
 {
@@ -118,6 +120,14 @@ namespace QuickApp
                     options.ApiName = IdentityServerConfig.ApiName;
                 });
 
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                options.ForwardLimit = 2;
+                options.KnownProxies.Add(IPAddress.Parse("127.0.10.1"));
+                options.ForwardedForHeaderName = "X-Forwarded-For-My-Custom-Header-Name";
+            });
 
             services.AddAuthorization(options =>
 
@@ -133,7 +143,6 @@ namespace QuickApp
                 options.AddPolicy(Authorization.Policies.ManageAllRolesPolicy, policy => policy.RequireClaim(ClaimConstants.Permission, AppPermissions.ManageRoles));
 
                 options.AddPolicy(Authorization.Policies.AssignAllowedRolesPolicy, policy => policy.Requirements.Add(new AssignRolesAuthorizationRequirement()));
-
 
             });
 
@@ -233,7 +242,17 @@ namespace QuickApp
                 app.UseHsts();
             }
 
-            
+            var shouldUseHttps = false;
+            bool.TryParse(Configuration["UseHttps"], out shouldUseHttps);
+            if (shouldUseHttps)
+            {
+                app.Use((context, next) =>
+                {
+                    context.Request.Scheme = "https";
+                    return next();
+                });
+            }
+
             //Configure Cors
             app.UseCors(builder => builder 
                 .AllowAnyOrigin()

@@ -1,10 +1,15 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 
 import { AlertService, MessageSeverity, DialogType } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
 import { ConfigurationService } from '../../services/configuration.service';
 import { Utilities } from '../../services/utilities';
 import { UserLogin } from '../../models/user-login.model';
+import { User } from "../../models/user.model";
+import { UserEdit } from "../../models/user-edit.model";
+import { ModalDirective } from "ngx-bootstrap/modal/modal.directive";
+import { UserInfoComponent } from "../controls/user-info.component";
+import { Role } from "../../models/role.model";
 
 @Component({
   selector: 'app-login',
@@ -12,24 +17,60 @@ import { UserLogin } from '../../models/user-login.model';
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   userLogin = new UserLogin();
   isLoading = false;
   formResetToggle = true;
   modalClosedCallback: () => void;
   loginStatusSubscription: any;
-
+  columns: any[] = [];
+  rows: User[] = [];
+  rowsCache: User[] = [];
+  editedUser: UserEdit;
+  sourceUser: UserEdit;
+  editingUserName: { name: string };
+  loadingIndicator: boolean;
   @Input()
   isModal = false;
+  allRoles: Role[] = [];
 
+  @ViewChild('indexTemplate', { static: true })
+  indexTemplate: TemplateRef<any>;
 
+  @ViewChild('userNameTemplate', { static: true })
+  userNameTemplate: TemplateRef<any>;
+
+  @ViewChild('rolesTemplate', { static: true })
+  rolesTemplate: TemplateRef<any>;
+
+  @ViewChild('actionsTemplate', { static: true })
+  actionsTemplate: TemplateRef<any>;
+
+  @ViewChild('editorModal', { static: true })
+  editorModal: ModalDirective;
+
+  @ViewChild('userEditor', { static: true })
+  userEditor: UserInfoComponent;
   constructor(private alertService: AlertService, private authService: AuthService, private configurations: ConfigurationService) {
-
+  }
+  newUser() {
+    this.editingUserName = null;
+    this.sourceUser = null;
+    this.editedUser = this.userEditor.newUser(this.allRoles);
+    this.editorModal.show();
   }
 
 
   ngOnInit() {
+    this.columns = [
+      { prop: 'index', name: '#', width: 40, cellTemplate: this.indexTemplate, canAutoResize: false },
+      { prop: 'userName', name: 'Login', width: 90, cellTemplate: this.userNameTemplate },
+      { prop: 'fullName', name: 'Imię i nazwisko', width: 120 },
+      { prop: 'email', name: 'E-mail', width: 140 },
+      { prop: 'roles', name: 'Role', width: 120, cellTemplate: this.rolesTemplate },
+      { prop: 'phoneNumber', name: 'Numer Telefonu', width: 100 }
+    ];
 
     this.userLogin.rememberMe = this.authService.rememberMe;
 
@@ -42,6 +83,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       });
     }
+    this.editorModal.hide();
+    this.userEditor.isAdminRegister = false;
   }
 
 
@@ -51,6 +94,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  ngAfterViewInit() {
+
+    this.userEditor.changesSavedCallback = () => {
+      this.editorModal.hide();
+    };
+
+    this.userEditor.changesCancelledCallback = () => {
+      this.editedUser = null;
+      this.sourceUser = null;
+      this.editorModal.hide();
+    };
+  }
 
   getShouldRedirect() {
     return !this.isModal && this.authService.isLoggedIn && !this.authService.isSessionExpired;
@@ -65,6 +121,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.modalClosedCallback) {
       this.modalClosedCallback();
     }
+  }
+
+  onEditorModalHidden() {
+    this.editingUserName = null;
+    this.userEditor.resetForm(true);
   }
 
 
@@ -126,6 +187,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     return error;
   }
+
 
 
   reset() {

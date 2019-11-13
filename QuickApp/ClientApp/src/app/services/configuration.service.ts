@@ -55,7 +55,7 @@ export class ConfigurationService {
   public static readonly defaultShowDashboardTodo: boolean = false;
   public static readonly defaultShowDashboardBanner: boolean = true;
 
-  public baseUrl = environment.baseUrl;
+  public baseUrl =  environment.baseUrl || Utilities.baseUrl();
   public tokenUrl = environment.tokenUrl || environment.baseUrl || Utilities.baseUrl();
   public loginUrl = environment.loginUrl;
   public fallbackBaseUrl = 'https://localhost:5001';

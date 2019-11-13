@@ -66,7 +66,12 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProjectDetailsComponent } from "./components/project-details/project-details.component";
 import { ProjectResolve } from "./resolvers/project-resolve";
 import { FileService } from "./services/file.service";
-import { FileEndpointService } from "./services/file-endpoint.service";@
+import { FileEndpointService } from "./services/file-endpoint.service";
+import { RegisterComponent } from './components/register/register.component';
+import { RegisterEndpoint } from "./services/register-endpoint.service";
+import { RegisterService } from "./services/register.service";
+
+@
 NgModule({
   imports: [
     BrowserModule,
@@ -110,6 +115,7 @@ NgModule({
     BootstrapSelectDirective,
     BootstrapDatepickerDirective,
     GroupByPipe,
+    RegisterComponent,
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
@@ -123,9 +129,11 @@ NgModule({
     LocalStoreManager,
     ProjectsService,
     ProjectsEndpoint,
-      ProjectResolve,
+    ProjectResolve,
     FileEndpointService,
-    FileService
+    FileService,
+    RegisterEndpoint,
+    RegisterService,
 
   ],
   bootstrap: [AppComponent]
