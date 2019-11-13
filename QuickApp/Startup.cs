@@ -144,6 +144,8 @@ namespace QuickApp
 
                 options.AddPolicy(Authorization.Policies.AssignAllowedRolesPolicy, policy => policy.Requirements.Add(new AssignRolesAuthorizationRequirement()));
 
+                options.AddPolicy(Authorization.Policies.ViewProjectsStatisticsPolicy, policy => policy.RequireClaim(ClaimConstants.Permission, AppPermissions.ViewProjectsStatistics));
+
             });
 
 

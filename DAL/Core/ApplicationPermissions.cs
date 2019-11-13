@@ -26,6 +26,7 @@ namespace DAL.Core
 
         public static ApplicationPermission CreateProjects = new ApplicationPermission("Tworzenie projektów", "projects.create", ProjectPermissionGroupName, "Uprawnienie do tworzenia projektów");
         public static ApplicationPermission DeleteProjects = new ApplicationPermission("Usuwanie projektów", "projects.delete", ProjectPermissionGroupName, "Uprawnienie do usuwania projektów");
+        public static ApplicationPermission ViewProjectsStatistics = new ApplicationPermission("Podgląd statystyk projektów", "projects.viewstatistics", ProjectPermissionGroupName, "Uprawnienie do podglądania statystyk projektów");
 
 
         static ApplicationPermissions()
@@ -39,7 +40,8 @@ namespace DAL.Core
                 ManageRoles,
                 AssignRoles,
                 CreateProjects,
-                DeleteProjects
+                DeleteProjects,
+                ViewProjectsStatistics
             };
 
             AllPermissions = allPermissions.AsReadOnly();

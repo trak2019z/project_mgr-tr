@@ -28,7 +28,7 @@
               <div class="panel-body">Autor : {{project.author}}</div>
             </div>
           </div>
-          <div class="project-statistic">
+          <div *ngIf="canViewStatistics" class="project-statistic">
             <div class="panel-group">
               <div class="panel panel-default">
                 <div class="panel-body">

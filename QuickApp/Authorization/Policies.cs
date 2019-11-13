@@ -27,6 +27,7 @@ namespace QuickApp.Authorization
         public const string AssignAllowedRolesPolicy = "Przypisywanie ról";
         public const string CreateProjectsPolicy = "Tworzenie projektów";
         public const string DeleteProjectsPolicy = "Usuwanie projektów";
+        public const string ViewProjectsStatisticsPolicy = "Podgląd statystyk projektów";
 
 
     }

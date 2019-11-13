@@ -1,10 +1,10 @@
 export type PermissionNames =
     'Podgląd użytkowników' | 'Zarządzanie Użytkownikami' |
-  'Podgląd ról' | 'Zarządzanie rolami' | 'Przypisywanie ról'|'Tworzenie projektów'|'Usuwanie projektów';
+  'Podgląd ról' | 'Zarządzanie rolami' | 'Przypisywanie ról'|'Tworzenie projektów'|'Usuwanie projektów|Podgląd statystyk projektów';
 
 export type PermissionValues =
     'users.view' | 'users.manage' |
-  'roles.view' | 'roles.manage' | 'roles.assign' |'projects.create'|'projects.delete';
+  'roles.view' | 'roles.manage' | 'roles.assign' | 'projects.create' | 'projects.delete' |'projects.viewstatistics';
 
 export class Permission {
 
@@ -16,6 +16,7 @@ export class Permission {
     public static readonly assignRolesPermission: PermissionValues = 'roles.assign';
   public static readonly createProjectPermission: PermissionValues = 'projects.create';
   public static readonly deleteProjectPermission: PermissionValues = 'projects.delete';
+  public static readonly viewProjectStatistics: PermissionValues = 'projects.viewstatistics';
 
 
     constructor(name?: PermissionNames, value?: PermissionValues, groupName?: string, description?: string) {

@@ -8,6 +8,8 @@ import { HttpHeaders } from "@angular/common/http";
 import { AuthService } from "../../services/auth.service";
 import { FileService } from "../../services/file.service";
 import { ConfigurationService } from '../../services/configuration.service';
+import { AccountService } from "../../services/account.service";
+import { Permission } from "../../models/permission.model";
 
 
 @Component({
@@ -17,7 +19,7 @@ import { ConfigurationService } from '../../services/configuration.service';
 })
 export class ProjectDetailsComponent implements OnInit {
     public project:Project;
-  constructor(private route: ActivatedRoute, private projectService: ProjectsService, private fileService: FileService, private configurations: ConfigurationService) { }
+  constructor(private route: ActivatedRoute, private projectService: ProjectsService, private fileService: FileService, private configurations: ConfigurationService, private accountService: AccountService) { }
 
   ngOnInit() {
     this.project = this.route.snapshot.data.project;
@@ -38,6 +40,12 @@ export class ProjectDetailsComponent implements OnInit {
             document.body.removeChild(link);
         });
     }
+
+
+    get canViewStatistics() {
+      return this.accountService.userHasPermission(Permission.viewProjectStatistics);
+    }
+
 }
 
 

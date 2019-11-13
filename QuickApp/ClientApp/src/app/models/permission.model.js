@@ -14,6 +14,7 @@ var Permission = /** @class */ (function () {
     Permission.assignRolesPermission = 'roles.assign';
     Permission.createProjectPermission = 'projects.create';
     Permission.deleteProjectPermission = 'projects.delete';
+    Permission.viewProjectStatistics = 'projects.viewstatistics';
     return Permission;
 }());
 exports.Permission = Permission;
