@@ -27,7 +27,7 @@
                 <label for="photos">Obrazki</label>
                 <div class=".col-sm-4">
                   <input type="file" accept="image/*" #photo placeholder="Wybierz plik" (change)="uploadImage(photo.files)" style="display: none;">
-                  <button type="button"  id="photos" class="btn btn-info" (click)="photo.click()">Dodaj</button>
+                  <button type="button"  id="photos" class="btn btn-primary" (click)="photo.click()">Dodaj</button>
                 </div>
                 <div class=".col-sm-4">
                   <span class="upload" *ngIf="photoUploadProgress > 0">
@@ -42,7 +42,7 @@
                 <label for="projectFiles">Plik projektu w formacie archiwum</label>
                 <div class=".col-sm-4">
                   <input type="file" accept=".zip,.rar" #project placeholder="Wybierz plik" (change)="uploadFile(project.files)" style="display: none;" required>
-                  <button  type="button" id ="projectFiles" class="btn btn-info" (click)="project.click()">Dodaj</button>
+                  <button  type="button" id ="projectFiles" class="btn btn-primary" (click)="project.click()">Dodaj</button>
                 </div>
                 <div class=".col-sm-4">
                   <span class="upload" *ngIf="fileUploadProgress > 0">
@@ -54,7 +54,7 @@
                 </div>
               </div>
               <div>
-                <button type="submit"  class="btn btn-success" [disabled]="fileUploadProgress !== 100" >Akceptuj</button>
+                <button type="submit"  class="btn btn-primary" [disabled]="fileUploadProgress !== 100" >Akceptuj</button>
               </div>
             </form>
           </mat-card-content>

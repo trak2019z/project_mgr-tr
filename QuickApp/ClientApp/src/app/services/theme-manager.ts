@@ -106,16 +106,40 @@ export class ThemeManager {
             background: '#B58900',
             color: '#002B36',
             isDark: true
-        }
+      },
+      {
+        id: 15,
+        name: 'WCAG2',
+        href: 'wcag.css',
+        isDefault: false,
+        background: '#000000',
+        color: '#FFEE08'
+      }
     ];
 
+  private currentThemeId:number;
+
+  private setCurrentTheme(currentThemeId: number) { this.currentThemeId = currentThemeId; }
+
+  get getCurrentThemeId() {
+    return this.currentThemeId;
+  }
     public installTheme(theme?: AppTheme) {
         if (theme == null || theme.isDefault) {
-            this.removeStyle('theme');
+          this.removeStyle('theme');
+          this.setCurrentTheme(1);
         } else {
-            this.setStyle('theme', `assets/themes/${theme.href}`);
-        }
+          this.setStyle('theme', `assets/themes/${theme.href}`);
+          this.setCurrentTheme(theme.id);
+          console.log(this.currentThemeId);
+      }
     }
+
+  public setWcagTheme() {
+    this.installTheme(this.themes[this.themes.length - 1]);
+  }
+
+
 
     public getDefaultTheme(): AppTheme {
         return this.themes.find(theme => theme.isDefault);

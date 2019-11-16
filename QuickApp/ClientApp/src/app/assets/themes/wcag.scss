@@ -1,0 +1,62 @@
+@import '../styles/custom-vendor';
+
+@import '../../../../node_modules/bootswatch/dist/slate/variables';
+@import '../../../../node_modules/bootstrap/scss/bootstrap';
+@import '../../../../node_modules/bootswatch/dist/slate/bootswatch';
+
+@import "app-theme";
+
+
+.form-control {
+  background-color: $primary !important;
+  color: #FFEE08;
+}
+
+.upload, .btn-success, .btn-primary, btn-outline-secondary, .btn-info {
+  border: #FFEE08 !important;
+  background-color: #000000 !important;
+  color: #FFEE08 !important;
+}
+
+.form-control-plaintext-text-muted-small {
+  color: #FFEE08;
+}
+
+body {
+  color: #FFEE08 !important;
+  border-color: #FFEE08 !important;
+}
+
+.app-component, .nav-link, .pagination, .ng-star-inserted, .small, .start.page.option, .card-header {
+  color: #FFEE08 !important;
+}
+
+
+.bg-light, .card-body, .boxshadow {
+  background-color: $primary !important;
+}
+
+
+.ngx-datatable.material.table-striped {
+    .datatable-row-even {
+        background: $gray-700;
+    }
+}
+
+
+.app-component {
+    .navbar {
+
+        a.user-name {
+            border: none;
+        }
+
+        .popover-header {
+            color: $body-color !important;
+        }
+    }
+
+    footer {
+        background-color: $primary !important;
+    }
+}

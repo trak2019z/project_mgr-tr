@@ -1,12 +1,3 @@
-<ng-template #actionsTemplate let-row="row" let-value="value" let-i="index">
-  <div *ngIf="canManageUsers">
-    <a class="btn btn-link btn-sm" href="javascript:;" (click)="editUser(row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edytuj</a>|
-    <a class="btn btn-link btn-sm" href="javascript:;" (click)="deleteUser(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> Usuń</a>
-  </div>
-</ng-template>
-
-
-
 <div class="modal fade" bsModal #editorModal="bs-modal" (onHidden)="onEditorModalHidden()" [config]="{backdrop: 'static'}" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

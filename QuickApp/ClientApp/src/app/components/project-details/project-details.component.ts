@@ -24,7 +24,8 @@ export class ProjectDetailsComponent implements OnInit {
   ngOnInit() {
     this.project = this.route.snapshot.data.project;
     this.project.images.path = this.configurations.baseUrl +'/images/'+ this.project.images.path;
-      this.projectService.addView(this.project.id).subscribe();
+    this.projectService.addView(this.project.id).subscribe();
+    console.log(this.accountService.userHasPermission(Permission.viewProjectStatistics));
   }
 
     onFileDownload() {
@@ -42,7 +43,8 @@ export class ProjectDetailsComponent implements OnInit {
     }
 
 
-    get canViewStatistics() {
+  get canViewStatistics() {
+    console.log(this.accountService.userHasPermission(Permission.viewProjectStatistics));
       return this.accountService.userHasPermission(Permission.viewProjectStatistics);
     }
 

@@ -11,6 +11,8 @@ import { AuthService } from '../services/auth.service';
 import { ConfigurationService } from '../services/configuration.service';
 import { Permission } from '../models/permission.model';
 import { LoginComponent } from '../components/login/login.component';
+import { ThemeManager } from '../services/theme-manager';
+import { AppTheme } from '../models/app-theme.model';
 
 const alertify: any = require('../assets/scripts/alertify.js');
 
@@ -40,6 +42,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   loginModal: ModalDirective;
   loginControl: LoginComponent;
+  private themeIdBeforeWcagSwap: number;
 
 
   constructor(
@@ -51,7 +54,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private appTitleService: AppTitleService,
     private authService: AuthService,
     public configurations: ConfigurationService,
-    public router: Router) {
+    public router: Router,
+    private themeManager: ThemeManager) { 
 
     storageManager.initialiseStorageSyncListener();
 
@@ -271,6 +275,17 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   getYear() {
     return new Date().getUTCFullYear();
+  }
+
+  public setWcagTheme() {
+    if (this.themeManager.getCurrentThemeId !== 15) {
+      this.themeIdBeforeWcagSwap = this.themeManager.getCurrentThemeId;
+      this.themeManager.setWcagTheme();
+    }
+    else {
+      var theme = this.themeManager.getThemeByID(this.themeIdBeforeWcagSwap);
+      this.themeManager.installTheme(theme);
+    }
   }
 
 

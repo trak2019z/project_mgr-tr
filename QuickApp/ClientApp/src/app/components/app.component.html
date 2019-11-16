@@ -4,7 +4,7 @@
   <nav id="header" class="app-component navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
       <a ngPreserveWhitespaces class="app-component navbar-brand" routerLink="/">
-        <img [src]="appLogo" class="d-inline-block align-top" alt="logo">
+        <i class="fa fa-wpforms" aria-hidden="true"></i>
         <span class="app-component appTitle">{{appTitle}}</span>
       </a>
       <button type="button" class="app-component navbar-toggler" data-toggle="collapse" data-target=".menuItemsContainer.app-component">
@@ -14,9 +14,9 @@
    
 
 
-      <div *ngIf="isUserLoggedIn" class="app-component collapse navbar-collapse menuItemsContainer">
+      <div  class="app-component collapse navbar-collapse menuItemsContainer">
         <ul class="app-component nav nav-pills flex-column flex-lg-row mr-auto">
-          <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <li *ngIf="isUserLoggedIn" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link" routerLink=""><i class="fa fa-home"></i></a>
           </li>
 
@@ -35,21 +35,26 @@
               <sup>-</sup>
             </a>
           </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" (click)="setWcagTheme()">
+              <i class="fa fa-adjust"></i>
+            </a>
+          </li>
         </ul>
 
 
 
-        <ul class="app-component nav nav-pills flex-column flex-lg-row mr-md-2">
+        <ul *ngIf="isUserLoggedIn" class="app-component nav nav-pills flex-column flex-lg-row mr-md-2">
           <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" routerLink="/settings"><i class="fa fa-cog"></i></a>
           </li>
         </ul>
-        <span class="app-component navbar-text notifications-popup">Witaj</span>
-        <a class="app-component nav-link user-name d-inline-block px-1" href="javascript:;" triggers="focus">
+        <span *ngIf="isUserLoggedIn" class="app-component navbar-text notifications-popup">Witaj</span>
+        <a *ngIf="isUserLoggedIn" class="app-component nav-link user-name d-inline-block px-1" href="javascript:;" triggers="focus">
           {{userName}}
         </a>
-        <span class="app-component navbar-text">, </span>
-        <ul class="app-component nav nav-pills ml-lg-2 flex-column flex-lg-row">
+        <span *ngIf="isUserLoggedIn" class="app-component navbar-text">, </span>
+        <ul  *ngIf="isUserLoggedIn" class="app-component nav nav-pills ml-lg-2 flex-column flex-lg-row">
           <li class="nav-item" (click)="logout()">
             <a class="nav-link" href="javascript:;"><i class="fa fa-sign-out"></i> Wyloguj</a>
           </li>

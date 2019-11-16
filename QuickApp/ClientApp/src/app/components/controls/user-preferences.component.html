@@ -29,9 +29,9 @@
         <label for="homePage" class="col-sm-3 col-form-label">Strona domowa </label>
         <div class="col-sm-4">
             <select id="homePage" [(ngModel)]="configurations.homeUrl" #homePageSelector="bootstrap-select" bootstrapSelect class="selectpicker form-control">
-                <option  data-subtext="(Domyśny)" value="/">Lista projektów</option>
-                <option *ngIf="canAddProject"  value="/projects/add">Dodaj projekt</option>
-                <option  value="/settings">Ustawienia</option>
+                <option  data-subtext="(Domyśny)" class="start.page.option" value="/">Lista projektów</option>
+                <option *ngIf="canAddProject" class="start.page.option" value="/projects/add">Dodaj projekt</option>
+                <option  value="/settings" class="start.page.option">Ustawienia</option>
             </select>
         </div>
         <div class="col-sm-5">
