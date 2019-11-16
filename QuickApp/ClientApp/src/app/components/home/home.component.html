@@ -26,8 +26,8 @@
 
         </div>
       </div>
-      <div class="text-right" >
-        <input type="image" src="delete_forever-24px.svg" *ngIf="canDeleteProjects" (click)="onProjectRemove(post.id)"  />
+      <div class="text-right">
+        <i class="fa fa-times" aria-hidden="true" *ngIf="canDeleteProjects" (click)="onProjectRemove(post.id)"></i>
       </div>
     </div>
   </li>

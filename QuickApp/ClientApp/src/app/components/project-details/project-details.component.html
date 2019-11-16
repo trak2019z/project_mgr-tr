@@ -12,7 +12,7 @@
           <h1 class="text-center">{{project.name}}</h1>
           <fieldset class="border">
             <legend class='text-center'>O projekcie</legend>
-            <p id="innerPara">
+            <p id="innerPara" class="description">
               {{project.description}}
             </p>
           </fieldset>
@@ -20,7 +20,7 @@
       </div>
       <div class="col-sm-9 col-xs-9" style="float:right; text-align:right;">
         <div>
-          <button mat-raised-button class="mt-2" (click)="onFileDownload()" color="primary">Pobierz</button>
+          <button mat-raised-button class="mt-2 btn btn-primary" (click)="onFileDownload()">Pobierz</button>
         </div>
         <div class="project-info">
           <div class="panel-group">
