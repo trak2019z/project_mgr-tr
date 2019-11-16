@@ -25,6 +25,9 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
     loadingIndicator: boolean;
 
 
+  
+    @ViewChild('rolesTemplate', { static: true })
+     rolesTemplate: TemplateRef<any>;
 
     @ViewChild('indexTemplate', { static: true })
     indexTemplate: TemplateRef<any>;
@@ -49,6 +52,7 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
             { prop: 'index', name: '#', width: 50, cellTemplate: this.indexTemplate, canAutoResize: false },
             { prop: 'name', name: 'Nazwa', width: 180 },
             { prop: 'description', name: 'Opis', width: 320 },
+            { prop: 'roles', name: 'Role', width: 120, cellTemplate: this.rolesTemplate },
             { prop: 'usersCount', name: 'Użytkownicy', width: 50 },
             { name: '', width: 160, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
